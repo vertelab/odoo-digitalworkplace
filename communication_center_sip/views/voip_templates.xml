@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets_backend" name="communication_center_sip assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/communication_center_sip/static/lib/sip.js"></script>
+
+<!--            <script type="text/javascript" src="/communication_center_sip/static/src/bugfix/bugfix.js"></script>-->
+
+<!--            <script type="text/javascript" src="/communication_center_sip/static/src/components/activity/activity.js"></script>-->
+            <script type="text/javascript" src="/communication_center_sip/static/src/js/call_center_field.js"/>
+            <script type="text/javascript" src="/communication_center_sip/static/src/js/dialing_panel.js"></script>
+            <script type="text/javascript" src="/communication_center_sip/static/src/js/phone_call.js"></script>
+            <script type="text/javascript" src="/communication_center_sip/static/src/js/phone_call_activities_tab.js"></script>
+            <script type="text/javascript" src="/communication_center_sip/static/src/js/phone_call_contacts_tab.js"></script>
+            <script type="text/javascript" src="/communication_center_sip/static/src/js/phone_call_details.js"></script>
+            <script type="text/javascript" src="/communication_center_sip/static/src/js/phone_call_recent_tab.js"></script>
+            <script type="text/javascript" src="/communication_center_sip/static/src/js/phone_call_tab.js"></script>
+            <script type="text/javascript" src="/communication_center_sip/static/src/js/phone_field.js"></script>
+            <script type="text/javascript" src="/communication_center_sip/static/src/js/systray_voip_menu.js"></script>
+            <script type="text/javascript" src="/communication_center_sip/static/src/js/user_agent.js"></script>
+            <script type="text/javascript" src="/communication_center_sip/static/src/js/web_client.js"></script>
+            <script type="text/javascript" src="/communication_center_sip/static/src/models/activity/activity.js"/>
+
+<!--            <link rel="stylesheet" type="text/scss" href="/communication_center_sip/static/src/bugfix/bugfix.scss"/>-->
+
+            <link rel="stylesheet" type="text/scss" href="/communication_center_sip/static/src/scss/call_center_field.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/communication_center_sip/static/src/scss/voip.scss"/>
+        </xpath>
+    </template>
+</odoo>
