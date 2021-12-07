@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- /* See LICENSE file for full copyright and licensing details. */ -->
+<odoo>
+    <data noupdate="1">
+        <!-- Default values for wk_has_edit and wk_has_delete -->
+        <function model="ir.config_parameter" name="set_param" eval="('communication_center_mail_admin.has_edit', 'True')"/>
+
+        <function model="ir.config_parameter" name="set_param" eval="('communication_center_mail_admin.has_delete', 'True')"/>
+    </data>
+</odoo>
