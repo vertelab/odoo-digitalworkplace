@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="res_config_settings_view_form" model="ir.ui.view">
+            <field name="name">res.config.settings.view.form.inherit.mail</field>
+            <field name="model">res.config.settings</field>
+            <field name="inherit_id" ref="mail.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@id='emails']" position="after">
+                    <h2>Message/Log Note Edit And Delete</h2>
+                    <div class="row mt16 o_settings_container">
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <field name="wk_has_edit"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="wk_has_edit"/>
+                                <div class="text-muted">
+                                    Allow edit option for send message &amp; log note.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-offset-6 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <field name="wk_has_delete"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="wk_has_delete"/>
+                                <div class="text-muted">
+                                    Allow delete option for send message &amp; log note.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box" attrs="{'invisible': [('wk_has_edit', '=', False)]}">
+                            <div class="o_setting_left_pane">
+                                <field name="group_wk_history"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="group_wk_history"/>
+                                <div class="text-muted">
+                                    History tracking for send message &amp; log note.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

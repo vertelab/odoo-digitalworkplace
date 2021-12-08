@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!-- edit.message.log.note form: short view !-->
+        <record model="ir.ui.view" id="view_edit_message_log_note_form">
+            <field name="name">view.edit.message.log.note.form</field>
+            <field name="model">edit.message.log.note</field>
+            <field name="arch" type="xml">
+                <form string="Edit">
+                    <sheet>
+                        <group>
+                            <field name="mail_message_id" invisible="1"/>
+                            <group>
+                                <field name="author_id"/>
+                                <field name="email_from"/>
+                            </group>
+                            <group>
+                                <field name="date"/>
+                                <field name="last_updated_on" class="text-danger" groups="communication_center_mail_admin.group_wk_history"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Body">
+                                <field name="body" options="{'style-inline': true}"/>
+                            </page>
+                            <page string="History" groups="communication_center_mail_admin.group_wk_history">
+                                <field name="history_line">
+                                    <tree editable="top" create="false" delete="false">
+                                        <field name="create_date" string="Update Date"/>
+                                        <field name="old_body"/>
+                                        <field name="new_body"/>
+                                        <field name="edit_message_log_note_id" invisible="1"/>
+                                    </tree>
+                                    <form string="History">
+                                        <group>
+                                            <group>
+                                                <field name="create_date"/>
+                                                <field name="old_body"/>
+                                            </group>
+                                            <group>
+                                                <field name="new_body"/>
+                                            </group>
+                                        </group>
+                                    </form>
+                                </field>
+                            </page>
+                        </notebook>
+                        <footer>
+                            <button string="Save &amp; Send" name="action_send" type="object" class="btn-primary o_mail_send"/>
+                            <button string="Cancel" class="btn-secondary" special="cancel" />
+                        </footer>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- edit.message.log.note action -->
+        <record id="edit_message_log_note_action" model="ir.actions.act_window">
+            <field name="name">Edit</field>
+            <field name="res_model">edit.message.log.note</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>
