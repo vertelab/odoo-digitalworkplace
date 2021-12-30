@@ -1,0 +1,22 @@
+.o_field_renderlistcontent {
+    width: 100%;
+    img {
+        max-width: 100%;
+    }
+    video {
+        max-width: 100%;
+    }
+    div {
+        padding: 5px 0;
+    }
+}
+
+.o_list_content_web_snippet {
+    border-bottom: 1px solid lightgrey;
+    &:hover {
+        box-shadow: 0 2px 3px grey;
+    }
+    img {
+        max-width: 100%;
+    }
+}

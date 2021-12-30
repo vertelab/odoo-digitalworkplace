@@ -1,0 +1,164 @@
+<odoo>
+  <menuitem id="readit_menu_item" name="Readit" 
+            web_icon="readit,static/description/icon.png" />
+
+  <record model="ir.actions.act_window" id="readit_forums_window_action">
+    <field name="name">Forums</field>
+    <field name="res_model">readit.forums</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+
+  <record model="ir.actions.act_window" id="readit_posts_window_action">
+    <field name="name">Posts</field>
+    <field name="res_model">readit.posts</field>
+    <field name="view_mode">kanban,form</field>
+  </record>
+
+  <record model="ir.actions.act_window" id="readit_content_window_action">
+    <field name="name">Content</field>
+    <field name="res_model">readit.content</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+
+  <menuitem name="Forums" id="readit_posts_submenu" 
+            sequence="1"
+            parent="readit_menu_item"
+            action="readit_posts_window_action"/>
+
+  <menuitem name="Content" id="readit_content_submenu"
+            sequence="2"
+            parent="readit_menu_item"
+            action="readit_content_window_action"
+            groups="base.group_system"/>
+  
+  <record model="ir.ui.view" id="postwizard_form_view">
+    <field name="name">wizard.form</field>
+    <field name="model">readit.postwizard</field>
+    <field name="arch" type="xml">
+        <form string="Post Content:">
+          <field name='content'/>
+          <footer>
+            <button name="add_content" type="object" string="Post"/>
+            or
+            <button special="cancel" string="Cancel"/>
+          </footer>
+        </form>
+    </field>
+  </record>
+
+  <act_window id="launch_post_wizard"
+              name="Add Content"
+              binding_model="readit.posts"
+              res_model="readit.postwizard"
+              view_mode="form"
+              target="new"/>
+
+  <record model="ir.ui.view" id="commentwizard_form_view">
+    <field name="name">wizard.form</field>
+    <field name="model">readit.commentwizard</field>
+    <field name="arch" type="xml">
+        <form string="Comment:">
+          <field name='content'/>
+          <footer>
+            <button name="add_comment" type="object" string="Comment"/>
+            or
+            <button special="cancel" string="Cancel"/>
+          </footer>
+        </form>
+    </field>
+  </record>
+
+  <act_window id="launch_comment_wizard"
+            name="Add Comment"
+            binding_model="readit.posts"
+            res_model="readit.commentwizard"
+            view_mode="form"
+            target="new"/>
+
+  <record model="ir.ui.view" id="readit_content_tree_view">
+    <field name="name">readit.content.name</field>
+    <field name="model">readit.content</field>
+    <field name="mode">primary</field>
+    <field name="arch" type="xml">
+      <tree>
+        <field name="id"/>
+        <field name="super_ref"/>
+        <field name="name"/>
+        <field name="content"/>
+        <field name="create_date" string="Timestamp"/>
+      </tree>
+    </field>
+  </record>
+
+  <record model="ir.ui.view" id="readit_comments_tree_view">
+    <field name="name">readit.comments.name</field>
+    <field name="model">readit.comments</field>
+    <field name="mode">primary</field>
+    <field name="arch" type="xml">
+      <tree>
+        <field name="name"/>
+        <field name="content_id" widget="render_list_content"/>
+        <field name="create_date" string="Timestamp"/>
+      </tree>
+    </field>
+  </record>
+
+  <record model="ir.ui.view" id="readit_post_form_view">
+    <field name="name">readit.posts.name</field>
+    <field name="model">readit.posts</field>
+    <field name="mode">primary</field>
+    <field name="arch" type="xml">
+      <form>
+        <notebook style="max-height: 100%; overflow-x: hidden; overflow-y: auto;">
+          <page string="Content">
+            <strong style="font-size: 25px;">
+              <field name="title"/><span style="float:right;">ID: <field name="id"/></span>
+            </strong>
+            <div style="font-size: 14px;">
+              <field name="author_id" read_only="True"/><span style="float:right;"><field string="Timestamp" name="create_date"/></span>
+            </div>
+            <div style="padding: 10px; border: 1px lightgrey solid; border-top: none;">
+              <field name="content_id" widget="render_list_content" />
+            </div>
+            <button string="Add Content" type="action" name="readit.launch_post_wizard"/>
+            <div style="font-size: 14px; padding-top: 20px;">
+              <button string="Comment" type="action" name="readit.launch_comment_wizard"/>
+              <span style="float:right;"><field name="total_comments"/></span>
+              <field name="comments"/>
+            </div>
+          </page>
+          <page string="Info">
+            <div><field name="name"/></div>
+            <div><field name="author_id"/></div>
+            <div><field name="forum_id"/></div>
+          </page>
+        </notebook>
+      </form>
+    </field>
+  </record>
+
+  <record model="ir.ui.view" id="readit_posts_kanban_view">
+    <field name="name">readit.posts.name</field>
+    <field name="model">readit.posts</field>
+    <field name="mode">primary</field>
+    <field name="arch" type="xml">
+        <kanban class="o_readit_kanban" default_group_by="forum_id" records_draggable="false" quick_create="false">
+            <templates>
+                <t t-name="kanban-box">
+                    <div class="oe_kanban_global_click o_kanban_record_has_image_fill o_res_partner_kanban">
+                        <div class="oe_kanban_details">
+                            <strong class="o_kanban_record_title oe_partner_heading">
+                              <field name="name"/><span style="float:right;">ID: <field name="id"/></span>
+                            </strong>
+                            <div>
+                              <field name='content_id' widget='render_list_content'/>
+                            </div>
+                            <p>Total Comments: <field name="total_comments"/></p>
+                        </div>
+                    </div>
+                </t>
+            </templates>
+        </kanban>
+    </field>
+  </record>
+</odoo>

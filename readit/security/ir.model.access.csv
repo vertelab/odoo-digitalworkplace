@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+readit_forums,readit.forums,model_readit_forums,base.group_user,1,1,1,1
+readit_posts,readit.posts,model_readit_posts,base.group_user,1,1,1,1
+readit_comments,readit.comments,model_readit_comments,base.group_user,1,1,1,1
+readit_content,readit.content,model_readit_content,base.group_user,1,1,1,1
