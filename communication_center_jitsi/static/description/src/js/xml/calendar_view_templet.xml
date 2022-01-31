@@ -1,0 +1,32 @@
+<odoo>
+
+    <template id="calendar_event_calendar_view_template" name="calendar templet" inherit_id="calendar.view_calendar_event_form">
+        <xpath expr="//field[@name='alarm_ids']" position="inside">
+            <script type="text/javascript" src="/cummunication_center_jitsi/static/src/js/meeting_settings.js"></script>
+            <span>Hello</span>
+        </xpath>
+    </template>
+
+    <!--template id="calendar_event_calendar_view_template" 
+    inherit_id="calendar.view_calendar_event_form" >
+        <xpath expr="//label[@for='user_id']" position="before">
+            <span>Hello</span>
+        </xpath>
+        <xpath expr="//field[@name='allday']" position="before">
+            <field name="lobby_with_name"/>
+        </xpath>
+    </template-->
+
+
+    <!--record id="calendar_event_calendar_view_remainder_button" model="ir.ui.view">
+        <field name="name">calendar.event.calendar</field>
+        <field name="model">calendar.event</field>
+        <field name="inherit_id" ref="calendar.view_calendar_event_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='alarm_ids']" position="before">
+                <button col="3" name="hi">Hi</button>
+            </xpath>
+        </field>
+    </record-->
+
+</odoo>

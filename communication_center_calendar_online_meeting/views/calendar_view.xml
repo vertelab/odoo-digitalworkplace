@@ -6,14 +6,26 @@
             <field name="inherit_id" ref="calendar.view_calendar_event_form"/>
             <field name="arch" type="xml">
                 <field name="location" position="after">
-                    <label for="online_meeting_link"/>
+                    <!--label for="online_meeting_link"/>
                     <div>
                         <field name="online_meeting_link" widget="url"/>
-                        <button string="Get Link" name="create_meeting_link" icon="fa-check" type="object" groups="base.group_no_one"/>
-                    </div>
+                        <button string="Get Link helloo" name="create_meeting_link" icon="fa-check" type="object" groups="base.group_no_one"/>
+                    </div-->
+                    <field name="video_meeting_chekbox"/>
                 </field>
             </field>
         </record>
+
+        <!--record id="calendar_event_form_view_url" model="ir.ui.view">
+            <field name="name">calendar.event</field>
+            <field name="model">calendar.event</field>
+            <field name="inherit_id" ref="communication_center_jitsi.calendar_event"/>
+            <field name="arch" type="xml">
+                <field name="location" position="before">
+                    <field name="jitsi_url"/>
+                </field>
+            </field>
+        </record-->
 
         <record id="calendar_event_calendar_view" model="ir.ui.view">
             <field name="name">calendar.event.calendar</field>
@@ -25,5 +37,49 @@
                 </field>
             </field>
         </record>
+
+        <!--record id="calendar_event_calendar_view_chekbox" model="ir.ui.view">
+            <field name="name">calendar.event.calendar</field>
+            <field name="model">calendar.event</field>
+            <field name="inherit_id" ref="calendar.view_calendar_event_form"/>
+            <field name="arch" type="xml">
+                <field name="location"  position="before">
+                    <field name="video_meeting_chekbox" invisible="1"/>
+                    <field name="url_link" attrs="{'invisible': [('video_meeting_chekbox', '!=', True)]}">
+                    </field>
+                </field>
+                <field name="location" position="attributes">
+                    <attribute name="attrs">{'invisible':[('video_meeting_chekbox','=',True)]}</attribute>
+                </field>
+            </field>
+        </record-->
+
+        <!--record id="calendar_event_form_view_location" model="ir.ui.view">
+            <field name="name">calendar.event.form</field>
+            <field name="model">calendar.event</field>
+            <field name="inherit_id" ref="calendar.view_calendar_event_tree"/>
+            <field name="arch" type="xml">
+                <field name="location"  position="before">
+                    <field name="video_meeting_chekbox" invisible="1"/>
+                    <field name="url_link" attrs="{'invisible': [('video_meeting_chekbox', '=', True)]}">
+                    </field>
+                    <field name="location" position="attributes">
+                        <attribute name="attrs">{'invisible':[('video_meeting_chekbox','=',True)]}</attribute>
+                    </field>
+                </field>
+            </field>
+        </record-->
+
+
+        <!--record id="view_calendar_event_tree_location" model="ir.ui.view">
+            <field name="name">calendar.event.tree</field>
+            <field name="model">calendar.event</field>
+            <field name="inherit_id" ref="calendar.view_calendar_event_tree"></field>
+            <field name="arch" type="xml">
+                <xpath expr="//tree/field[@name='location']" position="before">
+                    <field name="url_link" string="Url"></field>
+                </xpath>
+            </field>
+        </record-->
     </data>
 </odoo>
