@@ -1,3 +1,4 @@
+from venv import create
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError
 
@@ -19,7 +20,6 @@ class Meeting(models.Model):
     start_recording = fields.Boolean(string="Start recording from beginning off the meeting")
     rooms_creation = fields.Boolean(string="Create and move participants to roomes")
     #one select?
-
     help_for_button = fields.Text()
 
 
@@ -27,9 +27,9 @@ class Meeting(models.Model):
         jitsi_url = self.env['ir.config_parameter'].get_param('jitsi_url')
         if not jitsi_url:
             raise UserError(_("Kindly set a Jitsi URL"))
-        #link_suffix = ''.join(random.choices(string.ascii_letters, k=8))
+        link_suffix = ''.join(random.choices(string.ascii_letters, k=8))
         if self.online_meeting_link is False:
-            link_suffix = ''.join(random.choices(string.ascii_letters, k=8))
+            #link_suffix = ''.join(random.choices(string.ascii_letters, k=8))
             self.online_meeting_link = f"{jitsi_url}/{link_suffix}#"
        # elif self.online_meeting_link is True:
         _logger.error(f"{jitsi_url}/{link_suffix}#")
@@ -44,10 +44,17 @@ class Meeting(models.Model):
         return link
 
     @api.onchange("video_meeting_chekbox", "microphone_off", "webcam_off")
-    def hej(self):
+    def video_settings(self):
         #jitsi_url = self.env['ir.config_parameter'].get_param('jitsi_url')
         self.create_meeting_link()
-        if self.microphone_off:
+        if self.microphone_off is True:
             self.online_meeting_link += "config.startWithAudioMuted=true&"
-        if self.webcam_off:
+        elif self.microphone_off is False:
+            x = self.online_meeting_link.replace("config.startWithAudioMuted=true&","")
+            self.online_meeting_link = x
+            
+        if self.webcam_off is True:
             self.online_meeting_link += "config.startWithVideoMuted=true&"
+        elif self.webcam_off is False:
+            x = self.online_meeting_link.replace("config.startWithVideoMuted=true&","")
+            self.online_meeting_link = x

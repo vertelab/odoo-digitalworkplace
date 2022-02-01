@@ -1,11 +1,18 @@
 <odoo>
 
-    <template id="calendar_event_calendar_view_template" name="calendar templet" inherit_id="calendar.view_calendar_event_form">
+    <!--template id="calendar_event_calendar_view_template" name="calendar templet" inherit_id="calendar.view_calendar_event_form">
         <xpath expr="//field[@name='alarm_ids']" position="inside">
             <script type="text/javascript" src="/cummunication_center_jitsi/static/src/js/meeting_settings.js"></script>
             <span>Hello</span>
         </xpath>
-    </template>
+    </template-->
+
+    <t t-inherit="calendar.view_calendar_event_form" t-inherit-mode="extension">
+        <xpath expr="//field[@name='alarm_ids']" position="before">
+            <script type="text/javascript" src="/cummunication_center_jitsi/static/src/js/meeting_settings.js"></script>
+            <span>Hello</span>
+        </xpath>
+    </t>
 
     <!--template id="calendar_event_calendar_view_template" 
     inherit_id="calendar.view_calendar_event_form" >
