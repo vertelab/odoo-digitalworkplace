@@ -50,7 +50,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//page[@name='page_misc']" position="after">
                     <field name="video_meeting_chekbox" invisible="1"/>
-                    <page string ="Video Meeting" attrs="{'invisible': [('video_meeting_chekbox', '!=', True)]}">
+                    <page name="video_meeting" string ="Video Meeting" attrs="{'invisible': [('video_meeting_chekbox', '!=', True)]}">
                         <group col="3">
                                 <field name="microphone_off"/>
                                 <field name="webcam_off"/>
@@ -65,6 +65,8 @@
                 </xpath>
             </field>
         </record>
+
+
 
         <record id="calendar_event_calendar_view_remainder_button" model="ir.ui.view">
             <field name="name">calendar.event.calendar</field>

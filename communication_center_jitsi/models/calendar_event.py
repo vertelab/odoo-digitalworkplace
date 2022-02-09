@@ -11,14 +11,23 @@ class Meeting(models.Model):
 
     url_link = fields.Char(string="Url")
     microphone_off = fields.Boolean(string="Microphone off")
+    #!!!FIXT
     webcam_off = fields.Boolean(string="Webcam off")
-    lobby_with_name = fields.Boolean(string="Start a lobby, participants enterin ther name is required")
-    #lobby_with_drop_in?
+    #!!!FIXT
+    lobby_with_name = fields.Boolean( string="Start a lobby, participants enterin ther name is required")
+    #api
+    lobby_with_let_in = fields.Boolean(string="Lobby, chuse how get let in")
+    #api
     link_for_participants = fields.Boolean(string="Link for participants")
+    #
     link_for_moderator = fields.Boolean(string="Link for moderator")
+    #
     no_recording = fields.Boolean(string="Turn off the possibility to record")
+    #api
     start_recording = fields.Boolean(string="Start recording from beginning off the meeting")
+    #api
     rooms_creation = fields.Boolean(string="Create and move participants to roomes")
+    #???
     #one select?
     help_for_button = fields.Text()
 
@@ -45,7 +54,6 @@ class Meeting(models.Model):
 
     @api.onchange("video_meeting_chekbox", "microphone_off", "webcam_off")
     def video_settings(self):
-        #jitsi_url = self.env['ir.config_parameter'].get_param('jitsi_url')
         self.create_meeting_link()
         if self.microphone_off is True:
             self.online_meeting_link += "config.startWithAudioMuted=true&"
@@ -58,3 +66,9 @@ class Meeting(models.Model):
         elif self.webcam_off is False:
             x = self.online_meeting_link.replace("config.startWithVideoMuted=true&","")
             self.online_meeting_link = x
+
+
+    @api.model
+    def button_test(self):
+        if self.lobby_with_name == True:
+            return ""

@@ -13,12 +13,13 @@
     # any module necessary for this one to work correctly
     'depends': ['base', 'communication_center_calendar_online_meeting'],
 
-    'qweb': [
-        'static/src/xml/calendar_view_templet.xml'
-    ],
     # always loaded
     'data': [
         'views/res_config_settings_view.xml',
+        'views/assets.xml',
+    ],
+    'qweb': [
+        'static/src/xml/calendar_view_templet.xml'
     ],
     'application': True,
     'license': 'OEEL-1',
