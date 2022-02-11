@@ -3,9 +3,6 @@
         <xpath expr="." position="inside">
             <script type="text/javascript" src="/communication_center_jitsi/static/src/js/meeting_settings.js"/>
             <script type="text/javascript" src='/communication_center_jitsi/static/src/js/external_api.js'></script>
-            <!--script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-            <script src="https://meet.jit.si/libs/lib-jitsi-meet.min.js"></script>
-            <script src='https://meet.jit.si/external_api.js'></script-->
         </xpath>
     </template>
 

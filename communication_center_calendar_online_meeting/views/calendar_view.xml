@@ -16,6 +16,23 @@
             </field>
         </record>
 
+
+        <record id="calendar_event_calendar_view" model="ir.ui.view">
+            <field name="name">calendar.event.calendar</field>
+            <field name="model">calendar.event</field>
+            <field name="inherit_id" ref="calendar.view_calendar_event_calendar"/>
+            <field name="arch" type="xml">
+                <field name="partner_ids"  position="before">
+                    <field name="video_meeting_chekbox" invisible="1"/>
+                    <field name="online_meeting_link" attrs="{'invisible': [('video_meeting_chekbox', '!=', True)]}" widget="url">
+                    </field>
+                </field>
+                <field name="online_meeting_link" position="attributes">
+                    <attribute name="attrs">{'invisible':[('video_meeting_chekbox','=',True)]}</attribute>
+                </field>
+                </field>
+        </record>
+
         <!--record id="calendar_event_form_view_url" model="ir.ui.view">
             <field name="name">calendar.event</field>
             <field name="model">calendar.event</field>
@@ -27,16 +44,18 @@
             </field>
         </record-->
 
-        <record id="calendar_event_calendar_view" model="ir.ui.view">
+        <!--record id="calendar_event_calendar_view" model="ir.ui.view">
             <field name="name">calendar.event.calendar</field>
             <field name="model">calendar.event</field>
             <field name="inherit_id" ref="calendar.view_calendar_event_calendar"/>
             <field name="arch" type="xml">
                 <field name="partner_ids" position="before">
+                    <field name="video_meeting_chekbox" invisible="1"/>
+                    <field name="online_meeting_link" attrs="{'invisible': [('video_meeting_chekbox', '=', True)]}"/>
                     <field name="online_meeting_link" widget="url"/>
                 </field>
             </field>
-        </record>
+        </record-->
 
         <!--record id="calendar_event_calendar_view_chekbox" model="ir.ui.view">
             <field name="name">calendar.event.calendar</field>

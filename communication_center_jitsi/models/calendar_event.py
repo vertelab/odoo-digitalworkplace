@@ -68,7 +68,12 @@ class Meeting(models.Model):
             self.online_meeting_link = x
 
 
-    @api.model
-    def button_test(self):
-        if self.lobby_with_name == True:
-            return ""
+    #@api.onchange("video_meeting_chekbox")
+    #def hide_link(self):
+     #   if self.video_meeting_chekbox is False:
+      #      self.online_meeting_link.replace(self.online_meeting_link, " ")
+
+    #@api.model
+    #def button_test(self):
+     #   if self.lobby_with_name == True:
+      #      return ""

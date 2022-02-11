@@ -79,5 +79,46 @@
             </field>
         </record>
 
+        <!--record id="calendar_event_calendar_view" model="ir.ui.view">
+            <field name="name">calendar.event.calendar</field>
+            <field name="model">calendar.event</field>
+            <field name="inherit_id" ref="calendar.view_calendar_event_calendar"/>
+            <field name="arch" type="xml">
+                <field name="partner_ids" position="before">
+                    <field name="video_meeting_chekbox" invisible="1"/>
+                    <field id="meeting_link" name="online_meeting_link" widget="url"/>
+                    <field name="online_meeting_link" widget="url attrs="{'invisible': [('video_meeting_chekbox', '!=', True)]}"   skriv atribut efter, ge fieldet ett id"/>
+                </field>
+            </field>
+        </record-->
+
+
+        <!--record id="calendar_event_calendar_view" model="ir.ui.view">
+            <field name="name">calendar.event.calendar</field>
+            <field name="model">calendar.event</field>
+            <field name="inherit_id" ref="calendar.view_calendar_event_calendar"/>
+            <field name="arch" type="xml">
+                <field name="partner_ids"  position="before">
+                    <field name="video_meeting_chekbox" invisible="1"/>
+                    <field name="online_meeting_link" attrs="{'invisible': [('video_meeting_chekbox', '!=', True)]}" widget="url">
+                    </field>
+                </field>
+                <field name="partner_ids" position="attributes">
+                    <attribute name="attrs">{'invisible':[('video_meeting_chekbox','=',True)]}</attribute>
+                </field>
+                </field>
+        </record-->
+
+        <!--record id="hide_meeting_link" model="ir.ui.view">
+            <field name="name">calendar.event.calendar</field>
+            <field name="model">calendar.event</field>
+            <field name="inherit_id" ref="meeting_link"/>
+            <field name="arch" type="xml">
+                <field name="partner_ids" position="attribute">
+                    <attribute name="invisible">1</attribute>
+                </field>
+            </field>
+        </record-->
+
     </data>
 </odoo>
