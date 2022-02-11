@@ -1,0 +1,10 @@
+<odoo>
+
+    <template id="test_padge" name="Test">
+        <t t-call="website.layout">
+            <div class="container">
+                Hipity Hoppity Get of my property!
+            </div>
+        </t>
+    </template>
+</odoo>

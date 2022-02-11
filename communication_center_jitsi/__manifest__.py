@@ -17,9 +17,10 @@
     'data': [
         'views/res_config_settings_view.xml',
         'views/assets.xml',
+        'views/testing_controller.xml',
     ],
     'qweb': [
-        'static/src/xml/calendar_view_templet.xml'
+        'static/src/xml/calendar_view_templet.xml',
     ],
     'application': True,
     'license': 'OEEL-1',
