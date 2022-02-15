@@ -1,0 +1,17 @@
+<odoo>
+    
+    <template id="jitsi_meeting" name="calender_meeting_assets" inherit_id="web.assets_frontend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/communication_center_jitsi/static/src/js/meeting_settings.js"/>
+            <script type="text/javascript" src='/communication_center_jitsi/static/src/js/external_api.js'></script>
+        </xpath>
+    </template>
+
+    <template id="jitsi_meeting_site" name="placeholder_for_jitsi_meeting">
+        <t t-call="website.layout">
+            <div id="jitsi_meeting_placeholder" class="container">
+                Hipity Hoppity Get of my property!
+            </div>
+        </t>
+    </template>
+</odoo>

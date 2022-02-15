@@ -3,7 +3,7 @@ odoo.define("communication_center_jitsi.metting_settings.js", function (require)
     "use strict";
 
     console.log("after start");
-    var rpc = require("web.rpc"); //maby create a funktion insted off APIsettings or add .this
+    const rpc = require("web.rpc"); //maby create a funktion insted off APIsettings or add .this
 
     //console.log(rpc);
     /*const APIsettings = rpc.query({
@@ -24,7 +24,7 @@ odoo.define("communication_center_jitsi.metting_settings.js", function (require)
             height: 700,
             parentNode: div,
         };
-        const api = new JitsiMeetExternalAPI(domain, options);
+        var api = new JitsiMeetExternalAPI(domain, options);
 
         console.log("maby?");
         api.addEventListener('participantRoleChanged', function (event) {
@@ -37,7 +37,7 @@ odoo.define("communication_center_jitsi.metting_settings.js", function (require)
         console.log(api)
         console.log(perent)
         console.log(div)
-        var perent = $('wrapwrap'); //Dont know id or think to poin to withch perent ot is?
+        var perent = $('#jitsi_meeting_placeholder'); //Dont know id or think to poin to withch perent ot is?
         if (perent.length === 1)
         perent.append(div);
         console.log(perent);
