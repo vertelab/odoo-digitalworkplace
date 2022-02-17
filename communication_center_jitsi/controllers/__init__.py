@@ -1,1 +1,1 @@
-from . import test
+from . import jitsi_controller

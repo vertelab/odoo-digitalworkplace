@@ -13,14 +13,15 @@ odoo.define("communication_center_jitsi.metting_settings.js", function (require)
     });*/
     console.log("sup")
 
-    /*$('document').ready(function (event) {  //THISWORKS
+    $('document').ready(function (event) {  //THISWORKS
         console.log("going");
         
         var div = document.createElement("div");
-        const domain = 'meet.vertel.se'; //TODO: fetch url from the feld thats in setings in odoo
+        div.id="center_meeting";
+        const domain = 'meet.vertel.se'; //TODO: fetch url from the feld thats in setings in odoo   <field name="jitsi_url"/> in res_config
         const options = {
-            roomName: 'JitsiMeetAPIExample4567', //make so the user can set roomName
-            width: 700,
+            roomName: 'JitsiMeetAPIExample4567', //make so the user can set roomName  <field name="room_name"/> in res_config
+            width: 1500,
             height: 700,
             parentNode: div,
         };
@@ -42,7 +43,7 @@ odoo.define("communication_center_jitsi.metting_settings.js", function (require)
         perent.append(div);
         console.log(perent);
         console.log(perent.length);
-    });*/
+    });
 
     options.registry.video_meeting_chekbox = options.Class.extend({
         _test_function: function() {

@@ -1,8 +1,6 @@
-from venv import create
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError
 
-import uuid
 import string, random, logging
 
 _logger = logging.getLogger(__name__)
@@ -30,27 +28,22 @@ class Meeting(models.Model):
     #???
     #one select?
     help_for_button = fields.Text()
-
+    room_name = fields.Char(string="Enter room name")
 
     def create_meeting_link(self):
-        jitsi_url = self.env['ir.config_parameter'].get_param('jitsi_url')
+        jitsi_url = self.env['ir.config_parameter'].get_param('jitsi_url') #flyta till controller
         if not jitsi_url:
             raise UserError(_("Kindly set a Jitsi URL"))
-        link_suffix = ''.join(random.choices(string.ascii_letters, k=8))
+        #link_suffix = ''.join(random.choices(string.ascii_letters, k=8)) #bryt ot till egen funktion, den kan behövas för fler funktioner
         if self.online_meeting_link is False:
             #link_suffix = ''.join(random.choices(string.ascii_letters, k=8))
-            self.online_meeting_link = f"{jitsi_url}/{link_suffix}#"
+            self.online_meeting_link = f"{jitsi_url}/{self.create_meeting_link_part()}#" #hård koda in att jitsi_url är vägen till controler i stället
        # elif self.online_meeting_link is True:
-        _logger.error(f"{jitsi_url}/{link_suffix}#")
+        _logger.error(f"{jitsi_url}/{self.create_meeting_link_part()}#")
 
-    @api.model
-    def get_values(self):
-        link = super(Meeting, self).get_link()
-        icp = self.env['ir.config_parameter'].sudo()
-        link.update({
-            'jitsi_url': icp.get_param('online_meeting_link')
-        })
-        return link
+    def create_meeting_link_part(self):
+        link_suffix = ''.join(random.choices(string.ascii_letters, k=8))
+        return link_suffix
 
     @api.onchange("video_meeting_chekbox", "microphone_off", "webcam_off")
     def video_settings(self):
@@ -66,14 +59,3 @@ class Meeting(models.Model):
         elif self.webcam_off is False:
             x = self.online_meeting_link.replace("config.startWithVideoMuted=true&","")
             self.online_meeting_link = x
-
-
-    #@api.onchange("video_meeting_chekbox")
-    #def hide_link(self):
-     #   if self.video_meeting_chekbox is False:
-      #      self.online_meeting_link.replace(self.online_meeting_link, " ")
-
-    #@api.model
-    #def button_test(self):
-     #   if self.lobby_with_name == True:
-      #      return ""
