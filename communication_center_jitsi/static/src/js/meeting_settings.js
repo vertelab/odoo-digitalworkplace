@@ -20,14 +20,14 @@ odoo.define("communication_center_jitsi.metting_settings.js", function (require)
         div.id="center_meeting";
         const domain = 'meet.vertel.se'; //TODO: fetch url from the feld thats in setings in odoo   <field name="jitsi_url"/> in res_config
         const options = {
-            roomName: 'JitsiMeetAPIExample4567', //make so the user can set roomName  <field name="room_name"/> in res_config
+            roomName: $('#room_name_id'), //make so the user can set roomName{room_name, in: res_config}  <field name="room_name"/> in res_config
             width: 1500,
             height: 700,
             parentNode: div,
         };
         var api = new JitsiMeetExternalAPI(domain, options);
 
-        console.log("maby?");
+        console.log({roomName});
         api.addEventListener('participantRoleChanged', function (event) {
             if (event.role === 'moderator') {
                 api.executeCommand('toggleLobby', true);

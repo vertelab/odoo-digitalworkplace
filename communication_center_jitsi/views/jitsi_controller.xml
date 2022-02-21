@@ -15,7 +15,8 @@
     <template id="jitsi_meeting_site" name="placeholder_for_jitsi_meeting">
         <t t-call="website.layout">
             <div id="jitsi_meeting_placeholder" >
-                Hipity Hoppity Get of my property!
+                <!--Hipity Hoppity Get of my property!-->
+                <t t-esc="room_name"/>
             </div>
         </t>
     </template>

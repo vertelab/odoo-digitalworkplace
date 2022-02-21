@@ -1,10 +1,12 @@
 #jitsi_meeting_placeholder {
     display: flex;
     justify-self: center;
+    background-color: red;
+    display: grid;
 }
 
 #center_meeting {
-    outline: dashed 3px red;  /*tacke away later*/
+    outline: dashed 3px blue;  /*tacke away later*/
     display: flex;
     justify-self: center;
 }
