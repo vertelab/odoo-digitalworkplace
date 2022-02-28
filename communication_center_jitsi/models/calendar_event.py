@@ -1,3 +1,4 @@
+import json
 import logging
 import random
 import string
@@ -32,7 +33,7 @@ class Meeting(models.Model):
     #???
     #one select?
     help_for_button = fields.Text()
-    room_name = fields.Char(string="Enter room name")
+    room_name = fields.Char(defalt=" ", string="Enter room name")
     controller_link = fields.Char(string="Video meeting link")
     link_suffix = fields.Char(string='Unique ID of Event')
 
@@ -41,7 +42,31 @@ class Meeting(models.Model):
         if not self.link_suffix:
             self.link_suffix = ''.join(random.choices(string.ascii_letters, k=8))
         if self.video_meeting_chekbox == 0:
-            x = "http://alex-14:8069/video_meeting/"f"{self.link_suffix}"
+            x = "http://alex-14:8069/video_meeting/"+f"{self.link_suffix}"
             self.controller_link = x.replace("NewId_","")
             _logger.error(f"YOOOOO!!!!{self.link_suffix}")
+            _logger.error(f'{self.controller_link}')
+
+    # @api.model("room_name")
+    # def get_room_name (self):
+    #     the_room_name = self.room_name
+    #     _logger.error(f'HEYOOOO{the_room_name}')
+    #     return the_room_name
+
+    # @api.model
+    # def create(self, vals_list):
+    #     res= super().create(vals_list)
+    #     res.controller_link = "http://alex-14:8069/video_meeting/"+f"{res.id}/{res.link_suffix}"
+    #     return res
+
+
+    # @api.model
+    # def room_name(self):
+    #     _logger.error("READING")
+    #     rooms = []
+    #     for room in self.env[self._name].sudo().search([]):
+    #         room_line = {}
+    #         room_line ['roomName'] = room.roomName
+    #         room.append(room_line)
+    #     return json.dumps(rooms)
 

@@ -7,6 +7,7 @@
             <field name="arch" type="xml">
                 <field name="location" position="after">
                     <field name="video_meeting_chekbox"/>
+                    <field name="link_suffix" />
                 </field>
             </field>
         </record>

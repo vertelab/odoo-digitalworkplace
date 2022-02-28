@@ -18,34 +18,58 @@ odoo.define("communication_center_jitsi.metting_settings.js", function (require)
         
         var div = document.createElement("div");
         div.id="center_meeting";
-        const domain = 'meet.vertel.se'; //TODO: fetch url from the feld thats in setings in odoo   <field name="jitsi_url"/> in res_config
+        const domain = $("#jitsi_meeting_placeholder").data("jitsi");
         const options = {
-            roomName: $('#room_name_id'), //make so the user can set roomName{room_name, in: res_config}  <field name="room_name"/> in res_config
+            roomName: $("#jitsi_meeting_placeholder").data("room_name"),
             width: 1500,
             height: 700,
             parentNode: div,
         };
-        var api = new JitsiMeetExternalAPI(domain, options);
+        console.log(options.roomName)
+        console.log(domain)
 
-        console.log({roomName});
-        api.addEventListener('participantRoleChanged', function (event) {
-            if (event.role === 'moderator') {
-                api.executeCommand('toggleLobby', true);
-            }
-        })
+        
+        rpc.query ({
+            route: '/controllers/jitsi_controller.py',
+            params: {'options': options},
+        });
+        console.log("WHT UP",rpc);
+        /*options.roomName = options.Class.extend({
+            _test_function: function() {
+                console.log("anything");
+            },
+            
+            init: function(){
+                const _super = this._super.bind(this);
+                console.log("somthing");
+                return _super (...arguments);
+            },
 
-        console.log("Hi!!")
-        console.log(api)
-        console.log(perent)
-        console.log(div)
-        var perent = $('#jitsi_meeting_placeholder'); //Dont know id or think to poin to withch perent ot is?
-        if (perent.length === 1)
-        perent.append(div);
-        console.log(perent);
-        console.log(perent.length);
+            testStart: async function () {
+                    const _super = this._super.bind(this);
+    
+                    var data = await this.rpc ({
+                        model:'calendar.event', 
+                        method:'room_name',
+                    });
+                    console.log("Exit");
+            return _super(...arguments);*/
+        
+            var api = new JitsiMeetExternalAPI(domain, options);
+            
+            api.addEventListener('participantRoleChanged', function (event) {
+                if (event.role === 'moderator') {
+                    api.executeCommand('toggleLobby', true);
+                }
+            })
+            
+            var perent = $('#jitsi_meeting_placeholder'); //Dont know id or think to poin to withch perent ot is?
+            if (perent.length === 1)
+            perent.append(div);
     });
 
-    options.registry.video_meeting_chekbox = options.Class.extend({
+
+    /*options.registry.video_meeting_chekbox = options.Class.extend({
         _test_function: function() {
             console.log("funktion before async");
         },
@@ -64,7 +88,7 @@ odoo.define("communication_center_jitsi.metting_settings.js", function (require)
             //vad ska hända
             return alert("SUP!!!");
         },
-    });
+    });*/
 
 });
 console.log("end");
