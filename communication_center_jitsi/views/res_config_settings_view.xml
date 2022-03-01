@@ -13,7 +13,7 @@
                             <span class="o_form_label">Jitsi URL</span>
                             <span class="fa fa-globe"/>
                             <div class="text-muted">
-                                Enter your Jitsi URL
+                                Enter your Jitsi URL without https:// or http://
                             </div>
                             <div class="content-group">
                                 <div class="row mt16">

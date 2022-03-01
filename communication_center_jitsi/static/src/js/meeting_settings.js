@@ -20,7 +20,7 @@ odoo.define("communication_center_jitsi.metting_settings.js", function (require)
         div.id="center_meeting";
         const domain = $("#jitsi_meeting_placeholder").data("jitsi");
         const options = {
-            roomName: $("#jitsi_meeting_placeholder").data("room_name"),
+            roomName:  $("#jitsi_meeting_placeholder").data("link_suffix")+"/"+$("#jitsi_meeting_placeholder").data("room_name")+"#",
             width: 1500,
             height: 700,
             parentNode: div,
@@ -66,6 +66,7 @@ odoo.define("communication_center_jitsi.metting_settings.js", function (require)
             var perent = $('#jitsi_meeting_placeholder'); //Dont know id or think to poin to withch perent ot is?
             if (perent.length === 1)
             perent.append(div);
+            console.log('api', api);
     });
 
 
