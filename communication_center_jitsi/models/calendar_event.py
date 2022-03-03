@@ -1,9 +1,11 @@
+from distutils.command.clean import clean
 import json
 import logging
 import random
 import string
 
-from odoo import models, fields, api, _
+from odoo import models, fields, api, _, http
+from odoo.http import request
 from odoo.exceptions import UserError
 
 _logger = logging.getLogger(__name__)
@@ -34,8 +36,12 @@ class Meeting(models.Model):
             self.link_suffix = ''.join(random.choices(string.ascii_letters, k=8))
         if self.video_meeting_checkbox == 0:
             #Change hardcoded virtual-machine name 
-            #and use a beter varible then "x" or make the replace funktion one row
-            x = "http://alex-14:8069/video_meeting/"+f"{self.link_suffix}"
-            self.controller_link = x.replace("NewId_","")
-            _logger.error(f'self.link_suffix, {self.link_suffix}')
-            _logger.error(f'self.controller_link {self.controller_link}')
+            #db_name = self._cr.dbname
+            web_name = self.env['ir.config_parameter'].get_param('web.base.url')
+            _logger.error(f'web_name, {web_name}')
+            if self.video_meeting_checkbox == 0:
+                clean_link = f'{web_name}/video_meeting/{self.link_suffix}'
+                _logger.error(f'clean_link, {clean_link}')
+                self.controller_link = clean_link
+                _logger.error(f'self.link_suffix, {self.link_suffix}')
+                _logger.error(f'self.controller_link {self.controller_link}')

@@ -12,29 +12,29 @@ class JitsiController(http.Controller):
 
     @http.route(['/video_meeting/<string:link_suffix>'], type="http", auth='public', website=True)
     def meeting(self, link_suffix, **kw):
-        event = self.get_event(link_suffix)
-        jitsi = self.create_jitsi_link(link_suffix)
+        event = self._get_event(link_suffix)
+        jitsi = self._create_jitsi_link(link_suffix)
         return request.render("communication_center_jitsi.jitsi_meeting_site", {"event": event, "jitsi": jitsi})
 
-    def get_event(self, link_suffix):
+    def _get_event(self, link_suffix):
         event = request.env["calendar.event"].sudo().search([('link_suffix', '=', link_suffix)])
         _logger.warning(f'event, {event}')
         return event
 
-    def create_jitsi_link(self, link_suffix):
+    def _create_jitsi_link(self, link_suffix):
         event = request.env["calendar.event"].sudo().search([('link_suffix', '=', link_suffix)])
         jitsi_url = event.env['ir.config_parameter'].get_param('jitsi_url')
         _logger.error(f'jitsi_url, {jitsi_url}')
-        jitsi = f'{jitsi_url}/{link_suffix}'
-        _logger.error(f'jitsi, {jitsi}')
-        return jitsi
+        link = f'{jitsi_url}/{link_suffix}'
+        _logger.error(f'jitsi, {link}')
+        return link
 
-    def get_roomName (self, room_name):
+    def _get_roomName (self, room_name):
         room = request.env["calendar.event"].sudo().search([('room_name', '=', room_name)])
         return room
 
     @api.model
-    def json_get (self, options):
+    def _json_get (self, options):
         getoptions = request.env["meeting_settings.js"].sudo().search([('options', '=', options)])
         return options
 
