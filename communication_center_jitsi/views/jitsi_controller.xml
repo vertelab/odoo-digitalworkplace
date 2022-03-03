@@ -23,6 +23,7 @@
                 <t t-esc="set_room"/>
                 <t t-esc="event.room_name"/-->
             </div>
+            <a class="btn btn-primary jitsi_button">Klick me!</a>
         </t>
     </template>
 

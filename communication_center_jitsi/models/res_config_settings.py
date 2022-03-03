@@ -9,6 +9,21 @@ class Communication(models.TransientModel):
 
     jitsi_url = fields.Char("Jitsi URL", config_parameter='jitsi_url')
 
+    def jitsi_url_mod (self):
+        clean_url = self.jitsi_url.split("//")
+        _logger.error(f'{clean_url}')
+        if clean_url[1] == "https:":
+            clean_url-= 'https:'
+            _logger.error(f'1{clean_url}')
+            return clean_url
+        elif clean_url[1] == "http:":
+            clean_url-= 'http:'
+            _logger.error(f'2{clean_url}')
+            return clean_url
+        else:
+            return clean_url
+
+    
 
     # @api.multi
     #def write(self, vals):

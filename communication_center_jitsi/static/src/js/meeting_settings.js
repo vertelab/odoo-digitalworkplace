@@ -5,12 +5,6 @@ odoo.define("communication_center_jitsi.metting_settings.js", function (require)
     console.log("after start");
     const rpc = require("web.rpc"); //maby create a funktion insted off APIsettings or add .this
 
-    //console.log(rpc);
-    /*const APIsettings = rpc.query({
-        model: "ir.config_parameter",
-        method: "get_param",
-        args: ["communication_center_jitsi"],
-    });*/
     console.log("sup")
 
     $('document').ready(function (event) {  //THISWORKS
@@ -56,10 +50,12 @@ odoo.define("communication_center_jitsi.metting_settings.js", function (require)
             return _super(...arguments);*/
         
             var api = new JitsiMeetExternalAPI(domain, options);
+            api.executeCommand('toggleLobby', true);
             
             api.addEventListener('participantRoleChanged', function (event) {
+                console.log("event", event);
                 if (event.role === 'moderator') {
-                    api.executeCommand('toggleLobby', true);
+                    api.executeCommand('toggleLobby', true)
                 }
             })
             
@@ -67,6 +63,13 @@ odoo.define("communication_center_jitsi.metting_settings.js", function (require)
             if (perent.length === 1)
             perent.append(div);
             console.log('api', api);
+
+            api.executeCommand('displayName', 'New Nickname');
+
+            $(".jitsi_button").on("click", function (){
+                api.executeCommands({toggleLobby: [false]})
+            });
+
     });
 
 

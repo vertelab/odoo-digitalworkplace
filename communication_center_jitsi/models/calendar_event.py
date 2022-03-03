@@ -33,7 +33,7 @@ class Meeting(models.Model):
     #???
     #one select?
     help_for_button = fields.Text()
-    room_name = fields.Char(string="Enter room name")
+    room_name = fields.Char(string="Enter room name") # make obligatory? then move to the front of the popup?
     controller_link = fields.Char(string="Video meeting link") # dont set to readonly, it messes up the jitsi meeting, gives error
     link_suffix = fields.Char(string='Unique ID of Event')
 
