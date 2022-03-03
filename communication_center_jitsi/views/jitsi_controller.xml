@@ -18,25 +18,19 @@
             t-att-data-jitsi="jitsi" 
             t-att-data-room_name="event.room_name"
             t-att-data-link_suffix="event.link_suffix">
-                <!--t t-esc="jitsi.link_suffix"/>
-                <t t-esc="event.link_suffix"/>
-                <t t-esc="set_room"/>
-                <t t-esc="event.room_name"/-->
             </div>
             <a class="btn btn-primary jitsi_button">Klick me!</a>
         </t>
     </template>
 
-
-        <record id="calendar_event_form_view" model="ir.ui.view">
-            <field name="name">calendar.event.form</field>
-            <field name="model">calendar.event</field>
-            <field name="inherit_id" ref="calendar.view_calendar_event_form"/>
-            <field name="arch" type="xml">
-                <field name="video_meeting_chekbox" position="after">
-                    <field name="link_suffix" />
-                </field>
+    <record id="calendar_event_form_view" model="ir.ui.view">
+        <field name="name">calendar.event.form</field>
+        <field name="model">calendar.event</field>
+        <field name="inherit_id" ref="calendar.view_calendar_event_form"/>
+        <field name="arch" type="xml">
+            <field name="video_meeting_chekbox" position="after">
+                <field name="link_suffix" />
             </field>
-        </record>
-    
+        </field>
+    </record>
 </odoo>

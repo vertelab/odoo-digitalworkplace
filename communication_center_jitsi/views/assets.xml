@@ -5,27 +5,4 @@
             <script type="text/javascript" src='/communication_center_jitsi/static/src/js/external_api.js'></script>
         </xpath>
     </template>
-
-    <!--record id="calendar_event_calendar_view_video_hi" model="ir.ui.view">
-        <field name="name">calendar.event.calendar</field>
-        <field name="model">calendar.event</field>
-        <field name="inherit_id" ref="calendar_event_calendar_view_video_padge"/>
-        <field name="arch" type="xml">
-            <xpath expr="//page[@name='video_meeting']" position="inside">
-                <field name="lobby_with_name" event="click"></field>
-                <script type="text/javascript" src="/communication_center_jitsi/static/src/js/meeting_settings.js"/>
-            </xpath>
-        </field>
-    </record>
-
-    <record id="calendar_event_calendar_view_video_hi" model="ir.ui.view">
-        <field name="name">calendar.event.calendar</field>
-        <field name="model">calendar.event</field>
-        <field name="inherit_id" ref="calendar_event_calendar_view_video_padge"/>
-        <field name="arch" type="xml">
-            <xpath expr="//page[@name='video_meeting']" position="inside">
-                <button string="Test" />
-            </xpath>
-        </field>
-    </record-->    
 </odoo>
