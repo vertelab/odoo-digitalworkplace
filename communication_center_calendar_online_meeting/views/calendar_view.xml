@@ -6,22 +6,7 @@
             <field name="inherit_id" ref="calendar.view_calendar_event_form"/>
             <field name="arch" type="xml">
                 <field name="location" position="after">
-                    <label for="online_meeting_link"/>
-                    <div>
-                        <field name="online_meeting_link" widget="url"/>
-                        <button string="Get Link" name="create_meeting_link" icon="fa-check" type="object" groups="base.group_no_one"/>
-                    </div>
-                </field>
-            </field>
-        </record>
-
-        <record id="calendar_event_calendar_view" model="ir.ui.view">
-            <field name="name">calendar.event.calendar</field>
-            <field name="model">calendar.event</field>
-            <field name="inherit_id" ref="calendar.view_calendar_event_calendar"/>
-            <field name="arch" type="xml">
-                <field name="partner_ids" position="before">
-                    <field name="online_meeting_link" widget="url"/>
+                    <field name="video_meeting_checkbox"/>
                 </field>
             </field>
         </record>

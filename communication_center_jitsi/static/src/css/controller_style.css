@@ -1,0 +1,10 @@
+#jitsi_meeting_placeholder {
+    display: flex;
+    justify-self: center;
+    display: grid;
+}
+
+#center_meeting {
+    display: flex;
+    justify-self: center;
+}

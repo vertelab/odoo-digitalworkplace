@@ -1,0 +1,8 @@
+<odoo>
+    <template id="calender_meeting_assets" name="calender_meeting_assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/communication_center_jitsi/static/src/js/meeting_settings.js"/>
+            <script type="text/javascript" src='/communication_center_jitsi/static/src/js/external_api.js'></script>
+        </xpath>
+    </template>
+</odoo>

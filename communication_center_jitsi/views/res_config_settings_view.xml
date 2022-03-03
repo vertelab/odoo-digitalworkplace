@@ -13,7 +13,7 @@
                             <span class="o_form_label">Jitsi URL</span>
                             <span class="fa fa-globe"/>
                             <div class="text-muted">
-                                Enter your Jitsi URL
+                                Enter your Jitsi URL without https:// or http://
                             </div>
                             <div class="content-group">
                                 <div class="row mt16">
@@ -25,6 +25,62 @@
                     </div>
                 </xpath>
             </field>
+        </record>
+
+        <record id="calendar_event_calendar_view_checkbox" model="ir.ui.view">
+            <field name="name">calendar.event.calendar</field>
+            <field name="model">calendar.event</field>
+            <field name="inherit_id" ref="calendar.view_calendar_event_form"/>
+            <field name="arch" type="xml">
+                <field name="location"  position="before">
+                    <field name="video_meeting_checkbox" invisible="1"/>
+                    <field name="controller_link" attrs="{'invisible': [('video_meeting_checkbox', '!=', True)]}" widget="url">
+                    </field>
+                </field>
+                <field name="location" position="attributes">
+                    <attribute name="attrs">{'invisible':[('video_meeting_checkbox','=',True)]}</attribute>
+                </field>
+            </field>
+        </record>
+
+        <record id="calendar_event_calendar_view_video_padge" model="ir.ui.view">
+            <field name="name">calendar.event.calendar</field>
+            <field name="model">calendar.event</field>
+            <field name="inherit_id" ref="calendar.view_calendar_event_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='page_misc']" position="after">
+                    <field name="video_meeting_checkbox" invisible="1"/>
+                    <page name="video_meeting" string ="Video Meeting" attrs="{'invisible': [('video_meeting_checkbox', '!=', True)]}">
+                        <group col="3">
+                                <field name="room_name" id="room_name_id"/>
+                                <field name="microphone_off"/>
+                                <field name="webcam_off"/>
+                                <field name="lobby_with_name"/>
+                                <field name="link_for_participants"/>
+                                <field name="link_for_moderator"/>
+                                <field name="no_recording"/>
+                                <field name="start_recording"/>
+                                <field name="rooms_creation"/>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="calendar_event_calendar_view" model="ir.ui.view">
+            <field name="name">calendar.event.calendar</field>
+            <field name="model">calendar.event</field>
+            <field name="inherit_id" ref="calendar.view_calendar_event_calendar"/>
+            <field name="arch" type="xml">
+                <field name="partner_ids"  position="before">
+                    <field name="video_meeting_checkbox" invisible="1"/>
+                    <field name="controller_link" attrs="{'invisible': [('video_meeting_checkbox', '!=', False)]}" widget="url">
+                    </field>
+                </field>
+                <field name="controller_link" position="attributes">
+                    <attribute name="attrs">{'invisible':[('video_meeting_checkbox','!=',True)]}</attribute>
+                </field>
+                </field>
         </record>
     </data>
 </odoo>
