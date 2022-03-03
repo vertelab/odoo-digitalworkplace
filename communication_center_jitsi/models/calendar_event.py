@@ -32,7 +32,9 @@ class Meeting(models.Model):
     def link_to_controller(self):
         if not self.link_suffix:
             self.link_suffix = ''.join(random.choices(string.ascii_letters, k=8))
-        if self.video_meeting_chekbox == 0:
+        if self.video_meeting_checkbox == 0:
+            #Change hardcoded virtual-machine name 
+            #and use a beter varible then "x" or make the replace funktion one row
             x = "http://alex-14:8069/video_meeting/"+f"{self.link_suffix}"
             self.controller_link = x.replace("NewId_","")
             _logger.error(f'self.link_suffix, {self.link_suffix}')

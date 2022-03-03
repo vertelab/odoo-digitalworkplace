@@ -28,7 +28,7 @@
         <field name="model">calendar.event</field>
         <field name="inherit_id" ref="calendar.view_calendar_event_form"/>
         <field name="arch" type="xml">
-            <field name="video_meeting_chekbox" position="after">
+            <field name="video_meeting_checkbox" position="after">
                 <field name="link_suffix" />
             </field>
         </field>

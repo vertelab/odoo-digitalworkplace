@@ -10,12 +10,9 @@
                     <div class="app_settings_block" data-string="Calendar" string="Calendar" data-key="calendar">
                         <h2>Calendar Meetings</h2>
                         <div class="row mt16 o_settings_container" name="calendar_meeting_settings"/>
-<!--                        </div>-->
-
                     </div>
                 </xpath>
             </field>
         </record>
-
     </data>
 </odoo>
