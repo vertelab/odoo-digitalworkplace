@@ -17,7 +17,10 @@
             <div id="jitsi_meeting_placeholder" 
             t-att-data-jitsi="jitsi" 
             t-att-data-room_name="event.room_name"
-            t-att-data-link_suffix="event.link_suffix">
+            t-att-data-link_suffix="event.link_suffix"
+            t-att-data-microphone_off="event.microphone_off"
+            t-att-data-webcam_off="event.webcam_off"
+            >
             </div>
             <a class="btn btn-primary jitsi_button">Klick me!</a>
         </t>

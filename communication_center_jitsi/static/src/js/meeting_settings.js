@@ -9,8 +9,22 @@ odoo.define("communication_center_jitsi.metting_settings.js", function (require)
         var div = document.createElement("div");
         div.id="center_meeting";
         const domain = $("#jitsi_meeting_placeholder").data("jitsi");
+
+        let roomName= $("#jitsi_meeting_placeholder").data("link_suffix")+"/"+$("#jitsi_meeting_placeholder").data("room_name")+"#"
+        console.log(roomName);
+
+        if ($("#jitsi_meeting_placeholder").data("microphone_off") == "True") {
+            roomName += "config.startWithAudioMuted=true&"
+            console.log(roomName)
+        };
+        if ($("#jitsi_meeting_placeholder").data("webcam_off") == "True") {
+            roomName += "config.startWithVideoMuted=true&"
+            console.log(roomName)
+        };
+
+        console.log(roomName);
         const options = {
-            roomName:  $("#jitsi_meeting_placeholder").data("link_suffix")+"/"+$("#jitsi_meeting_placeholder").data("room_name")+"#",
+            roomName: roomName,
             width: 1500,
             height: 700,
             parentNode: div,
