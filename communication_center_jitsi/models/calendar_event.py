@@ -27,42 +27,50 @@ class Meeting(models.Model):
     help_for_button = fields.Text()
     room_name = fields.Char(string="Enter room name")
 #REMEMBER: dont set controller_link to readonly, it gives error
-    controller_link = fields.Char(string="Video meeting link")
+    controller_link = fields.Char(string="Video meeting link", default = " ")
     link_suffix = fields.Char(string='Unique ID of Event')
 
-    @api.onchange("controller_link")
+    @api.onchange("controller_link","video_meeting_checkbox")
     def link_to_controller(self):
         if not self.link_suffix:
             self.link_suffix = ''.join(random.choices(string.ascii_letters, k=8))
-        if self.video_meeting_checkbox == 0:
-            web_name = self.env['ir.config_parameter'].get_param('web.base.url')
-            _logger.error(f'web_name, {web_name}')
-            if self.video_meeting_checkbox == 0:
-                clean_link = f'{web_name}/video_meeting/{self.link_suffix}'
-                _logger.error(f'clean_link, {clean_link}')
-                self.controller_link = clean_link
-                _logger.error(f'self.link_suffix, {self.link_suffix}')
-                _logger.error(f'self.controller_link {self.controller_link}')
+        if not self.video_meeting_checkbox:
+            # web_name = self.env['ir.config_parameter'].get_param('web.base.url')
+            # _logger.error(f'web_name, {web_name}')
+            # if self.video_meeting_checkbox == 0:
+            #     clean_link = f'{web_name}/video_meeting/{self.link_suffix}'
+            #     _logger.error(f'clean_link, {clean_link}')
+            self.controller_link = self.create_controller_link(self.link_suffix )
+                # _logger.error(f'self.link_suffix, {self.link_suffix}')
+                # _logger.error(f'self.controller_link {self.controller_link}')
 
 
+    def create_controller_link(self, link_suffix):
+        web_name = self.env['ir.config_parameter'].get_param('web.base.url')
+        _logger.error(f"create_controller_link {link_suffix=}")
+        return f'{web_name}/video_meeting/{link_suffix}'
 
-    # @api.onchange("video_meeting_checkbox", "microphone_off", "webcam_off")
-    # def video_settings(self, microphone_off):
-    #     request.env["calendar.event"].sudo().search([('microphone_off', '=', microphone_off)])
-    #     #event = self.env["calendar.event"].browse(id)
-    #     # event._get_event()
-    #     url_plus = self._create_jitsi_link()
-    #     _logger.error(f'link1, {url_plus}')
-    #     if microphone_off is True:
-    #         url_plus += "config.startWithAudioMuted=true&"
-    #         _logger.error(f'link2, {url_plus}')
-    #     elif microphone_off is False:
-    #         x = url_plus.replace("config.startWithAudioMuted=true&","")
-    #         url_plus = x
-    #         _logger.error(f'link3, {url_plus}')
-            
-    #     if self.webcam_off is True:
-    #         self.online_meeting_link += "config.startWithVideoMuted=true&"
-    #     elif self.webcam_off is False:
-    #         x = self.online_meeting_link.replace("config.startWithVideoMuted=true&","")
-    #         self.online_meeting_link = x
+
+    @api.model
+    def create(self, vals):
+        _logger.error(f"{vals=}")
+        if  vals.get("video_meeting_checkbox"):
+            vals["controller_link"] = self.create_controller_link(vals.get("link_suffix"))
+            _logger.error(f"true {vals=}")
+        res = super().create(vals)
+        _logger.error(f"{res=}")
+        return res
+
+    def write(self, vals):
+        _logger.error(f"{vals=}")
+        for rec in self:
+            if vals.get("video_meeting_checkbox"):
+                vals["controller_link"] = rec.create_controller_link(rec.link_suffix or vals.get("link_suffix"))
+                _logger.error(f"write {vals=}")
+            elif "video_meeting_checkbox" in vals:
+                vals["controller_link"] = " "
+
+            res = super().write(vals)
+            # if not rec.video_meeting_checkbox:
+            _logger.error(f"{res=}")
+            return res
