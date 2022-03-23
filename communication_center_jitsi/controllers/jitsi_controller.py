@@ -18,20 +18,20 @@ class JitsiController(http.Controller):
 
     def _get_event(self, link_suffix):
         event = request.env["calendar.event"].sudo().search([('link_suffix', '=', link_suffix)])
-        _logger.warning(f'event, {event}')
+       # _logger.warning(f'event, {event}')
         #_logger.warning(f'event, {dir(event)}')
        # _logger.warning(f'event, {event.fields_get()}')
         fields = event.fields_get()
-        for key in sorted(fields.keys()):
-            _logger.error(f'event.{key}:{event[key]}')
+       # for key in sorted(fields.keys()):
+       #     _logger.error(f'event.{key}:{event[key]}')
         return event
 
     def _create_jitsi_link(self, link_suffix):
         event = request.env["calendar.event"].sudo().search([('link_suffix', '=', link_suffix)])
         jitsi_url = event.env['ir.config_parameter'].get_param('jitsi_url')
-        _logger.error(f'jitsi_url, {jitsi_url}')
+       # _logger.error(f'jitsi_url, {jitsi_url}')
         link = f'{jitsi_url}/{link_suffix}'
-        _logger.error(f'jitsi, {link}')
+       # _logger.error(f'jitsi, {link}')
         return link
 
     # def _get_roomName (self, room_name):

@@ -45,7 +45,7 @@ class Meeting(models.Model):
 
 
     def create_controller_link(self, link_suffix):
-        web_name = self.env['ir.config_parameter'].get_param('web.base.url')
+        web_name = self.env['ir.config_parameter'].sudo().get_param('web.base.url')
         #_logger.error(f"create_controller_link {link_suffix=}")
         return f'{web_name}/video_meeting/{link_suffix}'
 
