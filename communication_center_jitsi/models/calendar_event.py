@@ -46,22 +46,22 @@ class Meeting(models.Model):
 
     def create_controller_link(self, link_suffix):
         web_name = self.env['ir.config_parameter'].get_param('web.base.url')
-        _logger.error(f"create_controller_link {link_suffix=}")
+        #_logger.error(f"create_controller_link {link_suffix=}")
         return f'{web_name}/video_meeting/{link_suffix}'
 
 
     @api.model
     def create(self, vals):
-        _logger.error(f"{vals=}")
+        #_logger.error(f"{vals=}")
         if  vals.get("video_meeting_checkbox"):
             vals["controller_link"] = self.create_controller_link(vals.get("link_suffix"))
-            _logger.error(f"true {vals=}")
+           # _logger.error(f"true {vals=}")
         res = super().create(vals)
-        _logger.error(f"{res=}")
+        #_logger.error(f"{res=}")
         return res
 
     def write(self, vals):
-        _logger.error(f"{vals=}")
+        #_logger.error(f"{vals=}")
         for rec in self:
             if vals.get("video_meeting_checkbox"):
                 vals["controller_link"] = rec.create_controller_link(rec.link_suffix or vals.get("link_suffix"))
@@ -71,5 +71,5 @@ class Meeting(models.Model):
 
             res = super().write(vals)
             # if not rec.video_meeting_checkbox:
-            _logger.error(f"{res=}")
+            #_logger.error(f"{res=}")
             return res
