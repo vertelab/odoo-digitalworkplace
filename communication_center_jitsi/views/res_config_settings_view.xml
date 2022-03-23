@@ -41,6 +41,7 @@
                                 <field name="microphone_off"/>
                                 <field name="webcam_off"/>
                                 <field name="lobby_with_name"/>
+                                <field name="lobby_with_let_in"/>
                                 <field name="link_for_participants"/>
                                 <field name="link_for_moderator"/>
                                 <field name="no_recording"/>
