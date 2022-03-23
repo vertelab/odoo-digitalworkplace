@@ -1,8 +1,20 @@
 <odoo>
-    <template id="calender_meeting_assets" name="calender_meeting_assets" inherit_id="web.assets_backend">
+    <!-- <template id="calender_meeting_assets" name="calender_meeting_assets" inherit_id="web.assets_backend">
         <xpath expr="." position="inside">
             <script type="text/javascript" src="/communication_center_jitsi/static/src/js/meeting_settings.js"/>
             <script type="text/javascript" src='/communication_center_jitsi/static/src/js/external_api.js'></script>
+        </xpath>
+    </template> -->
+
+    <template id="jitsi_meeting" name="calender_meeting_assets" inherit_id="web.assets_frontend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/communication_center_jitsi/static/src/js/meeting_settings.js"/>
+            <script type="text/javascript" src='/communication_center_jitsi/static/src/js/external_api.js'></script>
+        </xpath>
+    </template>
+    <template id="style_meeting" inherit_id="website.assets_frontend">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" type="text/css" href="/communication_center_jitsi/static/src/css/controller_style.css"/>
         </xpath>
     </template>
 </odoo>

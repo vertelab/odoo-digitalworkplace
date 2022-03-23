@@ -1,0 +1,46 @@
+<odoo>
+    <data>
+        <!-- <record id="calendar_event_form_view" model="ir.ui.view">
+            <field name="name">calendar.event.form</field>
+            <field name="model">calendar.event</field>
+            <field name="inherit_id" ref="communication_center_calendar_online_meeting.calendar_event_form_view"/>
+            <field name="arch" type="xml">
+                <field name="controller_link" position="attribute">
+                    <attribute name="attrs">{'invisible':[('video_meeting_checkbox','!=',True)]}</attribute>
+                </field>
+            </field>
+        </record> -->
+
+        <record id="calendar_event_calendar_view" model="ir.ui.view">
+            <field name="name">calendar.event.calendar</field>
+            <field name="model">calendar.event</field>
+            <field name="inherit_id" ref="calendar.view_calendar_event_calendar"/>
+            <field name="arch" type="xml">
+                <field name="partner_ids"  position="before">
+                    <field name="video_meeting_checkbox" invisible="1"/>
+                    <field name="controller_link" attrs="{'invisible': [('video_meeting_checkbox', '!=', False)]}" widget="url">
+                    </field>
+                </field>
+                <field name="controller_link" position="attributes">
+                    <attribute name="attrs">{'invisible':[('video_meeting_checkbox','!=',True)]}</attribute>
+                </field>
+                </field>
+        </record>
+
+        <record id="calendar_event_calendar_view_checkbox" model="ir.ui.view">
+            <field name="name">calendar.event.calendar</field>
+            <field name="model">calendar.event</field>
+            <field name="inherit_id" ref="calendar.view_calendar_event_form"/>
+            <field name="arch" type="xml">
+                <field name="location"  position="before">
+                    <field name="video_meeting_checkbox" invisible="1"/>
+                    <field name="controller_link" attrs="{'invisible': [('video_meeting_checkbox', '!=', True)]}" readonly="1" widget="url">
+                    </field>
+                </field>
+                <field name="location" position="attributes">
+                    <attribute name="attrs">{'invisible':[('video_meeting_checkbox','=',True)]}</attribute>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

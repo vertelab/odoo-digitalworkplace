@@ -18,6 +18,7 @@
         'views/res_config_settings_view.xml',
         'views/assets.xml',
         'views/jitsi_controller.xml',
+        'views/calendar_view.xml',
     ],
     'qweb': [
         'static/src/xml/calendar_view_templet.xml',

@@ -1,36 +1,23 @@
 <odoo>
-    
-    <template id="jitsi_meeting" name="calender_meeting_assets" inherit_id="web.assets_frontend">
-        <xpath expr="." position="inside">
-            <script type="text/javascript" src="/communication_center_jitsi/static/src/js/meeting_settings.js"/>
-            <script type="text/javascript" src='/communication_center_jitsi/static/src/js/external_api.js'></script>
-        </xpath>
-    </template>
-    <template id="style_meeting" inherit_id="website.assets_frontend">
-        <xpath expr="." position="inside">
-            <link rel="stylesheet" type="text/css" href="/communication_center_jitsi/static/src/css/controller_style.css"/>
-        </xpath>
-    </template>
 
     <template id="jitsi_meeting_site" name="placeholder_for_jitsi_meeting">
         <t t-call="website.layout">
-            <div id="jitsi_meeting_placeholder" 
+            <div id="jitsi_meeting_placeholder"
             t-att-data-jitsi="jitsi" 
             t-att-data-room_name="event.room_name"
-            t-att-data-link_suffix="event.link_suffix">
-            </div>
-            <a class="btn btn-primary jitsi_button">Klick me!</a>
+            t-att-data-lobby_with_knocking="event.lobby_with_let_in"
+            t-att-data-link_suffix="event.link_suffix"
+            t-att-data-microphone_off="event.microphone_off"
+            t-att-data-webcam_off="event.webcam_off"
+            t-att-data-lobby_with_name="event.lobby_with_name"
+            t-att-data-start_recording="event.start_recording">
+                <div class="btn_holder">
+                    <a class="btn btn-primary jitsi_button">Klick me!</a>
+                    <a class="btn btn-primary jitsi_button_lobby">Lobby!</a>
+                    <!-- <a class="btn btn-primary jitsi_button_rec">Rec!</a>
+                    <a class="btn btn-primary jitsi_button_recoff">Rec off!</a> -->
+                </div>
+        </div>
         </t>
     </template>
-
-    <record id="calendar_event_form_view" model="ir.ui.view">
-        <field name="name">calendar.event.form</field>
-        <field name="model">calendar.event</field>
-        <field name="inherit_id" ref="calendar.view_calendar_event_form"/>
-        <field name="arch" type="xml">
-            <field name="video_meeting_checkbox" position="after">
-                <field name="link_suffix" />
-            </field>
-        </field>
-    </record>
 </odoo>

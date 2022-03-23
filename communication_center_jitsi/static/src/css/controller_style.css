@@ -8,3 +8,14 @@
     display: flex;
     justify-self: center;
 }
+
+.btn_holder {
+    display: flex;
+    justify-self: center;
+    /*background-color: lightgray;
+    padding: 15px;*/
+}
+
+.btn_holder>* {
+    margin: 15px;
+}
