@@ -24,7 +24,6 @@ class Meeting(models.Model):
     no_recording = fields.Boolean(string="Turn off the possibility to record")
     start_recording = fields.Boolean(string="Start recording from beginning off the meeting")
     rooms_creation = fields.Boolean(string="Create and move participants to roomes")
-    help_for_button = fields.Text()
     room_name = fields.Char(string="Enter room name")
 #REMEMBER: dont set controller_link to readonly, it gives error
     controller_link = fields.Char(string="Video meeting link", default = " ")
