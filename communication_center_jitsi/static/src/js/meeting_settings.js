@@ -53,16 +53,16 @@ odoo.define("communication_center_jitsi.metting_settings.js", function (require)
                     api.executeCommand('toggleLobby', false)
                     Lobby_onoff = "Off"
                     alert("Lobby off")
-                    jitsi_button_lobby.while (1); {
-                        jitsi_button_lobby.innerText("Lobby on!")
-                    };
+                    // jitsi_button_lobby.while (1); {
+                    //     jitsi_button_lobby.innerText("Lobby on!")
+                    //};
                 } else if (Lobby_onoff == "Off") {
                     api.executeCommand('toggleLobby', true)
                     Lobby_onoff = "On"
                     alert("Lobby on")
-                    jitsi_button_lobby.while (); {
-                        jitsi_button_lobby.innerText("Lobby off!")
-                    };
+                    // jitsi_button_lobby.while (); {
+                    //     jitsi_button_lobby.innerText("Lobby off!")
+                    // };
                 }
             });
 
