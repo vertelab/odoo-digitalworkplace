@@ -75,10 +75,20 @@ odoo.define("communication_center_jitsi.metting_settings.js", function (require)
 
             if (parent.data("start_recording") == "True"){
                 console.log("REC");
-                api.executeCommand('startRecording')
+                api.executeCommand('startRecording',{
+                    mode: 'file'
+                })
             };
             console.log(parent.data("start_recording"))
             console.log("HEEYYYY")
+
+            var jitsi_button = $(".jitsi_button_rec");
+            jitsi_button.on("click", function (){
+                console.log("REC");
+                api.executeCommand('startRecording',{
+                    mode: 'file'
+                })
+            });
 
             var jitsi_button = $(".jitsi_button_recoff");
             jitsi_button.on("click", function (){

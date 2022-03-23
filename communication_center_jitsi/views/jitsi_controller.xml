@@ -14,8 +14,8 @@
                 <div class="btn_holder">
                     <a class="btn btn-primary jitsi_button">Klick me!</a>
                     <a class="btn btn-primary jitsi_button_lobby">Lobby!</a>
-                    <a class="btn btn-primary jitsi_button_rec">Rec!</a>
-                    <a class="btn btn-primary jitsi_button_recoff">Rec off!</a>
+                    <!-- <a class="btn btn-primary jitsi_button_rec">Rec!</a>
+                    <a class="btn btn-primary jitsi_button_recoff">Rec off!</a> -->
                 </div>
         </div>
         </t>
