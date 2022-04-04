@@ -11,18 +11,26 @@ odoo.define("communication_center_jitsi.metting_settings.js", function (require)
         var parent = $('#jitsi_meeting_placeholder');
         if (parent.length === 1){
             parent.append(div);
+            console.log("parent.append(div);");
         }
 
-        let Lobby_onoff = "Off";
+        let Lobby_on = false;
+        let Rec_on = false;
 
         const domain = parent.data("jitsi");
 
-        let roomName= parent.data("room_name")
-        console.log(roomName);
+        let roomName = " "
+        if (parent.data("room_name") == undefined){
+            roomName = "Happy"}
+        else if (parent.data("room_name") !== ""){
+        roomName = parent.data("room_name")}
 
-    const options = {
-        roomName: roomName,
-        width: 1500,
+        console.log(roomName);
+        console.log(parent.data("room_name"));
+
+        const options = {
+            roomName: roomName,
+            width: 1500,
             height: 700,
             parentNode: div,
             configOverwrite: 
@@ -37,32 +45,39 @@ odoo.define("communication_center_jitsi.metting_settings.js", function (require)
 
             let api = new JitsiMeetExternalAPI(domain, options);
             
-            if (parent.data("lobby_with_knocking") == "True"){
-            api.addEventListener('participantRoleChanged', function (event) {
-                console.log("event", event);
-                if (event.role === 'moderator') {
-                    api.executeCommand('toggleLobby', true)
-                    Lobby_onoff = "On";
-                }
-            })};
-
             var jitsi_button_lobby = $(".jitsi_button_lobby");
+            if (parent.data("lobby_with_knocking") == "True"){
+                jitsi_button_lobby.each (function(){
+                    this.innerText="Lobby on!";
+                    $(this).addClass('btn-primary');
+                    $(this).removeClass('btn-danger');
+                });
+                api.addEventListener('participantRoleChanged', function (event) {
+                    console.log("participantRoleChanged", event);
+                    if (event.role === 'moderator') {
+                        api.executeCommand('toggleLobby', true)
+                        Lobby_on = true;
+                    }
+                })};
+
             jitsi_button_lobby.on("click", function (){
                 console.log()
-                if (Lobby_onoff == "On") {
+                if (Lobby_on === true) {
                     api.executeCommand('toggleLobby', false)
-                    Lobby_onoff = "Off"
-                    alert("Lobby off")
-                    // jitsi_button_lobby.while (1); {
-                    //     jitsi_button_lobby.innerText("Lobby on!")
-                    //};
-                } else if (Lobby_onoff == "Off") {
+                    Lobby_on = false
+                    jitsi_button_lobby.each (function (){
+                        this.innerText ="Lobby off!";
+                        $(this).addClass('btn-danger');
+                        $(this).removeClass('btn-primary');
+                    });
+                } else if (Lobby_on === false) {
                     api.executeCommand('toggleLobby', true)
-                    Lobby_onoff = "On"
-                    alert("Lobby on")
-                    // jitsi_button_lobby.while (); {
-                    //     jitsi_button_lobby.innerText("Lobby off!")
-                    // };
+                    Lobby_on = true
+                    jitsi_button_lobby.each (function(){
+                        this.innerText="Lobby on!";
+                        $(this).addClass('btn-primary');
+                        $(this).removeClass('btn-danger');
+                    });
                 }
             });
 
@@ -73,29 +88,42 @@ odoo.define("communication_center_jitsi.metting_settings.js", function (require)
                 console.log('api', api);
             });
 
+            var jitsi_button_rec = $(".jitsi_button_rec");
             if (parent.data("start_recording") == "True"){
                 console.log("REC");
                 api.executeCommand('startRecording',{
                     mode: 'file'
                 })
+                jitsi_button_rec.each (function(){
+                    this.innerText="Stop Recording!";
+                    $(this).addClass('btn-danger');
+                    $(this).removeClass('btn-primary');
+                    Rec_on = true;
+            })
             };
-            console.log(parent.data("start_recording"))
-            console.log("HEEYYYY")
 
-            var jitsi_button = $(".jitsi_button_rec");
-            jitsi_button.on("click", function (){
+            jitsi_button_rec.on("click", function (){
                 console.log("REC");
-                api.executeCommand('startRecording',{
-                    mode: 'file'
+                if (Rec_on === false){
+                    Rec_on = true;
+                    api.executeCommand('startRecording',{
+                        mode: 'file'})
+                        jitsi_button_rec.each (function(){
+                            this.innerText="Stop Recording!";
+                            $(this).addClass('btn-danger');
+                            $(this).removeClass('btn-primary');
+                    })
+                }
+                else if (Rec_on === true){
+                    Rec_on = false;
+                    api.executeCommand('stopRecording', true)
+                    jitsi_button_rec.each (function(){
+                        this.innerText="Start Recording!";
+                        $(this).addClass('btn-primary');
+                        $(this).removeClass('btn-danger');
                 })
+                }
             });
-
-            var jitsi_button = $(".jitsi_button_recoff");
-            jitsi_button.on("click", function (){
-                console.log("REC OFF");
-                api.executeCommand('stopRecording', true)
-            });
-
         console.log("event", event);
     });
 });

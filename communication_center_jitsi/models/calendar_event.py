@@ -25,7 +25,6 @@ class Meeting(models.Model):
     start_recording = fields.Boolean(string="Start recording from beginning off the meeting")
     rooms_creation = fields.Boolean(string="Create and move participants to roomes")
     room_name = fields.Char(string="Enter room name")
-#REMEMBER: dont set controller_link to readonly, it gives error
     controller_link = fields.Char(string="Video meeting link", default = " ")
     link_suffix = fields.Char(string='Unique ID of Event')
 

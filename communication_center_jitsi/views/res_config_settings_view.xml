@@ -44,9 +44,9 @@
                                 <field name="lobby_with_let_in"/>
                                 <!-- <field name="link_for_participants"/>
                                 <field name="link_for_moderator"/>
-                                <field name="no_recording"/>
+                                <field name="no_recording"/-->
                                 <field name="start_recording"/>
-                                <field name="rooms_creation"/> -->
+                                <!--field name="rooms_creation"/> -->
                         </group>
                     </page>
                 </xpath>

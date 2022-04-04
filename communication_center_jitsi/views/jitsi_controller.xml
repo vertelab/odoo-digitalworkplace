@@ -3,19 +3,19 @@
     <template id="jitsi_meeting_site" name="placeholder_for_jitsi_meeting">
         <t t-call="website.layout">
             <div id="jitsi_meeting_placeholder"
-            t-att-data-jitsi="jitsi" 
-            t-att-data-room_name="event.room_name"
-            t-att-data-lobby_with_knocking="event.lobby_with_let_in"
-            t-att-data-link_suffix="event.link_suffix"
-            t-att-data-microphone_off="event.microphone_off"
-            t-att-data-webcam_off="event.webcam_off"
-            t-att-data-lobby_with_name="event.lobby_with_name"
-            t-att-data-start_recording="event.start_recording">
+                t-att-data-jitsi="jitsi" 
+                t-att-data-room_name="event.room_name"
+                t-att-data-lobby_with_knocking="event.lobby_with_let_in"
+                t-att-data-link_suffix="event.link_suffix"
+                t-att-data-microphone_off="event.microphone_off"
+                t-att-data-webcam_off="event.webcam_off"
+                t-att-data-lobby_with_name="event.lobby_with_name"
+                t-att-data-start_recording="event.start_recording">
                 <div class="btn_holder">
-                    <a class="btn btn-primary jitsi_button">Klick me!</a>
-                    <a class="btn btn-primary jitsi_button_lobby">Lobby!</a>
-                    <!-- <a class="btn btn-primary jitsi_button_rec">Rec!</a>
-                    <a class="btn btn-primary jitsi_button_recoff">Rec off!</a> -->
+                    <a class="btn btn-primary jitsi_button">Click me!</a>
+                    <a class="btn btn-danger jitsi_button_lobby">Lobby off!</a>
+                    <a class="btn btn-primary jitsi_button_rec">Start Recording!</a>
+                    <!--a class="btn btn-primary jitsi_button_recoff">Rec off!</a--> 
                 </div>
         </div>
         </t>

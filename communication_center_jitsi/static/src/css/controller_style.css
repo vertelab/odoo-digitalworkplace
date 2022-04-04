@@ -12,10 +12,9 @@
 .btn_holder {
     display: flex;
     justify-self: center;
-    /*background-color: lightgray;
-    padding: 15px;*/
+    background-color: #7C7BAD;
 }
 
-.btn_holder>* {
+.btn_holder>a {
     margin: 15px;
 }
