@@ -31,36 +31,25 @@ class Meeting(models.Model):
     @api.onchange("controller_link","video_meeting_checkbox")
     def link_to_controller(self):
         if not self.link_suffix:
-            self.link_suffix = ''.join(random.choices(string.ascii_letters, k=8))
+            self.link_suffix = ''.join(random.choices(string.ascii_letters, k=10)).lower()
+            self.link_suffix
         if not self.video_meeting_checkbox:
-            # web_name = self.env['ir.config_parameter'].get_param('web.base.url')
-            # _logger.error(f'web_name, {web_name}')
-            # if self.video_meeting_checkbox == 0:
-            #     clean_link = f'{web_name}/video_meeting/{self.link_suffix}'
-            #     _logger.error(f'clean_link, {clean_link}')
-            self.controller_link = self.create_controller_link(self.link_suffix )
-                # _logger.error(f'self.link_suffix, {self.link_suffix}')
-                # _logger.error(f'self.controller_link {self.controller_link}')
+            self.controller_link = self.create_controller_link(self.link_suffix)
 
 
     def create_controller_link(self, link_suffix):
         web_name = self.env['ir.config_parameter'].get_param('web.base.url')
-        #_logger.error(f"create_controller_link {link_suffix=}")
         return f'{web_name}/video_meeting/{link_suffix}'
 
 
     @api.model
     def create(self, vals):
-        #_logger.error(f"{vals=}")
         if  vals.get("video_meeting_checkbox"):
             vals["controller_link"] = self.create_controller_link(vals.get("link_suffix"))
-           # _logger.error(f"true {vals=}")
         res = super().create(vals)
-        #_logger.error(f"{res=}")
         return res
 
     def write(self, vals):
-        #_logger.error(f"{vals=}")
         for rec in self:
             if vals.get("video_meeting_checkbox"):
                 vals["controller_link"] = rec.create_controller_link(rec.link_suffix or vals.get("link_suffix"))
@@ -69,6 +58,4 @@ class Meeting(models.Model):
                 vals["controller_link"] = " "
 
             res = super().write(vals)
-            # if not rec.video_meeting_checkbox:
-            #_logger.error(f"{res=}")
             return res

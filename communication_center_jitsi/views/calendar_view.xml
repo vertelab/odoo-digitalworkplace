@@ -1,16 +1,5 @@
 <odoo>
     <data>
-        <!-- <record id="calendar_event_form_view" model="ir.ui.view">
-            <field name="name">calendar.event.form</field>
-            <field name="model">calendar.event</field>
-            <field name="inherit_id" ref="communication_center_calendar_online_meeting.calendar_event_form_view"/>
-            <field name="arch" type="xml">
-                <field name="controller_link" position="attribute">
-                    <attribute name="attrs">{'invisible':[('video_meeting_checkbox','!=',True)]}</attribute>
-                </field>
-            </field>
-        </record> -->
-
         <record id="calendar_event_calendar_view" model="ir.ui.view">
             <field name="name">calendar.event.calendar</field>
             <field name="model">calendar.event</field>

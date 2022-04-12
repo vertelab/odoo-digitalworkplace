@@ -19,14 +19,14 @@ odoo.define("communication_center_jitsi.metting_settings.js", function (require)
 
         const domain = parent.data("jitsi");
 
-        let roomName = " "
-        if (parent.data("room_name") == undefined){
-            roomName = "Happy"}
-        else if (parent.data("room_name") !== ""){
-        roomName = parent.data("room_name")}
+        // let roomName = " "
+        // if (parent.data("room_name") == undefined){
+        //     roomName = "happy"}
+        // else if (parent.data("room_name") !== ""){
+        // roomName = parent.data("room_name")}
 
-        console.log(roomName);
-        console.log(parent.data("room_name"));
+        // console.log(roomName);
+        // console.log(parent.data("room_name"));
 
         const options = {
             roomName: roomName,
@@ -123,6 +123,12 @@ odoo.define("communication_center_jitsi.metting_settings.js", function (require)
                         $(this).removeClass('btn-danger');
                 })
                 }
+            });
+
+            var jitsi_button_room = $(".jitsi_button_room");
+            jitsi_button_room.on("click", function(){
+                api.executeCommand('addBreakoutRoom',
+                    name,)
             });
         console.log("event", event);
     });
