@@ -27,7 +27,9 @@ class JitsiController(http.Controller):
     def _create_jitsi_link(self, link_suffix):
         event = request.env["calendar.event"].sudo().search([('link_suffix', '=', link_suffix)])
         jitsi_url = event.env['ir.config_parameter'].get_param('jitsi_url')
+        link = f'{jitsi_url}'
         _logger.error(f'jitsi_url, {jitsi_url}')
-        link = f'{jitsi_url}/{link_suffix}'
         _logger.error(f'jitsi, {link}')
         return link
+
+#/{link_suffix}

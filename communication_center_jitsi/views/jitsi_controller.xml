@@ -4,7 +4,7 @@
         <t t-call="website.layout">
             <div id="jitsi_meeting_placeholder"
                 t-att-data-jitsi="jitsi" 
-                t-att-data-room_name="event.room_name"
+                t-att-data-room_subject="event.room_name"
                 t-att-data-lobby_with_knocking="event.lobby_with_let_in"
                 t-att-data-link_suffix="event.link_suffix"
                 t-att-data-microphone_off="event.microphone_off"

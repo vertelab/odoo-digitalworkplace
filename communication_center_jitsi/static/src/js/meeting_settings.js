@@ -19,17 +19,10 @@ odoo.define("communication_center_jitsi.metting_settings.js", function (require)
 
         const domain = parent.data("jitsi");
 
-        // let roomName = " "
-        // if (parent.data("room_name") == undefined){
-        //     roomName = "happy"}
-        // else if (parent.data("room_name") !== ""){
-        // roomName = parent.data("room_name")}
-
-        // console.log(roomName);
-        // console.log(parent.data("room_name"));
+        let unicId = parent.data("link_suffix");
 
         const options = {
-            roomName: roomName,
+            roomName: unicId,
             width: 1500,
             height: 700,
             parentNode: div,
@@ -44,6 +37,14 @@ odoo.define("communication_center_jitsi.metting_settings.js", function (require)
         };
 
             let api = new JitsiMeetExternalAPI(domain, options);
+
+            let roomSubject = " "
+            if (parent.data("room_subject") == undefined){
+                roomSubject = "happy"}
+            else if (parent.data("room_subject") !== ""){
+                roomSubject = parent.data("room_subject")};
+
+            api.executeCommand('subject', roomSubject);
             
             var jitsi_button_lobby = $(".jitsi_button_lobby");
             if (parent.data("lobby_with_knocking") == "True"){
