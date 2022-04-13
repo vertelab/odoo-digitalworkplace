@@ -20,12 +20,48 @@ odoo.define("communication_center_jitsi.metting_settings.js", function (require)
         const domain = parent.data("jitsi");
 
         let unicId = parent.data("link_suffix");
-
-        let noRecFalse
-        if (parent.data("no_recording") == "False"){
-            noRecFalse = 'recording'}
-        else if (parent.data("no_recording") == "True"){
-            noRecFalse = '' };
+        let toolbarButtons = [
+            'camera',
+            'chat',
+            'closedcaptions',
+            'desktop',
+            'download',
+            'embedmeeting',
+            'etherpad',
+            'feedback',
+            'filmstrip',
+            'fullscreen',
+            'hangup',
+            'help',
+            'highlight',
+            'livestreaming',
+            'recording',
+            'invite',
+            'linktosalesforce',
+            'microphone',
+            'mute-everyone',
+            'mute-video-everyone',
+            'participants-pane',
+            'profile',
+            'raisehand',
+            'security',
+            'select-background',
+            'settings',
+            'shareaudio',
+            'sharedvideo',
+            'shortcuts',
+            'stats',
+            'tileview',
+            'toggle-camera',
+            'videoquality',
+            '__end'
+        ];
+        
+        if (parent.data("no_recording") == "True") {
+            toolbarButtons.splice(toolbarButtons.indexOf('livestreaming'),1);
+            toolbarButtons.splice(toolbarButtons.indexOf('recording'),1);
+        };
+        console.log(toolbarButtons);
 
         const options = {
             roomName: unicId,
@@ -38,40 +74,7 @@ odoo.define("communication_center_jitsi.metting_settings.js", function (require)
                 prejoinPageEnabled: parent.data("lobby_with_name") == "True",
                 startWithAudioMuted: parent.data("microphone_off") == "True", 
                 startWithVideoMuted: parent.data("webcam_off") == "True",
-                toolbarButtons: parent.data("no_recording") == "True"[
-                    'camera',
-                    'chat',
-                    'closedcaptions',
-                    'desktop',
-                    'download',
-                    'embedmeeting',
-                    'etherpad',
-                    'feedback',
-                    'filmstrip',
-                    'fullscreen',
-                    'hangup',
-                    'help',
-                    'highlight',
-                    'invite',
-                    'linktosalesforce',
-                    'microphone',
-                    'mute-everyone',
-                    'mute-video-everyone',
-                    'participants-pane',
-                    'profile',
-                    'raisehand',
-                    'security',
-                    'select-background',
-                    'settings',
-                    'shareaudio',
-                    'sharedvideo',
-                    'shortcuts',
-                    'stats',
-                    'tileview',
-                    'toggle-camera',
-                    'videoquality',
-                    '__end'
-                ],
+                toolbarButtons: toolbarButtons,
             },
             
         };
@@ -90,8 +93,8 @@ odoo.define("communication_center_jitsi.metting_settings.js", function (require)
             if (parent.data("lobby_with_knocking") == "True"){
                 jitsi_button_lobby.each (function(){
                     this.innerText="Lobby on!";
-                    $(this).addClass('btn-primary');
-                    $(this).removeClass('btn-danger');
+                    $(this).addClass('btn-success');
+                    $(this).removeClass('btn-primary');
                 });
                 api.addEventListener('participantRoleChanged', function (event) {
                     console.log("participantRoleChanged", event);
@@ -108,16 +111,16 @@ odoo.define("communication_center_jitsi.metting_settings.js", function (require)
                     Lobby_on = false
                     jitsi_button_lobby.each (function (){
                         this.innerText ="Lobby off!";
-                        $(this).addClass('btn-danger');
-                        $(this).removeClass('btn-primary');
+                        $(this).addClass('btn-primary');
+                        $(this).removeClass('btn-success');
                     });
                 } else if (Lobby_on === false) {
                     api.executeCommand('toggleLobby', true)
                     Lobby_on = true
                     jitsi_button_lobby.each (function(){
                         this.innerText="Lobby on!";
-                        $(this).addClass('btn-primary');
-                        $(this).removeClass('btn-danger');
+                        $(this).addClass('btn-success');
+                        $(this).removeClass('btn-primary');
                     });
                 }
             });
@@ -137,8 +140,8 @@ odoo.define("communication_center_jitsi.metting_settings.js", function (require)
                 })
                 jitsi_button_rec.each (function(){
                     this.innerText="Stop Recording!";
-                    $(this).addClass('btn-danger');
-                    $(this).removeClass('btn-primary');
+                    $(this).addClass('btn-primary');
+                    $(this).removeClass('btn-success');
                     Rec_on = true;
             })
             };
@@ -151,8 +154,8 @@ odoo.define("communication_center_jitsi.metting_settings.js", function (require)
                         mode: 'file'})
                         jitsi_button_rec.each (function(){
                             this.innerText="Stop Recording!";
-                            $(this).addClass('btn-danger');
-                            $(this).removeClass('btn-primary');
+                            $(this).addClass('btn-primary');
+                            $(this).removeClass('btn-success');
                     })
                 }
                 else if (Rec_on === true){
@@ -160,10 +163,15 @@ odoo.define("communication_center_jitsi.metting_settings.js", function (require)
                     api.executeCommand('stopRecording', true)
                     jitsi_button_rec.each (function(){
                         this.innerText="Start Recording!";
-                        $(this).addClass('btn-primary');
-                        $(this).removeClass('btn-danger');
+                        $(this).addClass('btn-success');
+                        $(this).removeClass('btn-primary');
                 })
                 }
+                else if (parent.data("no_recording") == "True"){
+                    jitsi_button_rec.each (function(){
+                        $(this).addClass(disabled);
+                })
+            }
             });
 
             var jitsi_button_room = $(".jitsi_button_room");
