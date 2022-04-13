@@ -43,8 +43,8 @@
                                 <field name="lobby_with_name" widget="boolean_toggle"/>
                                 <field name="lobby_with_let_in" widget="boolean_toggle"/>
                                 <!-- <field name="link_for_participants"/>
-                                <field name="link_for_moderator"/>
-                                <field name="no_recording" widget="boolean_toggle"/-->
+                                <field name="link_for_moderator"/-->
+                                <field name="no_recording" widget="boolean_toggle"/>
                                 <field name="start_recording" widget="boolean_toggle"/>
                                 <!--field name="rooms_creation"/> -->
                         </group>

@@ -10,7 +10,8 @@
                 t-att-data-microphone_off="event.microphone_off"
                 t-att-data-webcam_off="event.webcam_off"
                 t-att-data-lobby_with_name="event.lobby_with_name"
-                t-att-data-start_recording="event.start_recording">
+                t-att-data-start_recording="event.start_recording"
+                t-att-data-no_recording="event.no_recording">
                 <div class="btn_holder">
                     <a class="btn btn-primary jitsi_button">Click me!</a>
                     <a class="btn btn-danger jitsi_button_lobby">Lobby off!</a>

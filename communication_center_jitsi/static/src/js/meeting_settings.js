@@ -21,6 +21,12 @@ odoo.define("communication_center_jitsi.metting_settings.js", function (require)
 
         let unicId = parent.data("link_suffix");
 
+        let noRecFalse
+        if (parent.data("no_recording") == "False"){
+            noRecFalse = 'recording'}
+        else if (parent.data("no_recording") == "True"){
+            noRecFalse = '' };
+
         const options = {
             roomName: unicId,
             width: 1500,
@@ -32,6 +38,40 @@ odoo.define("communication_center_jitsi.metting_settings.js", function (require)
                 prejoinPageEnabled: parent.data("lobby_with_name") == "True",
                 startWithAudioMuted: parent.data("microphone_off") == "True", 
                 startWithVideoMuted: parent.data("webcam_off") == "True",
+                toolbarButtons: parent.data("no_recording") == "True"[
+                    'camera',
+                    'chat',
+                    'closedcaptions',
+                    'desktop',
+                    'download',
+                    'embedmeeting',
+                    'etherpad',
+                    'feedback',
+                    'filmstrip',
+                    'fullscreen',
+                    'hangup',
+                    'help',
+                    'highlight',
+                    'invite',
+                    'linktosalesforce',
+                    'microphone',
+                    'mute-everyone',
+                    'mute-video-everyone',
+                    'participants-pane',
+                    'profile',
+                    'raisehand',
+                    'security',
+                    'select-background',
+                    'settings',
+                    'shareaudio',
+                    'sharedvideo',
+                    'shortcuts',
+                    'stats',
+                    'tileview',
+                    'toggle-camera',
+                    'videoquality',
+                    '__end'
+                ],
             },
             
         };
