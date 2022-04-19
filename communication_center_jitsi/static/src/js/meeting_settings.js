@@ -1,9 +1,6 @@
 odoo.define("communication_center_jitsi.metting_settings.js", function (require) {
     "use strict";
 
-    const rpc = require("web.rpc");
-
-
     $('document').ready(function (event) {
         
         var div = document.createElement("div");
@@ -61,7 +58,6 @@ odoo.define("communication_center_jitsi.metting_settings.js", function (require)
             toolbarButtons.splice(toolbarButtons.indexOf('livestreaming'),1);
             toolbarButtons.splice(toolbarButtons.indexOf('recording'),1);
         };
-        console.log(toolbarButtons);
 
         const options = {
             roomName: unicId,
@@ -76,7 +72,6 @@ odoo.define("communication_center_jitsi.metting_settings.js", function (require)
                 startWithVideoMuted: parent.data("webcam_off") == "True",
                 toolbarButtons: toolbarButtons,
             },
-            
         };
 
             let api = new JitsiMeetExternalAPI(domain, options);
