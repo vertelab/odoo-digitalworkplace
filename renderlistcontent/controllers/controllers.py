@@ -4,6 +4,8 @@ import urllib.request
 from html.parser import HTMLParser
 
 from odoo import http
+import logging
+_logger = logging.getLogger(__name__)
 
 class MyHTMLParser(HTMLParser):
     found_title = False
@@ -52,6 +54,8 @@ class MyHTMLParser(HTMLParser):
 class RenderListContent(http.Controller):
     @http.route('/render/<string:url>', auth='public')
     def content(self, url):
+        _logger.warning(f"{url}")
+        _logger.warning(f"{self}")
         fp = urllib.request.urlopen('https://' + url)
         
         mybytes = fp.read()
