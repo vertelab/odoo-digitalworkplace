@@ -36,13 +36,6 @@ class Channel(models.Model):
         partner_infos = self.partner_info(all_partners, direct_partners)
         channel_last_message_ids = dict((r['id'], r['message_id']) for r in self._channel_last_message_ids())
 
-        # print(all_partners)
-        # print(direct_channel_partners)
-        # print(direct_partners)
-        print(partner_infos)
-        print(type(partner_infos))
-        print([partners for partners in partner_infos.values()])
-
         for channel in self:
             info = {
                 'id': channel.id,
