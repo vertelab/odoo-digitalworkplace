@@ -19,6 +19,10 @@
                                 <div class="row mt16">
                                     <label for="jitsi_url" string="Jitsi URL" class="col-lg-3 o_light_label"/>
                                     <field name="jitsi_url"/>
+                                    <label for="jitsi_app_id" string="Jitsi App ID" class="col-lg-3 o_light_label"/>
+                                    <field name="jitsi_app_id"/>
+                                    <label for="jwt_secret" string="JWT secret" class="col-lg-3 o-light_label"/>
+                                    <field name="jwt_secret"/>
                                 </div>
                             </div>
                         </div>
@@ -38,6 +42,7 @@
                     <page name="video_meeting" string ="Video Meeting" attrs="{'invisible': [('video_meeting_checkbox', '!=', True)]}">
                         <group col="3">
                                 <field name="room_name" id="room_name_id"/>
+                                <field name="jwt_validation" widget="boolean_toggle"/>
                                 <field name="microphone_off" widget="boolean_toggle"/>
                                 <field name="webcam_off" widget="boolean_toggle"/>
                                 <field name="lobby_with_name" widget="boolean_toggle"/>

@@ -8,6 +8,7 @@ _logger = logging.getLogger(__name__)
 
 class JitsiController(http.Controller):
     _inherit ="jitsi.controller"
+    
 
 
     @http.route(['/video_meeting/<string:link_suffix>'], type="http", auth='public', website=True)
@@ -20,8 +21,6 @@ class JitsiController(http.Controller):
         event = request.env["calendar.event"].sudo().search([('link_suffix', '=', link_suffix)])
         _logger.warning(f'event, {event}')
         fields = event.fields_get()
-        for key in sorted(fields.keys()):
-            _logger.error(f'event.{key}:{event[key]}')
         return event
 
     def _create_jitsi_link(self, link_suffix):

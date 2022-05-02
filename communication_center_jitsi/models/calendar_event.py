@@ -1,5 +1,6 @@
 from distutils.command.clean import clean
 import json
+import jwt
 import logging
 import random
 import string
@@ -15,9 +16,11 @@ class Meeting(models.Model):
     _inherit = 'calendar.event'
 
     url_link = fields.Char(string="Url")
+    jwt_token = fields.Text(string="JWT Token", default="", compute="_getJWTtoken")
+    jwt_validation = fields.Boolean(string="Toggle JWT validation")
     microphone_off = fields.Boolean(string="Microphone off")
     webcam_off = fields.Boolean(string="Webcam off")
-    lobby_with_name = fields.Boolean( string="Start a lobby, name is required")
+    lobby_with_name = fields.Boolean(string="Start a lobby, name is required")
     lobby_with_let_in = fields.Boolean(string="Start a lobby, with name and knocking to get in")
     link_for_participants = fields.Boolean(string="Link for participants")
     link_for_moderator = fields.Boolean(string="Link for moderator")
@@ -40,6 +43,27 @@ class Meeting(models.Model):
     def create_controller_link(self, link_suffix):
         web_name = self.env['ir.config_parameter'].get_param('web.base.url')
         return f'{web_name}/video_meeting/{link_suffix}'
+
+
+    @api.onchange("jwt_validation")
+    def _getJWTtoken(self):
+        secret = self.env['ir.config_parameter'].get_param('jwt_secret');
+        app_id = self.env['ir.config_parameter'].get_param('jitsi_app_id');
+        domain = self.env['ir.config_parameter'].get_param('jitsi_url');
+
+        if self.jwt_validation and secret and app_id and domain:
+            token = jwt.encode({
+                "aud": "jitsi",
+                "iss": app_id,
+                "sub": domain,
+                "room": "*",
+                "exp": 1653498815
+            }, secret)
+            self.jwt_token = token.decode('utf-8')
+        elif self.jwt_validation == False and secret and app_id and domain:
+            self.jwt_token = ""
+        else:
+            raise UserError(_("Please configure your jitsi_url, jitsi_app_id, and jwt_secret in Settings -> Calendar."))
 
 
     @api.model
