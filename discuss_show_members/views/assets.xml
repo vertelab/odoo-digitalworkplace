@@ -4,6 +4,7 @@
         <template id="assets_backend" name="mail assets" inherit_id="web.assets_backend">
             <xpath expr="." position="inside">
                 <link rel="stylesheet" type="text/scss" href="/discuss_show_members/static/src/scss/style.scss"/>
+                <script type="text/javascript" src="/discuss_show_members/static/src/components/discuss_sidebar_item/discuss_sidebar_item.js"/>
             </xpath>
         </template>
     </data>

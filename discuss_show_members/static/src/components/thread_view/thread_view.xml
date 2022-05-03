@@ -10,7 +10,7 @@
                                 <tr role="row group" class="odd">
                                     <td>
                                         <a class="route d-flex" style="justify-content: flex-end;">
-                                            <t t-as="member" t-foreach="threadView.thread.members">
+                                            <t t-as="member" t-foreach="threadView.thread.members" t-key="member.id">
                                                 <div t-att-title="member.name" class="rounded-circle default-avatar member-overlap-item o_media_object rounded-circle" t-att-style="'background: url(\'/web/image/res.partner/' + member.id + '/image_1024/\') 0 0 no-repeat; background-size: cover;'"/>
                                             </t>
                                         </a>
