@@ -14,7 +14,6 @@
                 t-att-data-start_recording="event.start_recording"
                 t-att-data-no_recording="event.no_recording">
                 <div class="btn_holder">
-                    <a class="btn btn-success jitsi_button">Click me!</a>
                     <a class="btn btn-primary jitsi_button_lobby">Lobby off!</a>
                     <a class="btn btn-success jitsi_button_rec" id="rec_btn">Start Recording!</a> 
                     <a class="btn btn-success jitsi_button_room">Create Room!</a>
