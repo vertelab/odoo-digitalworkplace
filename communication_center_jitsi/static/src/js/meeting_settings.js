@@ -15,6 +15,7 @@ odoo.define("communication_center_jitsi.metting_settings.js", function (require)
         let Rec_on = false;
 
         const domain = parent.data("jitsi");
+        const jwt_token = parent.data("jwt");
 
         let unicId = parent.data("link_suffix");
         let toolbarButtons = [
@@ -59,11 +60,15 @@ odoo.define("communication_center_jitsi.metting_settings.js", function (require)
             toolbarButtons.splice(toolbarButtons.indexOf('recording'),1);
         };
 
+
+        //DO JWT SECURITY STUFF
+
         const options = {
             roomName: unicId,
             width: 1500,
             height: 700,
             parentNode: div,
+            jwt: jwt_token,
             configOverwrite: 
             { 
                 requireDisplayName: parent.data("lobby_with_name") == "True",
@@ -75,6 +80,9 @@ odoo.define("communication_center_jitsi.metting_settings.js", function (require)
         };
 
             let api = new JitsiMeetExternalAPI(domain, options);
+
+            // Removes the lingering jwt token from the dom tree.
+            parent[0].removeAttribute('data-jwt')
 
             let roomSubject = " "
             if (parent.data("room_subject") == undefined){

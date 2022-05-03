@@ -1,3 +1,4 @@
+from datetime import timedelta
 from distutils.command.clean import clean
 import json
 import jwt
@@ -35,7 +36,6 @@ class Meeting(models.Model):
     def link_to_controller(self):
         if not self.link_suffix:
             self.link_suffix = ''.join(random.choices(string.ascii_letters, k=10)).lower()
-            self.link_suffix
         if not self.video_meeting_checkbox:
             self.controller_link = self.create_controller_link(self.link_suffix)
 
@@ -50,14 +50,14 @@ class Meeting(models.Model):
         secret = self.env['ir.config_parameter'].get_param('jwt_secret');
         app_id = self.env['ir.config_parameter'].get_param('jitsi_app_id');
         domain = self.env['ir.config_parameter'].get_param('jitsi_url');
-
+        expiary = self.start + timedelta(days=1);
         if self.jwt_validation and secret and app_id and domain:
             token = jwt.encode({
                 "aud": "jitsi",
                 "iss": app_id,
                 "sub": domain,
                 "room": "*",
-                "exp": 1653498815
+                "exp": int(expiary.strftime('%s'))
             }, secret)
             self.jwt_token = token.decode('utf-8')
         elif self.jwt_validation == False and secret and app_id and domain:
