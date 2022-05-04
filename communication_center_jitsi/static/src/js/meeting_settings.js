@@ -8,14 +8,28 @@ odoo.define("communication_center_jitsi.metting_settings.js", function (require)
         var parent = $('#jitsi_meeting_placeholder');
         if (parent.length === 1){
             parent.append(div);
-            console.log("parent.append(div);");
         }
 
-        let Lobby_on = false;
         let Rec_on = false;
 
         const domain = parent.data("jitsi");
         const jwt_token = parent.data("jwt");
+        const lobby_with_knocking = parent.data('lobby_with_knocking')
+        const lobby_with_name = parent.data('lobby_with_name')
+
+        let checkLobby = (lobby_with_knocking, lobby_with_name) => {
+            if (lobby_with_knocking && lobby_with_name) {
+                return true
+            } else if (lobby_with_knocking || lobby_with_name ) {
+                return true
+            } else {
+                return false
+            }
+        }
+
+        //Check if there is a lobby.
+        let Lobby_on
+        Lobby_on = checkLobby(lobby_with_knocking, lobby_with_name);
 
         let unicId = parent.data("link_suffix");
         let toolbarButtons = [
@@ -82,7 +96,10 @@ odoo.define("communication_center_jitsi.metting_settings.js", function (require)
             let api = new JitsiMeetExternalAPI(domain, options);
 
             // Removes the lingering jwt token from the dom tree.
-            parent[0].removeAttribute('data-jwt')
+            if (parent[0].attributes['data-jwt'])
+            {
+                parent[0].removeAttribute('data-jwt')
+            }
 
             let roomSubject = " "
             if (parent.data("room_subject") == undefined){
@@ -93,6 +110,7 @@ odoo.define("communication_center_jitsi.metting_settings.js", function (require)
             api.executeCommand('subject', roomSubject);
             
             var jitsi_button_lobby = $(".jitsi_button_lobby");
+
             if (parent.data("lobby_with_knocking") == "True"){
                 jitsi_button_lobby.each (function(){
                     this.innerText="Lobby on!";

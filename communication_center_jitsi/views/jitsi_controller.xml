@@ -7,14 +7,19 @@
                 t-att-data-jwt="event.jwt_token"
                 t-att-data-room_subject="event.room_name"
                 t-att-data-lobby_with_knocking="event.lobby_with_let_in"
+                t-att-data-lobby_with_name="event.lobby_with_name"
                 t-att-data-link_suffix="event.link_suffix"
                 t-att-data-microphone_off="event.microphone_off"
                 t-att-data-webcam_off="event.webcam_off"
-                t-att-data-lobby_with_name="event.lobby_with_name"
                 t-att-data-start_recording="event.start_recording"
                 t-att-data-no_recording="event.no_recording">
                 <div class="btn_holder">
-                    <a class="btn btn-primary jitsi_button_lobby">Lobby off!</a>
+                    <t t-if="event.lobby_with_let_in or event.lobby_with_name">
+                        <a class="btn btn-success jitsi_button_lobby">Lobby on!</a>
+                    </t>
+                    <t t-else="">
+                        <a class="btn btn-primary jitsi_button_lobby">Lobby off!</a>
+                    </t>
                     <a class="btn btn-success jitsi_button_rec" id="rec_btn">Start Recording!</a> 
                     <a class="btn btn-success jitsi_button_room">Create Room!</a>
                 </div>
