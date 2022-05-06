@@ -19,7 +19,6 @@
         'views/assets.xml',
     ],
     'qweb': [
-        'static/src/components/discuss_sidebar_item/discuss_sidebar_item.xml',
         'static/src/components/thread_view/thread_view.xml',
     ],
     'installable': True,
