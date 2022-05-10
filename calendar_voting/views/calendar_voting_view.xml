@@ -1,0 +1,17 @@
+<odoo>
+    <data>
+        <record id="calendar_voting_checkbox" model="ir.ui.view">
+            <field name="name">calendar.event.form</field>
+            <field name="model">calendar.event</field>
+            <field name="inherit_id" ref="calendar.view_calendar_event_form"></field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='recurrency']" position="after">
+                    <field name="voting_checkbox"></field>
+                    <div attrs="{'invisible': [('voting_checkbox', '=', False)]}">
+                        <button name="action_sendmail" type="object" string="Send mail" icon="fa-envelope" class="oe_link"/>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
