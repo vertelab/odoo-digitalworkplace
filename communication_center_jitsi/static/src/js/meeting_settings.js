@@ -198,7 +198,7 @@ odoo.define("communication_center_jitsi.metting_settings.js", function (require)
             var jitsi_button_room = $(".jitsi_button_room");
             jitsi_button_room.on("click", function(){
                 api.executeCommand('addBreakoutRoom',
-                    name,)
+                api.executeCommand('addBreakoutRoom', 'room')
             });
         console.log("event", event);
     });
