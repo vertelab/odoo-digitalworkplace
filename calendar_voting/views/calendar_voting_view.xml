@@ -1,17 +1,54 @@
 <odoo>
     <data>
+       
         <record id="calendar_voting_checkbox" model="ir.ui.view">
             <field name="name">calendar.event.form</field>
             <field name="model">calendar.event</field>
             <field name="inherit_id" ref="calendar.view_calendar_event_form"></field>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='recurrency']" position="after">
-                    <field name="voting_checkbox"></field>
+                    <field name="voting_checkbox" invisible="0"></field>
+                </xpath>
+                <xpath expr="//page[@name='page_options']" position="inside">
+
                     <div attrs="{'invisible': [('voting_checkbox', '=', False)]}">
                         <button name="action_sendmail" type="object" string="Send mail" icon="fa-envelope" class="oe_link"/>
+                        <field name="attendee_ids" widget="one2many" mode="tree,kanban" readonly="1">
+                            <tree string="Invitation details" editable="top" create="false" delete="false">
+                                <field name="partner_id" />
+                                <field name="state" />
+                                <field name="email" widget="email"/>
+
+                                <button name="do_tentative" states="needsAction,declined,accepted" string="Uncertain" type="object" icon="fa-asterisk" />
+                                <button name="do_accept" string="Accept" states="needsAction,tentative,declined" type="object" icon="fa-check text-success"/>
+                                <button name="do_decline" string="Decline" states="needsAction,tentative,accepted" type="object" icon="fa-times-circle text-danger"/>
+                            </tree>
+                            <kanban class="o_kanban_mobile" create="false" delete="false">
+                                <field name="partner_id" />
+                                <field name="state" />
+                                <field name="email" widget="email"/>
+
+                                <templates>
+                                    <t t-name="kanban-box">
+                                        <div class="d-flex flex-column justify-content-between">
+                                            <field name="partner_id"/>
+                                            <field name="email" widget="email"/>
+                                            <span>Status: <field name="state" /></span>
+
+                                            <div class="text-right">
+                                                <button name="do_tentative" states="needsAction,declined,accepted" string="Uncertain" type="object" class="btn fa fa-asterisk"/>
+                                                <button name="do_accept" states="needsAction,tentative,declined" string="Accept" type="object" class="btn fa fa-check text-success"/>
+                                                <button name="do_decline" states="needsAction,tentative,accepted" string="Decline" type="object" class="btn fa fa-times-circle text-danger"/>
+                                            </div>
+                                        </div>
+                                    </t>
+                                </templates>
+                            </kanban>
+                        </field>
                     </div>
                 </xpath>
             </field>
         </record>
+
     </data>
 </odoo>
