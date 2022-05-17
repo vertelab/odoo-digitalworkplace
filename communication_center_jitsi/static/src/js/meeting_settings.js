@@ -1,206 +1,213 @@
 odoo.define("communication_center_jitsi.metting_settings.js", function (require) {
     "use strict";
 
-    $('document').ready(function (event) {
-        
-        var div = document.createElement("div");
-        div.id="center_meeting";
-        var parent = $('#jitsi_meeting_placeholder');
-        if (parent.length === 1){
-            parent.append(div);
-        }
-
-        let Rec_on = false;
-
-        const domain = parent.data("jitsi");
-        const jwt_token = parent.data("jwt");
-        const lobby_with_knocking = parent.data('lobby_with_knocking')
-        const lobby_with_name = parent.data('lobby_with_name')
-
-        let checkLobby = (lobby_with_knocking, lobby_with_name) => {
+    var publicWidget = require('web.public.widget')
+    publicWidget.registry.jitsiMeetSettingsButtons = publicWidget.Widget.extend({
+        selector: '#jitsi_meeting_placeholder',
+        read_events: {
+            'click .jitsi_button_lobby': '_toggle_lobby',
+            'click .jitsi_button_rec': '_toggle_record',
+            'click .jitsi_button_room': '_toggle_room',
+        },
+        check_lobby: function (lobby_with_knocking, lobby_with_name) {
             if (lobby_with_knocking && lobby_with_name) {
                 return true
-            } else if (lobby_with_knocking || lobby_with_name ) {
+            } else if (lobby_with_knocking || lobby_with_name) {
                 return true
             } else {
                 return false
             }
-        }
+        },
+        //--------------------------------------------------------------------------
+        // Lifetime Methods
+        //--------------------------------------------------------------------------
 
-        //Check if there is a lobby.
-        let Lobby_on
-        Lobby_on = checkLobby(lobby_with_knocking, lobby_with_name);
+        /**
+        * @override
+        */
+        start: function () {
+            var self = this;
+            return this._super.apply(this, arguments).then(function () {
+                console.log("STARTINGGGGGGGG")
 
-        let unicId = parent.data("link_suffix");
-        let toolbarButtons = [
-            'camera',
-            'chat',
-            'closedcaptions',
-            'desktop',
-            'download',
-            'embedmeeting',
-            'etherpad',
-            'feedback',
-            'filmstrip',
-            'fullscreen',
-            'hangup',
-            'help',
-            'highlight',
-            'livestreaming',
-            'recording',
-            'invite',
-            'linktosalesforce',
-            'microphone',
-            'mute-everyone',
-            'mute-video-everyone',
-            'participants-pane',
-            'profile',
-            'raisehand',
-            'security',
-            'select-background',
-            'settings',
-            'shareaudio',
-            'sharedvideo',
-            'shortcuts',
-            'stats',
-            'tileview',
-            'toggle-camera',
-            'videoquality',
-            '__end'
-        ];
-        
-        if (parent.data("no_recording") == "True") {
-            toolbarButtons.splice(toolbarButtons.indexOf('livestreaming'),1);
-            toolbarButtons.splice(toolbarButtons.indexOf('recording'),1);
-        };
-
-
-        //DO JWT SECURITY STUFF
-
-        const options = {
-            roomName: unicId,
-            width: 1500,
-            height: 700,
-            parentNode: div,
-            jwt: jwt_token,
-            configOverwrite: 
-            { 
-                requireDisplayName: parent.data("lobby_with_name") == "True",
-                prejoinPageEnabled: parent.data("lobby_with_name") == "True",
-                startWithAudioMuted: parent.data("microphone_off") == "True", 
-                startWithVideoMuted: parent.data("webcam_off") == "True",
-                toolbarButtons: toolbarButtons,
-            },
-        };
-
-            let api = new JitsiMeetExternalAPI(domain, options);
-
-            // Removes the lingering jwt token from the dom tree.
-            if (parent[0].attributes['data-jwt'])
-            {
-                parent[0].removeAttribute('data-jwt')
-            }
-
-            let roomSubject = " "
-            if (parent.data("room_subject") == undefined){
-                roomSubject = "happy"}
-            else if (parent.data("room_subject") !== ""){
-                roomSubject = parent.data("room_subject")};
-
-            api.executeCommand('subject', roomSubject);
-            
-            var jitsi_button_lobby = $(".jitsi_button_lobby");
-
-            if (parent.data("lobby_with_knocking") == "True"){
-                jitsi_button_lobby.each (function(){
-                    this.innerText="Lobby on!";
-                    $(this).addClass('btn-success');
-                    $(this).removeClass('btn-primary');
-                });
-                api.addEventListener('participantRoleChanged', function (event) {
-                    console.log("participantRoleChanged", event);
-                    if (event.role === 'moderator') {
-                        api.executeCommand('toggleLobby', true)
-                        Lobby_on = true;
-                    }
-                })};
-
-            jitsi_button_lobby.on("click", function (){
-                console.log()
-                if (Lobby_on === true) {
-                    api.executeCommand('toggleLobby', false)
-                    Lobby_on = false
-                    jitsi_button_lobby.each (function (){
-                        this.innerText ="Lobby off!";
-                        $(this).addClass('btn-primary');
-                        $(this).removeClass('btn-success');
-                    });
-                } else if (Lobby_on === false) {
-                    api.executeCommand('toggleLobby', true)
-                    Lobby_on = true
-                    jitsi_button_lobby.each (function(){
-                        this.innerText="Lobby on!";
-                        $(this).addClass('btn-success');
-                        $(this).removeClass('btn-primary');
-                    });
+                const parent = $('#jitsi_meeting_placeholder');
+                var div = document.createElement("div");
+                div.id = "center_meeting";
+                if (parent.length === 1) {
+                    parent.append(div);
                 }
-            });
+                const domain = parent.data("jitsi");
+                const jwt_token = parent.data("jwt");
+                const lobby_with_knocking = parent.data('lobby_with_knocking');
+                const lobby_with_name = parent.data('lobby_with_name');
+                const unicId = parent.data("link_suffix");
 
-            var jitsi_button = $(".jitsi_button");
-            jitsi_button.innerText="Hello?"
-            jitsi_button.on("click", function (){
-                api.executeCommand('toggleRaiseHand');
-                console.log('api', api);
-            });
+                //Check if there is a lobby.
+                self.no_recording = parent.data('no_recording');
+                self.Lobby_on = self.check_lobby(lobby_with_knocking, lobby_with_name);
+                self.Toggle_recording = false;
 
-            var jitsi_button_rec = $(".jitsi_button_rec");
-            if (parent.data("start_recording") == "True"){
-                console.log("REC");
-                api.executeCommand('startRecording',{
+                let toolbarButtons = [
+                    'camera',
+                    'chat',
+                    'closedcaptions',
+                    'desktop',
+                    'download',
+                    'embedmeeting',
+                    'etherpad',
+                    'feedback',
+                    'filmstrip',
+                    'fullscreen',
+                    'hangup',
+                    'help',
+                    'highlight',
+                    'livestreaming',
+                    'recording',
+                    'invite',
+                    'linktosalesforce',
+                    'microphone',
+                    'mute-everyone',
+                    'mute-video-everyone',
+                    'participants-pane',
+                    'profile',
+                    'raisehand',
+                    'security',
+                    'select-background',
+                    'settings',
+                    'shareaudio',
+                    'sharedvideo',
+                    'shortcuts',
+                    'stats',
+                    'tileview',
+                    'toggle-camera',
+                    'videoquality',
+                    '__end'
+                ];
+
+                if (self.no_recording) {
+                    toolbarButtons.splice(toolbarButtons.indexOf('livestreaming'), 1);
+                    toolbarButtons.splice(toolbarButtons.indexOf('recording'), 1);
+                };
+
+                const options = {
+                    roomName: unicId,
+                    width: 1500,
+                    height: 700,
+                    parentNode: div,
+                    jwt: jwt_token,
+                    configOverwrite:
+                    {
+                        requireDisplayName: parent.data("lobby_with_name") == "True",
+                        prejoinPageEnabled: parent.data("lobby_with_name") == "True",
+                        startWithAudioMuted: parent.data("microphone_off") == "True",
+                        startWithVideoMuted: parent.data("webcam_off") == "True",
+                        toolbarButtons: toolbarButtons,
+                    },
+                };
+
+                self.api = new JitsiMeetExternalAPI(domain, options);
+
+                self._render_buttons(self.api);
+
+                // Removes the lingering jwt token from the dom tree.
+                if (parent[0].attributes['data-jwt']) {
+                    parent[0].removeAttribute('data-jwt')
+                }
+
+                console.log("DONEEEEEE")
+                // if (parent.data("start_recording") == "True") {
+                //     console.log("REC");
+                //     api.executeCommand('startRecording', {
+                //         mode: 'file'
+                //     })
+                //     jitsi_button_rec.each(function () {
+                //         this.innerText = "Stop Recording!";
+                //         $(this).addClass('btn-primary');
+                //         $(this).removeClass('btn-success');
+                //         Toggle_recording = true;
+                //     })
+                // };
+
+                // if (parent.data("lobby_with_knocking") == "True") {
+                //     jitsi_button_lobby.each(function () {
+                //         this.innerText = "Lobby on!";
+                //         $(this).addClass('btn-success');
+                //         $(this).removeClass('btn-primary');
+                //     });
+                //     api.addEventListener('participantRoleChanged', function (event) {
+                //         console.log("participantRoleChanged", event);
+                //         if (event.role === 'moderator') {
+                //             api.executeCommand('toggleLobby', true)
+                //             Lobby_on = true;
+                //         }
+                //     })
+                // };
+            });
+        },
+        //--------------------------------------------------------------------------
+        // Private Methods
+        //--------------------------------------------------------------------------
+        _render_buttons: function (e) {
+            let menu_html = "<div class='btn_holder'>"
+                + "   <a class='btn btn-success jitsi_button_lobby'>Lobby on!</a>"
+                + ( !this.no_recording ?  "   <a class='btn btn-success jitsi_button_rec' id='rec_btn'>Start Recording!</a>" : "" )
+                + "   <a class='btn btn-success jitsi_button_room'>Create Room!</a>"
+                + "</div>"
+
+            this.api.addEventListener('participantRoleChanged', function (event) {
+                console.log("participantRoleChanged", event);
+                if (event.role === 'moderator') {
+                    $('#center_meeting').append(menu_html)
+                }
+            })
+        },
+
+        _toggle_lobby: function (e) {
+            console.log("TOGGLE LOBBY");
+            let button = $(e.target)
+            if (self.Lobby_on) {
+                this.api.executeCommand('toggleLobby', false)
+                self.Lobby_on = false
+
+                button.text('Lobby off!');
+                button.addClass('btn-primary');
+                button.removeClass('btn-success');
+            } else {
+                this.api.executeCommand('toggleLobby', true)
+                self.Lobby_on = true
+
+                button.text('Lobby on!');
+                button.addClass('btn-success');
+                button.removeClass('btn-primary');
+            }
+        },
+
+        _toggle_record: function (e) {
+            let button = $(e.target)
+            if (!this.Toggle_recording) {
+                this.Toggle_recording = true;
+                this.api.executeCommand('startRecording', {
                     mode: 'file'
                 })
-                jitsi_button_rec.each (function(){
-                    this.innerText="Stop Recording!";
-                    $(this).addClass('btn-primary');
-                    $(this).removeClass('btn-success');
-                    Rec_on = true;
-            })
-            };
-
-            jitsi_button_rec.on("click", function (){
-                console.log("REC");
-                if (Rec_on === false){
-                    Rec_on = true;
-                    api.executeCommand('startRecording',{
-                        mode: 'file'})
-                        jitsi_button_rec.each (function(){
-                            this.innerText="Stop Recording!";
-                            $(this).addClass('btn-primary');
-                            $(this).removeClass('btn-success');
-                    })
-                }
-                else if (Rec_on === true){
-                    Rec_on = false;
-                    api.executeCommand('stopRecording', true)
-                    jitsi_button_rec.each (function(){
-                        this.innerText="Start Recording!";
-                        $(this).addClass('btn-success');
-                        $(this).removeClass('btn-primary');
-                })
-                }
-                else if (parent.data("no_recording") == "True"){
-                    jitsi_button_rec.each (function(){
-                        $(this).addClass(disabled);
-                })
+                button.text('Stop Recording!');
+                button.addClass('btn-primary');
+                button.removeClass('btn-success');
             }
-            });
+            else if (this.Toggle_recording) {
+                this.Toggle_recording = false;
+                this.api.executeCommand('stopRecording', {
+                    mode: 'file'
+                })
+                button.text('Start Recording!');
+                button.addClass('btn-success');
+                button.removeClass('btn-primary');
+            }
+        },
 
-            var jitsi_button_room = $(".jitsi_button_room");
-            jitsi_button_room.on("click", function(){
-                api.executeCommand('addBreakoutRoom',
-                api.executeCommand('addBreakoutRoom', 'room')
-            });
-        console.log("event", event);
-    });
+        _toggle_room: function () {
+            console.log(this.api.getParticipantsInfo())
+            this.api.executeCommand('addBreakoutRoom', 'room')
+        }
+    })
 });
 

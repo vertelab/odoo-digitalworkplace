@@ -13,17 +13,7 @@
                 t-att-data-webcam_off="event.webcam_off"
                 t-att-data-start_recording="event.start_recording"
                 t-att-data-no_recording="event.no_recording">
-                <div class="btn_holder">
-                    <t t-if="event.lobby_with_let_in or event.lobby_with_name">
-                        <a class="btn btn-success jitsi_button_lobby">Lobby on!</a>
-                    </t>
-                    <t t-else="">
-                        <a class="btn btn-primary jitsi_button_lobby">Lobby off!</a>
-                    </t>
-                    <a class="btn btn-success jitsi_button_rec" id="rec_btn">Start Recording!</a> 
-                    <a class="btn btn-success jitsi_button_room">Create Room!</a>
-                </div>
-        </div>
+            </div>
         </t>
     </template>
 </odoo>
