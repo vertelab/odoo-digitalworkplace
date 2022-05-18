@@ -7,6 +7,7 @@
     # any module necessary for this one to work correctly
     'depends': ['base', 'calendar'],
     'data': [
+        'security/ir.model.access.csv',
         'views/calendar_voting_view.xml',
     ]
 }
