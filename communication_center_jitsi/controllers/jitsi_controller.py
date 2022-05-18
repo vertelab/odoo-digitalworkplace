@@ -7,9 +7,12 @@ import logging, string, random
 _logger = logging.getLogger(__name__)
 
 class JitsiController(http.Controller):
-    _inherit ="jitsi.controller"
     
-
+    @http.route(['/video_meeting/<string:link_suffix>/toggle_lobby'], type="json", auth='public')
+    def toggle_lobby(self, link_suffix, lobby_status, **kw):
+        event = self._get_event(link_suffix)
+        event.lobby_with_let_in = lobby_status
+        event.lobby_with_name = lobby_status
 
     @http.route(['/video_meeting/<string:link_suffix>'], type="http", auth='public', website=True)
     def meeting(self, link_suffix, **kw):

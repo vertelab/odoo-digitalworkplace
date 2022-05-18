@@ -10,11 +10,15 @@
 }
 
 .btn_holder {
+    pointer-events: none;
     position: fixed;
     display: flex;
-    justify-self: center;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
 }
 
 .btn_holder>a {
+    pointer-events: all;
     margin: 15px;
 }

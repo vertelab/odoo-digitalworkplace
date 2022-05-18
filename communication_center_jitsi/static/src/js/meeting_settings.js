@@ -1,6 +1,7 @@
 odoo.define("communication_center_jitsi.metting_settings.js", function (require) {
     "use strict";
 
+    var ajax = require('web.ajax')
     var publicWidget = require('web.public.widget')
     publicWidget.registry.jitsiMeetSettingsButtons = publicWidget.Widget.extend({
         selector: '#jitsi_meeting_placeholder',
@@ -28,8 +29,6 @@ odoo.define("communication_center_jitsi.metting_settings.js", function (require)
         start: function () {
             var self = this;
             return this._super.apply(this, arguments).then(function () {
-                console.log("STARTINGGGGGGGG")
-
                 const parent = $('#jitsi_meeting_placeholder');
                 var div = document.createElement("div");
                 div.id = "center_meeting";
@@ -40,9 +39,10 @@ odoo.define("communication_center_jitsi.metting_settings.js", function (require)
                 const jwt_token = parent.data("jwt");
                 const lobby_with_knocking = parent.data('lobby_with_knocking');
                 const lobby_with_name = parent.data('lobby_with_name');
-                const unicId = parent.data("link_suffix");
 
                 //Check if there is a lobby.
+                self.unicId = parent.data("link_suffix");
+                self.rec_on_start = parent.data('start_recording');
                 self.no_recording = parent.data('no_recording');
                 self.Lobby_on = self.check_lobby(lobby_with_knocking, lobby_with_name);
                 self.Toggle_recording = false;
@@ -90,15 +90,23 @@ odoo.define("communication_center_jitsi.metting_settings.js", function (require)
                 };
 
                 const options = {
-                    roomName: unicId,
+                    roomName: self.unicId,
                     width: 1500,
                     height: 700,
                     parentNode: div,
                     jwt: jwt_token,
+                    // onload: function () {
+                    //     if (self.rec_on_start) {
+                    //         self.api.executeCommand('startRecording', {
+                    //             mode: 'file'
+                    //         })
+                    //         self.Toggle_recording = true
+                    //     };
+                    // },
                     configOverwrite:
                     {
-                        requireDisplayName: parent.data("lobby_with_name") == "True",
-                        prejoinPageEnabled: parent.data("lobby_with_name") == "True",
+                        requireDisplayName: self.Lobby_on,
+                        prejoinPageEnabled: self.Lobby_on,
                         startWithAudioMuted: parent.data("microphone_off") == "True",
                         startWithVideoMuted: parent.data("webcam_off") == "True",
                         toolbarButtons: toolbarButtons,
@@ -107,7 +115,7 @@ odoo.define("communication_center_jitsi.metting_settings.js", function (require)
 
                 self.api = new JitsiMeetExternalAPI(domain, options);
 
-                self._render_buttons(self.api);
+                self._render_buttons(self.api, self.rec_on_start);
 
                 // Removes the lingering jwt token from the dom tree.
                 if (parent[0].attributes['data-jwt']) {
@@ -115,70 +123,64 @@ odoo.define("communication_center_jitsi.metting_settings.js", function (require)
                 }
 
                 console.log("DONEEEEEE")
-                // if (parent.data("start_recording") == "True") {
-                //     console.log("REC");
-                //     api.executeCommand('startRecording', {
-                //         mode: 'file'
-                //     })
-                //     jitsi_button_rec.each(function () {
-                //         this.innerText = "Stop Recording!";
-                //         $(this).addClass('btn-primary');
-                //         $(this).removeClass('btn-success');
-                //         Toggle_recording = true;
-                //     })
-                // };
-
-                // if (parent.data("lobby_with_knocking") == "True") {
-                //     jitsi_button_lobby.each(function () {
-                //         this.innerText = "Lobby on!";
-                //         $(this).addClass('btn-success');
-                //         $(this).removeClass('btn-primary');
-                //     });
-                //     api.addEventListener('participantRoleChanged', function (event) {
-                //         console.log("participantRoleChanged", event);
-                //         if (event.role === 'moderator') {
-                //             api.executeCommand('toggleLobby', true)
-                //             Lobby_on = true;
-                //         }
-                //     })
-                // };
             });
         },
         //--------------------------------------------------------------------------
         // Private Methods
         //--------------------------------------------------------------------------
-        _render_buttons: function (e) {
-            let menu_html = "<div class='btn_holder'>"
-                + "   <a class='btn btn-success jitsi_button_lobby'>Lobby on!</a>"
-                + ( !this.no_recording ?  "   <a class='btn btn-success jitsi_button_rec' id='rec_btn'>Start Recording!</a>" : "" )
-                + "   <a class='btn btn-success jitsi_button_room'>Create Room!</a>"
-                + "</div>"
+        _render_buttons: function (api, rec_on_start) {
+            let menu_html = `<div class='btn_holder' style='height:${this.$el.height()}px; width:auto;'>   
+                                <a class='btn ${this.Lobby_on ? 'btn-primary' : 'btn-success'} jitsi_button_lobby'>${this.Lobby_on ? 'Lobby off!' : 'Lobby on!'}</a>
+                                ${this._render_recording(rec_on_start)}   
+                                <a class='btn btn-success jitsi_button_room'>Create Room!</a>
+                             </div>`
 
-            this.api.addEventListener('participantRoleChanged', function (event) {
+            api.addEventListener('participantRoleChanged', function (event) {
                 console.log("participantRoleChanged", event);
                 if (event.role === 'moderator') {
-                    $('#center_meeting').append(menu_html)
+                    api.executeCommand('toggleLobby', true)
+                    this.Lobby_on = true;
+                    if ($('.btn_holder').length <= 0) {
+                        $('#center_meeting').append(menu_html)
+                    }
                 }
             })
         },
-
+        _toggle_server_lobby: function (client_link_suffix, client_lobby_status) {
+            let uri = `/video_meeting/${client_link_suffix}/toggle_lobby`
+            let toggleMenu = ajax.jsonRpc(uri, 'call', {
+                link_suffix: client_link_suffix,
+                lobby_status: client_lobby_status
+            }).then(console.log(`Server Lobby Status: ${client_lobby_status}`))
+        },
+        _render_recording: function (rec_on_start) {
+            if (this.no_recording) {
+                return ""
+            } else if (rec_on_start) {
+                return "   <a class='btn btn-primary jitsi_button_rec' id='rec_btn'>Stop Recording!</a>"
+            } else {
+                return "   <a class='btn btn-success jitsi_button_rec' id='rec_btn'>Start Recording!</a>"
+            }
+        },
         _toggle_lobby: function (e) {
             console.log("TOGGLE LOBBY");
             let button = $(e.target)
-            if (self.Lobby_on) {
+            if (this.Lobby_on) {
                 this.api.executeCommand('toggleLobby', false)
-                self.Lobby_on = false
-
-                button.text('Lobby off!');
-                button.addClass('btn-primary');
-                button.removeClass('btn-success');
-            } else {
-                this.api.executeCommand('toggleLobby', true)
-                self.Lobby_on = true
+                this.Lobby_on = false
+                this._toggle_server_lobby(this.unicId, this.Lobby_on)
 
                 button.text('Lobby on!');
                 button.addClass('btn-success');
                 button.removeClass('btn-primary');
+            } else {
+                this.api.executeCommand('toggleLobby', true)
+                this.Lobby_on = true
+                this._toggle_server_lobby(this.unicId, this.Lobby_on)
+
+                button.text('Lobby off!');
+                button.addClass('btn-primary');
+                button.removeClass('btn-success');
             }
         },
 
