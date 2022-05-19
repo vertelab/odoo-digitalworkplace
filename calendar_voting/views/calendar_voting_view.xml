@@ -1,50 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data>
-       
-        <record id="calendar_voting_checkbox" model="ir.ui.view">
-            <field name="name">calendar.event.form</field>
-            <field name="model">calendar.event</field>
-            <field name="inherit_id" ref="calendar.view_calendar_event_form"></field>
-            <field name="arch" type="xml">
-                <xpath expr="//field[@name='recurrency']" position="after">
-                    <field name="voting_checkbox" invisible="0"></field>
-                </xpath>
-                <xpath expr="//page[@name='page_options']" position="inside">
-                    
-                    <!-- <field name="partisipants_ids" attrs="{'invisible': [('partisipants_ids', '=', False)]}"></field> -->
-                    <div attrs="{'invisible': [('voting_checkbox', '=', False)]}">
-                        <button name="action_sendmail" type="object" string="Send mail" icon="fa-envelope" class="oe_link"/>
-                        <field name="partisipants_ids" mode="tree,kanban">
-                            <tree string="Invitation details" editable="bottom" delete="false">
-                                <field name="Name"/>
-                                <field name="Monday"/>
-                                <field name="Tuesday" />
-                                <field name="Wednesday" />
-                                <field name="Thursday" />
-                                <field name="Friday" />
-                                <!-- <field name="email1" widget="email"/> -->
-                            </tree>
-                            <!-- <kanban class="o_kanban_mobile" create="false" delete="false">
-                                <field name="one" />
-                                <field name="tow" />
-                                <field name="email2" widget="email"/>
-
-                                <templates>
-                                    <t t-name="kanban-box">
-                                        <div > 
-                                            <field name="one"/>
-                                            <field name="email3" widget="email"/>
-                                            <span>Status: <field name="state3" /></span> 
-                                        class="d-flex flex-column justify-content-between"-->
-                                        <!-- </div>
-                                    </t>
-                                </templates>
-                            </kanban>  -->
-                        </field>
-                    </div>
-                </xpath>
-            </field>
-        </record>
-
-    </data>
+    <record id="calendar_voting_checkbox" model="ir.ui.view">
+        <field name="name">calendar.event.form</field>
+        <field name="model">calendar.event</field>
+        <field name="inherit_id" ref="calendar.view_calendar_event_form"></field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='recurrency']" position="after">
+                <field name="voting_checkbox" invisible="0"></field>
+            </xpath>
+            <xpath expr="//page[@name='page_options']" position="inside">
+                <div attrs="{'invisible': [('voting_checkbox', '=', False)]}">
+                    <button name="action_sendmail" type="object" string="Send mail" icon="fa-envelope" class="oe_link"/>
+                    <field name="participant_ids" mode="tree,kanban">
+                        <tree string="Invitation details" editable="bottom" delete="false" create="false">
+                            <field name="name"/>
+                            <field name="monday"/>
+                            <field name="tuesday" />
+                            <field name="wednesday" />
+                            <field name="thursday" />
+                            <field name="friday" />
+                        </tree>
+                    </field>
+                </div>
+            </xpath>
+        </field>
+    </record>
 </odoo>
