@@ -1,3 +1,4 @@
+from calendar import calendar
 from odoo import _, fields, models, api
 import logging
 from odoo.exceptions import UserError
@@ -39,6 +40,7 @@ class CalendarEvent(models.Model):
                 to_be_removed = record.participant_ids.filtered(lambda p: p.partner_id.id in difference)
                 to_be_removed.unlink()
         return res
+
 
 class CalendarVoting(models.Model):
     _name='calendar.voting'
