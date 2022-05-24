@@ -7,6 +7,10 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='recurrency']" position="after">
                 <field name="voting_checkbox" invisible="0"></field>
+                <field name="user_id" readonly="1" attrs="{'invisible': [('voting_checkbox', '=', False)]}" string="Voting admin"></field>
+                <field name="choose_day" attrs="{'invisible': [('voting_checkbox', '=', False)]}"></field>
+                <!-- <button name="choose_day_button" attrs="{'invisible': [('voting_checkbox', '=', False)]}" >Choose this day!</button> -->
+                <field name="choose_this_day" attrs="{'invisible': [('voting_checkbox', '=', False)]}"></field>
             </xpath>
             <xpath expr="//page[@name='page_options']" position="inside">
                 <div attrs="{'invisible': [('voting_checkbox', '=', False)]}">
