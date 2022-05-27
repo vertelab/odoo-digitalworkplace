@@ -27,7 +27,7 @@ class CalendarEvent(models.Model):
     # )
     choose_this_day = fields.Boolean()
     is_voting_admin = fields.Boolean(compute="_compute_voting_off")
-    choose_day_calendar = fields.Datetime()
+    choose_day_calendar = fields.Date()
     showtime = fields.Char(compute="_compute_showtime")
 
     @api.depends("is_voting_admin", "user_id")
@@ -38,10 +38,12 @@ class CalendarEvent(models.Model):
 
     @api.depends("start")
     def _compute_showtime (self):
+        _logger.error(f"{self=}")
         timezone = self._context.get('tz') or self.env.user.partner_id.tz or 'UTC'
         self_tz = self.with_context(tz=timezone)
         for record in self:
             date = fields.Datetime.context_timestamp(self_tz, fields.Datetime.from_string(record.start))
+            _logger.error(f"{date=}")
             record.showtime = pycompat.to_text(date.strftime('%H:%M:%S'))
 
     def create_participants(self, partners):
@@ -67,6 +69,7 @@ class CalendarEvent(models.Model):
             for record in self:
                 time_save = record.start.strftime("%H:%M:%S")
                 vals["start"] = vals["choose_day_calendar"]+ " "+time_save
+                _logger.error(f"{vals=}")
 
         res = super().write(vals)
         for record in self:
@@ -114,13 +117,6 @@ class CalendarVoting(models.Model):
         res = super().write(vals)
         return res
 
-    #TODO: *create an admin for the metting(the user that created the metting(
-    # *find the id of how created the meeting and compare it to admins id(
-    # *might be able to use name?(
-    # *ansvarig for the meeting?)))),
-    # *create a selector,
-    # *admin can deside witch day the metting will be at from selector/drop down menu, 
-    # *and when the day is desided by admin the metting will be over and 
-    # move to that day in the calendar.
-    # use date & date range widget(uvenacc event?) to move meeting maby
+    #TODO: When starting a voting a mail whil be sent to all partisipants
+    # ,and when the voting is desided
 
