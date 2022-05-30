@@ -59,6 +59,15 @@ class CalendarEvent(models.Model):
             else:
                 raise UserError(_("Not allowed to create a voting with only yourself, please add another person."))
         return res
+    
+    def send_start_mail(self, vals):
+        _logger.error("Hello?")
+        for record in self:
+            if "voting_checkbox" in vals:
+                template = self.env['mail.template'].browse(14)
+                _logger.error(f"1{template=}")
+                for attendee in record.attendee_ids:
+                    template.send_mail(attendee.id)
 
     def write(self, vals):
         if "voting_checkbox" in vals or "choose_this_day" in vals:
@@ -83,17 +92,32 @@ class CalendarEvent(models.Model):
                 difference = list(voting_partners - event_partners)
                 to_be_removed = record.participant_ids.filtered(lambda p: p.partner_id.id in difference)
                 to_be_removed.unlink()
-            record.choose_a_day()
+            record.send_start_mail(vals)
+            record.choose_a_day(vals)
         return res
 
-    def choose_a_day(self):
+    def choose_a_day(self, vals):
         for record in self:
             voting_admin = record.user_id
             if (record.choose_this_day) and (voting_admin == self.env.user):
                 if record.choose_day_calendar:
-                    break
+                    record.send_end_mail(vals)
                 elif not record.choose_day_calendar:
                     raise UserError(_("Pleas choose a day for the meeting to end the voting"))
+
+    def send_end_mail(self, vals):
+        for record in self:
+            if "choose_this_day" in vals:
+                if record.choose_day_calendar:
+                    template = self.env['mail.template'].browse(14)
+                    _logger.error(f"2{template=}")
+                    for attendee in record.attendee_ids:
+                        template.send_mail(attendee.id)
+
+                                # template = self.env['mail.template'].browse(14)
+                    # _logger.error(f"{template=}")
+                    # for attendee in record.attendee_ids:
+                    #     template.send_mail(attendee.id)
 
 
 class CalendarVoting(models.Model):
