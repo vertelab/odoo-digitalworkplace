@@ -132,7 +132,9 @@ odoo.define("communication_center_jitsi.metting_settings.js", function (require)
             let menu_html = `<div class='btn_holder' style='height:${this.$el.height()}px; width:auto;'>   
                                 <a class='btn ${this.Lobby_on ? 'btn-primary' : 'btn-success'} jitsi_button_lobby'>${this.Lobby_on ? 'Lobby off!' : 'Lobby on!'}</a>
                                 ${this._render_recording(rec_on_start)}   
-                                <a class='btn btn-success jitsi_button_room'>Create Room!</a>
+                                <a class='btn btn-success jitsi_button_room'>
+                                <i class="fa fa-users"></i>
+                                Create Room!</a>
                              </div>`
 
             api.addEventListener('participantRoleChanged', function (event) {
@@ -157,12 +159,22 @@ odoo.define("communication_center_jitsi.metting_settings.js", function (require)
             if (this.no_recording) {
                 return ""
             } else if (rec_on_start) {
+                console.log("WHY")
                 return "   <a class='btn btn-primary jitsi_button_rec' id='rec_btn'>Stop Recording!</a>"
             } else {
                 return "   <a class='btn btn-success jitsi_button_rec' id='rec_btn'>Start Recording!</a>"
             }
         },
         _toggle_lobby: function (e) {
+
+            // let menu_html = `<div class='btn_holder' style='height:${this.$el.height()}px; width:auto;'>   
+            // <a class='btn ${this.Lobby_on ? 'btn-primary' : 'btn-success'} jitsi_button_lobby'>${this.Lobby_on ? 'Lobby off!' : 'Lobby on!'}</a>
+            // ${this._render_recording(rec_on_start)}   
+            // <a class='btn btn-success jitsi_button_lobby'>
+            // <i class="fa fa-lock"></i>
+            // Lobby on!</a>
+            // </div>`
+
             console.log("TOGGLE LOBBY");
             let button = $(e.target)
             if (this.Lobby_on) {
@@ -186,12 +198,16 @@ odoo.define("communication_center_jitsi.metting_settings.js", function (require)
 
         _toggle_record: function (e) {
             let button = $(e.target)
+            console.log(button)
+            console.log(e)
             if (!this.Toggle_recording) {
                 this.Toggle_recording = true;
                 this.api.executeCommand('startRecording', {
                     mode: 'file'
                 })
-                button.text('Stop Recording!');
+                //button.text('Stop Recording!');
+                button.empty()
+                button.append("<i class='fa fa-users'></i>");
                 button.addClass('btn-primary');
                 button.removeClass('btn-success');
             }
@@ -200,7 +216,9 @@ odoo.define("communication_center_jitsi.metting_settings.js", function (require)
                 this.api.executeCommand('stopRecording', {
                     mode: 'file'
                 })
-                button.text('Start Recording!');
+                button.empty()
+                button.append("<i class='fa fa-users'></i>");
+                //button.text('Start Recording!');
                 button.addClass('btn-success');
                 button.removeClass('btn-primary');
             }

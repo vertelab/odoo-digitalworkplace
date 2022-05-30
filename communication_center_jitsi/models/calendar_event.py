@@ -59,7 +59,7 @@ class Meeting(models.Model):
                 "room": "*",
                 "exp": int(expiary.strftime('%s'))
             }, secret)
-            self.jwt_token = token.decode('utf-8')
+            self.jwt_token = token #.decode('utf-8')
         elif self.jwt_validation == False and secret and app_id and domain:
             self.jwt_token = ""
         else:

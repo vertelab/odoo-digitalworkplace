@@ -22,3 +22,13 @@
     pointer-events: all;
     margin: 15px;
 }
+
+
+/* *
+ * TODO:
+ * - Add class for on state on a  jitsi button
+ * - Add class for off state on a jitsi button
+ * - Fix icon classes
+ * - Change meeting_settings.js rendering functions to use these new classes
+ * */
+
