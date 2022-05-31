@@ -10,6 +10,7 @@ odoo.define("communication_center_jitsi.metting_settings.js", function (require)
             'click .jitsi_button_rec': '_toggle_record',
             'click .jitsi_button_room': '_toggle_room',
         },
+
         check_lobby: function (lobby_with_knocking, lobby_with_name) {
             if (lobby_with_knocking && lobby_with_name) {
                 return true
@@ -130,7 +131,8 @@ odoo.define("communication_center_jitsi.metting_settings.js", function (require)
         //--------------------------------------------------------------------------
         _render_buttons: function (api, rec_on_start) {
             let menu_html = `<div class='btn_holder' style='height:${this.$el.height()}px; width:auto;'>   
-                                <a class='btn ${this.Lobby_on ? 'btn-primary' : 'btn-success'} jitsi_button_lobby'>${this.Lobby_on ? 'Lobby off!' : 'Lobby on!'}</a>
+                                <a class='btn ${this.Lobby_on ? 'btn-primary' : 'btn-success'} jitsi_button_lobby'>
+                                ${this.Lobby_on ? 'Lobby off!' : 'Lobby on!'}</a>
                                 ${this._render_recording(rec_on_start)}   
                                 <a class='btn btn-success jitsi_button_room'>
                                 <i class="fa fa-users" aria-hidden="true"></i>
@@ -159,45 +161,35 @@ odoo.define("communication_center_jitsi.metting_settings.js", function (require)
             if (this.no_recording) {
                 return ""
             } else if (rec_on_start) {
-                console.log("WHY")
                 return "   <a class='btn btn-primary jitsi_button_rec' id='rec_btn'>Stop Recording!</a>"
             } else {
                 return "   <a class='btn btn-success jitsi_button_rec' id='rec_btn'>Start Recording!</a>"
             }
         },
         _toggle_lobby: function (e) {
-
-            // let menu_html = `<div class='btn_holder' style='height:${this.$el.height()}px; width:auto;'>   
-            // <a class='btn ${this.Lobby_on ? 'btn-primary' : 'btn-success'} jitsi_button_lobby'>${this.Lobby_on ? 'Lobby off!' : 'Lobby on!'}</a>
-            // ${this._render_recording(rec_on_start)}   
-            // <a class='btn btn-success jitsi_button_lobby'>
-            // <i class="fa fa-lock"></i>
-            // Lobby on!</a>
-            // </div>`
-
             console.log("TOGGLE LOBBY");
             let button = $(e.target)
+            let the_button = document.getElementById("btn_lobby");
             if (this.Lobby_on) {
                 this.api.executeCommand('toggleLobby', false)
                 this.Lobby_on = false
                 this._toggle_server_lobby(this.unicId, this.Lobby_on)
 
-                button.text('Lobby on!');
-                button.addClass('btn-success');
-                button.removeClass('btn-primary');
+                the_button.classList.replace("btn-success", "btn-primary");
+                the_button.innerHTML = "<p>New Text</p>";
             } else {
                 this.api.executeCommand('toggleLobby', true)
                 this.Lobby_on = true
                 this._toggle_server_lobby(this.unicId, this.Lobby_on)
 
-                button.text('Lobby off!');
-                button.addClass('btn-primary');
-                button.removeClass('btn-success');
+                the_button.classList.replace("btn-primary", "btn-success");
+                the_button.innerHTML = "<i class='fa fa-users'></i>";
             }
         },
 
         _toggle_record: function (e) {
             let button = $(e.target)
+            let the_button = document.getElementById("rec_btn");
             console.log(button)
             console.log(e)
             if (!this.Toggle_recording) {
@@ -205,22 +197,16 @@ odoo.define("communication_center_jitsi.metting_settings.js", function (require)
                 this.api.executeCommand('startRecording', {
                     mode: 'file'
                 })
-                //button.text('Stop Recording!');
-                button.empty()
-                button.append("<i class='fa fa-users'></i>");
-                button.addClass('btn-primary');
-                button.removeClass('btn-success');
+                the_button.classList.replace("btn-success", "btn-primary");
+                the_button.innerHTML = "<p>New Text</p>";
             }
             else if (this.Toggle_recording) {
                 this.Toggle_recording = false;
                 this.api.executeCommand('stopRecording', {
                     mode: 'file'
                 })
-                button.empty()
-                button.append("<i class='fa fa-users'></i>");
-                //button.text('Start Recording!');
-                button.addClass('btn-success');
-                button.removeClass('btn-primary');
+                the_button.classList.replace("btn-primary", "btn-success");
+                the_button.innerHTML = "<i class='fa fa-users'></i>";
             }
         },
 

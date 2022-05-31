@@ -23,7 +23,17 @@
     margin: 15px;
 }
 
+.btn_on {
+    background-color: white;
+    height: 50px;
+    width: 50px;
+}
 
+.btn_off {
+    background-color: gray;
+    height: 50px;
+    width: 50px;
+}
 /* *
  * TODO:
  * - Add class for on state on a  jitsi button
