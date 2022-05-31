@@ -109,7 +109,10 @@ class CalendarEvent(models.Model):
         for record in self:
             if "choose_this_day" in vals:
                 if record.choose_day_calendar:
-                    template = self.env['mail.template'].browse(14)
+                    template = self.env['mail.template'].browse("14") 
+                    #template2 = self.env.id('calendar_template_voting_ended')
+                    #tenplte3 = template_xmlid('')
+                    #meeting.attendee_ids._send_mail_to_attendees('calendar.calendar_template_meeting_invitation')
                     _logger.error(f"2{template=}")
                     for attendee in record.attendee_ids:
                         template.send_mail(attendee.id)
