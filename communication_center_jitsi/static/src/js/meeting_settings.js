@@ -133,7 +133,7 @@ odoo.define("communication_center_jitsi.metting_settings.js", function (require)
                                 <a class='btn ${this.Lobby_on ? 'btn-primary' : 'btn-success'} jitsi_button_lobby'>${this.Lobby_on ? 'Lobby off!' : 'Lobby on!'}</a>
                                 ${this._render_recording(rec_on_start)}   
                                 <a class='btn btn-success jitsi_button_room'>
-                                <i class="fa fa-users"></i>
+                                <i class="fa fa-users" aria-hidden="true"></i>
                                 Create Room!</a>
                              </div>`
 
