@@ -23,8 +23,9 @@ https://docs.nativescript.org/ui/components.
     You can learn more about the NativeScript core theme at https://github.com/nativescript/theme
     -->
     <StackLayout class="p-20">
-        <Label text="Tap the button" class="h1 text-center" />
-        <Button text="TAP" tap="{{ onTap }}" class="-primary" />
+        <Label text="Odoo calendar sync" class="h1 text-center" />
+        <Button text="Sync" tap="{{ onTap }}" class="-primary" />
+        <Button text="Settings" tap="" class="-primary" />
         <Label text="{{ message }}" class="h2 text-center" textWrap="true" />
         <Label text="{{ getStringResult }}" class="h2 text-center" textWrap="true" />
     </StackLayout>
