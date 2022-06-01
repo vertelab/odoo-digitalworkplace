@@ -41,7 +41,7 @@ class Meeting(models.Model):
 
 
     def create_controller_link(self, link_suffix):
-        web_name = self.env['ir.config_parameter'].get_param('web.base.url')
+        web_name = self.env['ir.config_parameter'].sudo().get_param('web.base.url')
         return f'{web_name}/video_meeting/{link_suffix}'
 
 
@@ -60,6 +60,7 @@ class Meeting(models.Model):
                 "exp": int(expiary.strftime('%s'))
             }, secret)
             self.jwt_token = token #.decode('utf-8')
+
         elif self.jwt_validation == False and secret and app_id and domain:
             self.jwt_token = ""
         else:

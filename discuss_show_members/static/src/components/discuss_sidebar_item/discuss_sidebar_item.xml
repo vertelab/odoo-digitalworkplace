@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="ThreadView" t-inherit="mail.DiscussSidebarItem" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[hasclass('o_DiscussSidebarItem')]" position="attributes">
+            <attribute name="data-toggle">popover</attribute>
+            <attribute name="t-att-title">thread ? thread.displayName : undefined</attribute>
+            <attribute name="t-att-data-content"></attribute>
+            <attribute name="data-html">true</attribute>
+        </xpath>
+    </t>
+</templates>

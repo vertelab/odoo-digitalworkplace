@@ -160,6 +160,7 @@ odoo.define("communication_center_jitsi.metting_settings.js", function (require)
                 lobby_status: client_lobby_status
             }).then(console.log(`Server Lobby Status: ${client_lobby_status}`))
         },
+
         // _render_recording: function (rec_on_start) {
         //     if (this.no_recording) {
         //         return ""
@@ -199,6 +200,7 @@ odoo.define("communication_center_jitsi.metting_settings.js", function (require)
             let the_button2 = document.getElementById("rec_btn");
             console.log(button)
             console.log(e)
+          
             if (!this.Toggle_recording) {
                 this.Toggle_recording = true;
                 this.api.executeCommand('startRecording', {
