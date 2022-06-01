@@ -9,7 +9,9 @@ odoo.define("communication_center_jitsi.metting_settings.js", function (require)
             'click .jitsi_button_lobby': '_toggle_lobby',
             'click .jitsi_button_rec': '_toggle_record',
             'click .jitsi_button_room': '_toggle_room',
+            'click .jitsi_button_fullscreen': '_toggle_screen',
         },
+
         check_lobby: function (lobby_with_knocking, lobby_with_name) {
             if (lobby_with_knocking && lobby_with_name) {
                 return true
@@ -129,12 +131,17 @@ odoo.define("communication_center_jitsi.metting_settings.js", function (require)
         // Private Methods
         //--------------------------------------------------------------------------
         _render_buttons: function (api, rec_on_start) {
-            let menu_html = `<div class='btn_holder' style='height:${this.$el.height()}px; width:auto;'>   
-                                <a class='btn ${this.Lobby_on ? 'btn-primary' : 'btn-success'} jitsi_button_lobby'>${this.Lobby_on ? 'Lobby off!' : 'Lobby on!'}</a>
-                                ${this._render_recording(rec_on_start)}   
-                                <a class='btn btn-success jitsi_button_room'>Create Room!</a>
-                             </div>`
-
+            let menu_html = `<div class='btn_holder' style='height:${this.$el.height()}px; width:auto; display:flex;'>   
+                                <a id="lobby_btn" class='btn ${this.Lobby_on ? 'btn-on' : 'btn-off'} jitsi_button_lobby'>
+                                ${this.Lobby_on ? '<i class="fa fa-lock" />' : '<i class="fa fa-unlock" />'}</a>
+                                <a class='btn btn-room-react jitsi_button_room'>
+                                <i class="fa fa-users" />
+                                </a>
+                                <a id="screen_btn" class='btn ${this.Lobby_on ? 'btn-on' : 'btn-off'} jitsi_button_fullscreen'>
+                                <i class="fa fa-expand" /> </a>
+                                </div>`
+                                //${this._render_recording(rec_on_start)}   
+                                
             api.addEventListener('participantRoleChanged', function (event) {
                 console.log("participantRoleChanged", event);
                 if (event.role === 'moderator') {
@@ -153,62 +160,72 @@ odoo.define("communication_center_jitsi.metting_settings.js", function (require)
                 lobby_status: client_lobby_status
             }).then(console.log(`Server Lobby Status: ${client_lobby_status}`))
         },
-        _render_recording: function (rec_on_start) {
-            if (this.no_recording) {
-                return ""
-            } else if (rec_on_start) {
-                return "   <a class='btn btn-primary jitsi_button_rec' id='rec_btn'>Stop Recording!</a>"
-            } else {
-                return "   <a class='btn btn-success jitsi_button_rec' id='rec_btn'>Start Recording!</a>"
-            }
-        },
+
+        // _render_recording: function (rec_on_start) {
+        //     if (this.no_recording) {
+        //         return ""
+        //     } else if (rec_on_start) {
+        //         return "   <a id='rec_btn' class='btn btn-primary jitsi_button_rec'>Stop Recording!</a>"
+        //     } else {
+        //         return "   <a id='rec_btn' class='btn btn-success jitsi_button_rec'>Start Recording!</a>"
+        //     }
+        // },
+
         _toggle_lobby: function (e) {
             console.log("TOGGLE LOBBY");
             let button = $(e.target)
+            let the_button = document.getElementById("lobby_btn");
+            console.log(the_button)
             if (this.Lobby_on) {
                 this.api.executeCommand('toggleLobby', false)
                 this.Lobby_on = false
                 this._toggle_server_lobby(this.unicId, this.Lobby_on)
 
-                button.text('Lobby on!');
-                button.addClass('btn-success');
-                button.removeClass('btn-primary');
+                the_button.classList.replace("btn-on", "btn-off");
+                the_button.innerHTML = '<i class="fa fa-unlock" />';
+                console.log(the_button)
             } else {
                 this.api.executeCommand('toggleLobby', true)
                 this.Lobby_on = true
                 this._toggle_server_lobby(this.unicId, this.Lobby_on)
 
-                button.text('Lobby off!');
-                button.addClass('btn-primary');
-                button.removeClass('btn-success');
+                the_button.classList.replace("btn-off", "btn-on");
+                the_button.innerHTML = '<i class="fa fa-lock" />';
+                console.log(the_button)
             }
         },
 
         _toggle_record: function (e) {
             let button = $(e.target)
+            let the_button2 = document.getElementById("rec_btn");
+            console.log(button)
+            console.log(e)
+          
             if (!this.Toggle_recording) {
                 this.Toggle_recording = true;
                 this.api.executeCommand('startRecording', {
                     mode: 'file'
                 })
-                button.text('Stop Recording!');
-                button.addClass('btn-primary');
-                button.removeClass('btn-success');
+                the_button2.classList.replace("btn-success", "btn-primary");
+                the_button2.innerHTML = "<p>New Text</p>";
             }
             else if (this.Toggle_recording) {
                 this.Toggle_recording = false;
                 this.api.executeCommand('stopRecording', {
                     mode: 'file'
                 })
-                button.text('Start Recording!');
-                button.addClass('btn-success');
-                button.removeClass('btn-primary');
+                the_button2.classList.replace("btn-primary", "btn-success");
+                the_button2.innerHTML = "<i class='fa fa-users'></i>";
             }
         },
 
         _toggle_room: function () {
             console.log(this.api.getParticipantsInfo())
             this.api.executeCommand('addBreakoutRoom', 'room')
+        },
+        _toggle_screen: function () {
+            console.log("HEYTO")
+            document.querySelector("#jitsiConferenceFrame0").requestFullscreen();
         }
     })
 });

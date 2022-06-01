@@ -3,7 +3,7 @@
     <template id="jitsi_meeting_site" name="placeholder_for_jitsi_meeting">
         <t t-call="website.layout">
             <div id="jitsi_meeting_placeholder"
-                t-att-data-jitsi="jitsi"
+                t-att-data-jitsi="jitsi" 
                 t-att-data-jwt="event.jwt_token"
                 t-att-data-room_subject="event.room_name"
                 t-att-data-lobby_with_knocking="event.lobby_with_let_in"
