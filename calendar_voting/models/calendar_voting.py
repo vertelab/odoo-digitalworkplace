@@ -11,6 +11,7 @@ from odoo.tools import pycompat
 _logger = logging.getLogger(__name__)
 
 
+
 class CalendarEvent(models.Model):
     _inherit='calendar.event'
 
@@ -25,6 +26,7 @@ class CalendarEvent(models.Model):
     #     ('thursday', 'Thursday'), 
     #     ('friday', 'Friday')]
     # )
+    
     choose_this_day = fields.Boolean()
     is_voting_admin = fields.Boolean(compute="_compute_voting_off")
     choose_day_calendar = fields.Date()
@@ -38,12 +40,10 @@ class CalendarEvent(models.Model):
 
     @api.depends("start")
     def _compute_showtime (self):
-        _logger.error(f"{self=}")
         timezone = self._context.get('tz') or self.env.user.partner_id.tz or 'UTC'
         self_tz = self.with_context(tz=timezone)
         for record in self:
             date = fields.Datetime.context_timestamp(self_tz, fields.Datetime.from_string(record.start))
-            _logger.error(f"{date=}")
             record.showtime = pycompat.to_text(date.strftime('%H:%M:%S'))
 
     def create_participants(self, partners):
@@ -58,14 +58,13 @@ class CalendarEvent(models.Model):
                 res.create_participants(partners[0][2])
             else:
                 raise UserError(_("Not allowed to create a voting with only yourself, please add another person."))
+        res.send_start_mail(vals)
         return res
     
     def send_start_mail(self, vals):
-        _logger.error("Hello?")
         for record in self:
-            if "voting_checkbox" in vals:
-                template = self.env['mail.template'].browse(14)
-                _logger.error(f"1{template=}")
+            if vals.get("voting_checkbox"):
+                template = self.env.ref('calendar_voting.calendar_template_voting_invitation')
                 for attendee in record.attendee_ids:
                     template.send_mail(attendee.id)
 
@@ -78,7 +77,6 @@ class CalendarEvent(models.Model):
             for record in self:
                 time_save = record.start.strftime("%H:%M:%S")
                 vals["start"] = vals["choose_day_calendar"]+ " "+time_save
-                _logger.error(f"{vals=}")
 
         res = super().write(vals)
         for record in self:
@@ -92,7 +90,6 @@ class CalendarEvent(models.Model):
                 difference = list(voting_partners - event_partners)
                 to_be_removed = record.participant_ids.filtered(lambda p: p.partner_id.id in difference)
                 to_be_removed.unlink()
-            record.send_start_mail(vals)
             record.choose_a_day(vals)
         return res
 
@@ -107,20 +104,11 @@ class CalendarEvent(models.Model):
 
     def send_end_mail(self, vals):
         for record in self:
-            if "choose_this_day" in vals:
+            if vals.get("choose_this_day"):
                 if record.choose_day_calendar:
-                    #template = self.env['mail.template'].browse("14") 
-                    #template2 = self.env.id('calendar_template_voting_ended')
-                    #tenplte3 = template_xmlid('')
-                    #meeting.attendee_ids._send_mail_to_attendees('calendar.calendar_template_meeting_invitation')
-                    _logger.error(f"2")
-                    #for attendee in record.attendee_ids:
-                        #template.send_mail(attendee.id)
-
-                                # template = self.env['mail.template'].browse(14)
-                    # _logger.error(f"{template=}")
-                    # for attendee in record.attendee_ids:
-                    #     template.send_mail(attendee.id)
+                    template = self.env.ref('calendar_voting.calendar_template_voting_ended')
+                    for attendee in record.attendee_ids:
+                        template.send_mail(attendee.id)
 
 
 class CalendarVoting(models.Model):
@@ -145,5 +133,4 @@ class CalendarVoting(models.Model):
         return res
 
     #TODO: When starting a voting a mail whil be sent to all partisipants
-    # ,and when the voting is desided
-
+    # ,and when the voting is desided.
