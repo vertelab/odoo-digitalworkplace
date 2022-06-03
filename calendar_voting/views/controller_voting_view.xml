@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="calendar_voting_site" name="calendar_voting_site">
+        <t t-call="website.layout">
+            <div id="test-style">
+                <h1>Hello! XD</h1>
+            </div>
+        </t>
+    </template>
+</odoo>

@@ -132,5 +132,3 @@ class CalendarVoting(models.Model):
         res = super().write(vals)
         return res
 
-    #TODO: When starting a voting a mail whil be sent to all partisipants
-    # ,and when the voting is desided.
