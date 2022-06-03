@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="calendar_voting_checkbox" model="ir.ui.view">
+        <field name="name">calendar.event.form</field>
+        <field name="model">calendar.event</field>
+        <field name="inherit_id" ref="calendar.view_calendar_event_form"></field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='recurrency']" position="after">
+                <field name="voting_checkbox" attrs="{'invisible': [('is_voting_admin', '=', False)]}"></field>
+                <field name="user_id" readonly="1" attrs="{'invisible': [('voting_checkbox', '=', False)]}" string="Voting admin"></field>
+                <!-- <field name="choose_day" attrs="{'invisible': ['|',('voting_checkbox', '=', False), ('is_voting_admin', '=', False)]}"></field> -->
+                <field name="choose_day_calendar" widget="date" attrs="{'invisible': ['|',('voting_checkbox', '=', False), ('is_voting_admin', '=', False)]}"></field>
+                <field name="choose_this_day" attrs="{'invisible': ['|',('voting_checkbox', '=', False), ('is_voting_admin', '=', False)]}"></field>
+                <field name="is_voting_admin" invisible="1"></field>
+                <field name="showtime" string="Voting time" attrs="{'invisible': [('voting_checkbox', '=', False)]}" readonly="1"></field>
+            </xpath>
+            <xpath expr="//page[@name='page_options']" position="inside">
+                <div attrs="{'invisible': [('voting_checkbox', '=', False)]}">
+                    <field name="participant_ids" mode="tree,kanban">
+                        <tree string="Invitation details" editable="bottom" delete="false" create="false">
+                            <field name="name"/>
+                            <field name="monday"/>
+                            <field name="tuesday" />
+                            <field name="wednesday" />
+                            <field name="thursday" />
+                            <field name="friday" />
+                        </tree>
+                    </field>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>
