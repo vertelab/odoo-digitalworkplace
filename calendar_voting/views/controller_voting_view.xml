@@ -2,8 +2,7 @@
 <odoo>
     <template id="calendar_voting_site" name="calendar_voting_site">
         <t t-call="website.layout">
-            <div id="test_style">
-                <h1>Hello! XD</h1>
+            <div id="controller_content" style="height: 100%">
             </div>
         </t>
     </template>
