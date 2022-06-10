@@ -42,7 +42,6 @@
 }
 
 #voting {
-    background-color: lightblue; 
     width: 100%;
     margin: 1%;
     padding: 1%;
@@ -51,12 +50,52 @@
 }
 
 .container-week {
-    background-color: darkgray;
     height: 100%;
     padding: 1%;
     display: flex;
 }
 .cell-day {
+    height: 50px;
+    margin: 0% 1%;
+    width: 14%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: x-large;
+}
+
+.vl {
+    height: 100%;
+    border: solid lightgray;
+    width: 0%;
+}
+
+.container-voting {
+    height: 100%;
+    padding: 1%;
+    display: flex;
+}
+
+.container-the-voting {
+    height: 100%;
+    padding: 1%;
+    display: flex;
+}
+
+.cell-name {
+    /* border: solid black; */
+    height: 50px;
+    margin: 0% 1%;
+    width: 14%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    box-shadow: 2px 2px 5px gray;
+}
+
+.cell-voting-name {
     border: solid black;
     height: 50px;
     margin: 0% 1%;
@@ -64,10 +103,77 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: #d2d2ff;
+    font-weight: bold;
+    /* box-shadow: 2px 2px 5px lightgray; */
 }
 
-.vl {
-    height: 100%;
-    border: solid gray;
-    width: 0%;
+.cell-time {
+    border: solid black;
+    height: 50px;
+    margin: 0% 1%;
+    width: 14%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: gray;
+    color: white;
+    box-shadow: 5px 5px 10px #2d2c2c;
+}
+
+.voted-cell-time {
+    border: solid black;
+    height: 50px;
+    margin: 0% 1%;
+    width: 14%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(68, 68, 68);
+    color: white;
+}
+
+
+.cell-voting-time {
+    border: solid black;
+    height: 50px;
+    margin: 0% 1%;
+    width: 14%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 5px 5px 10px #2d2c2c;
+}
+
+.cell-voted-time {
+    border: solid black;
+    height: 50px;
+    margin: 0% 1%;
+    width: 14%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #d2d2ff;
+}
+
+.cell-voting {
+    height: 50px;
+    margin: 0% 1%;
+    width: 14%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: black;
+    color: white;
+    font-weight: bold;
+    border-radius: 10px;
+}
+
+.cell-not-voting {
+    height: 50px;
+    margin: 0% 1%;
+    width: 14%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

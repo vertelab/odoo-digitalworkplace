@@ -38,44 +38,44 @@
                         <span class="cell-day">Friday</span>
                         <span class="cell-day"></span>
                     </div>
-                    <div class="container-week"> <!--nya klaser för divar som inte är veckor och dagar-->
-                        <span class="cell-day">Emty</span>
-                        <span class="cell-day">Monday</span>
+                    <div class="container-voting">
+                        <span class="cell-name">Name 1</span>
+                        <span class="cell-time">Time</span>
                         <div class="vl"></div>
-                        <span class="cell-day">Thusday</span>
+                        <span class="cell-time">Time</span>
                         <div class="vl"></div>
-                        <span class="cell-day">Wednesday</span>
+                        <span class="cell-time">Time</span>
                         <div class="vl"></div>
-                        <span class="cell-day">Tusday</span>
+                        <span class="cell-time">Time</span>
                         <div class="vl"></div>
-                        <span class="cell-day">Fiday</span>
-                        <span class="cell-day">Emty</span>
+                        <span class="cell-time">Time</span>
+                        <span class="cell-not-voting"></span>
                     </div>
-                    <div class="container-week">
-                        <span class="cell-day">Emty</span>
-                        <span class="cell-day">Monday</span>
+                    <div class="container-the-voting">
+                        <span class="cell-voting-name">Name 2</span>
+                        <span class="btn btn-block cell-voting-time">Time</span>
                         <div class="vl"></div>
-                        <span class="cell-day">Thusday</span>
+                        <span class="btn cell-voted-time">Time</span>
                         <div class="vl"></div>
-                        <span class="cell-day">Wednesday</span>
+                        <span class="btn cell-voting-time">Time</span>
                         <div class="vl"></div>
-                        <span class="cell-day">Tusday</span>
+                        <span class="btn cell-voting-time">Time</span>
                         <div class="vl"></div>
-                        <span class="cell-day">Fiday</span>
-                        <span class="cell-day">Emty</span>
+                        <span class="btn cell-voting-time">Time</span>
+                        <span class="btn cell-voting">Vote</span>
                     </div>
-                    <div class="container-week">
-                        <span class="cell-day">Emty</span>
-                        <span class="cell-day">Monday</span>
+                    <div class="container-voting">
+                        <span class="cell-name">Name3</span>
+                        <span class="cell-time">Time</span>
                         <div class="vl"></div>
-                        <span class="cell-day">Thusday</span>
+                        <span class="cell-time">Time</span>
                         <div class="vl"></div>
-                        <span class="cell-day">Wednesday</span>
+                        <span class="cell-time">Time</span>
                         <div class="vl"></div>
-                        <span class="cell-day">Tusday</span>
+                        <span class="voted-cell-time">Time</span>
                         <div class="vl"></div>
-                        <span class="cell-day">Fiday</span>
-                        <span class="cell-day">Emty</span>
+                        <span class="cell-time">Time</span>
+                        <span class="cell-not-voting"></span>
                     </div>
                 </div>
             </div>

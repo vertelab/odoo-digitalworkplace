@@ -17,15 +17,6 @@ class CalendarEvent(models.Model):
 
     voting_checkbox = fields.Boolean(string="Voting")
     participant_ids = fields.One2many(comodel_name="calendar.voting", inverse_name="event_id")
-
-    #Fist version of choose_day
-    # choose_day = fields.Selection(
-    #     selection=[('monday', 'Monday'), 
-    #     ('tuesday', 'Tuesday'), 
-    #     ('wednesday', 'Wednesday'), 
-    #     ('thursday', 'Thursday'), 
-    #     ('friday', 'Friday')]
-    # )
     
     choose_this_day = fields.Boolean()
     is_voting_admin = fields.Boolean(compute="_compute_voting_off")
