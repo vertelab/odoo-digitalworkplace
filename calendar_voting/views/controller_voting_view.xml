@@ -2,7 +2,82 @@
 <odoo>
     <template id="calendar_voting_site" name="calendar_voting_site">
         <t t-call="website.layout">
-            <div id="controller_content" style="height: 100%">
+            <div id="controller_content">
+                <div class="meeting-info">
+                    <span class="meeting-name">Hello!</span>
+                    <div class="meeting-div-title">
+                        <span class="meeting-span" >Date:</span>
+                    </div>
+                    <div class="meeting-div-info">
+                        <span class="meeting-span">Today!</span>
+                    </div>
+                    <div class="meeting-div-title">
+                        <span class="meeting-span">Place:</span>
+                    </div>
+                    <div class="meeting-div-info">
+                        <span class="meeting-span">Everywhere</span>
+                    </div>
+                    <div class="meeting-div-title">
+                        <span class="meeting-span">Participants:</span>
+                    </div>
+                    <div id="participants-div">
+                        <span id="participants-span" >- Name 1 <br></br> - Name 2 <br></br> - Name 3 </span>
+                    </div>
+                </div>
+                <div id="voting">
+                    <div class="container-week">
+                        <span class="cell-day"></span>
+                        <span class="cell-day">Monday</span>
+                        <div class="vl"></div>
+                        <span class="cell-day">Tuesday</span>
+                        <div class="vl"></div>
+                        <span class="cell-day">Wednesday</span>
+                        <div class="vl"></div>
+                        <span class="cell-day">Thursday</span>
+                        <div class="vl"></div>
+                        <span class="cell-day">Friday</span>
+                        <span class="cell-day"></span>
+                    </div>
+                    <div class="container-week"> <!--nya klaser för divar som inte är veckor och dagar-->
+                        <span class="cell-day">Emty</span>
+                        <span class="cell-day">Monday</span>
+                        <div class="vl"></div>
+                        <span class="cell-day">Thusday</span>
+                        <div class="vl"></div>
+                        <span class="cell-day">Wednesday</span>
+                        <div class="vl"></div>
+                        <span class="cell-day">Tusday</span>
+                        <div class="vl"></div>
+                        <span class="cell-day">Fiday</span>
+                        <span class="cell-day">Emty</span>
+                    </div>
+                    <div class="container-week">
+                        <span class="cell-day">Emty</span>
+                        <span class="cell-day">Monday</span>
+                        <div class="vl"></div>
+                        <span class="cell-day">Thusday</span>
+                        <div class="vl"></div>
+                        <span class="cell-day">Wednesday</span>
+                        <div class="vl"></div>
+                        <span class="cell-day">Tusday</span>
+                        <div class="vl"></div>
+                        <span class="cell-day">Fiday</span>
+                        <span class="cell-day">Emty</span>
+                    </div>
+                    <div class="container-week">
+                        <span class="cell-day">Emty</span>
+                        <span class="cell-day">Monday</span>
+                        <div class="vl"></div>
+                        <span class="cell-day">Thusday</span>
+                        <div class="vl"></div>
+                        <span class="cell-day">Wednesday</span>
+                        <div class="vl"></div>
+                        <span class="cell-day">Tusday</span>
+                        <div class="vl"></div>
+                        <span class="cell-day">Fiday</span>
+                        <span class="cell-day">Emty</span>
+                    </div>
+                </div>
             </div>
         </t>
     </template>
