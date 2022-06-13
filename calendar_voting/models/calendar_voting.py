@@ -8,7 +8,7 @@ from odoo.exceptions import UserError
 from datetime import datetime, date
 from odoo.tools import pycompat
 
-_logger = logging.getLogger(__name__)
+_logger = logging.getLogger("\033[100m"+__name__+"\033[0m")
 
 
 
@@ -45,7 +45,8 @@ class CalendarEvent(models.Model):
     def create(self, vals):
         res = super().create(vals)
         if vals.get("voting_checkbox"):
-            if (partners := vals.get("partner_ids")):
+            if (partners := vals.get("partner_ids")) and len(partners[0][2]) >1:
+                _logger.error("sdsadf")
                 res.create_participants(partners[0][2])
             else:
                 raise UserError(_("Not allowed to create a voting with only yourself, please add another person."))

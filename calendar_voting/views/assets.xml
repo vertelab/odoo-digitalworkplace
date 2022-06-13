@@ -6,7 +6,7 @@
     </template>
     <template id="voting_site_style" inherit_id="web.assets_frontend">
         <xpath expr="." position="inside">
-            <script type="text/javascript" src="/calendar_voting/static/src/js/voting_site_style.js"/>
+            <script type="text/javascript" src="/calendar_voting/static/src/js/controller_voting.js"/>
         </xpath>
     </template>
 </odoo>

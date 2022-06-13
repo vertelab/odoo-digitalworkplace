@@ -1,5 +1,5 @@
 console.log("Start");
-odoo.define("calendar_voting.voting_site_style", function (require) {
+odoo.define("calendar_voting.controller_voting", function (require) {
     "use strict";
 
     var ajax = require('web.ajax')

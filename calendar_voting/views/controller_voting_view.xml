@@ -4,24 +4,25 @@
         <t t-call="website.layout">
             <div id="controller_content">
                 <div class="meeting-info">
-                    <span class="meeting-name">Hello!</span>
+                    <span class="meeting-name" t-esc="event.name"/>
                     <div class="meeting-div-title">
                         <span class="meeting-span" >Date:</span>
                     </div>
                     <div class="meeting-div-info">
-                        <span class="meeting-span">Today!</span>
+                        <span class="meeting-span" t-esc="event.start"/>
                     </div>
                     <div class="meeting-div-title">
                         <span class="meeting-span">Place:</span>
                     </div>
                     <div class="meeting-div-info">
-                        <span class="meeting-span">Everywhere</span>
+                        <span class="meeting-span" t-esc="event.location"/>
                     </div>
                     <div class="meeting-div-title">
                         <span class="meeting-span">Participants:</span>
                     </div>
                     <div id="participants-div">
-                        <span id="participants-span" >- Name 1 <br></br> - Name 2 <br></br> - Name 3 </span>
+                        <!-- <span id="participants-span" t-esc="event.partner_id.name"/> -->
+                        <span id="participants-span" t-esc="event.participant_ids.partner_id.name"/>
                     </div>
                 </div>
                 <div id="voting">
