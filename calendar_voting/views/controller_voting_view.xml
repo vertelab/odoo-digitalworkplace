@@ -21,8 +21,12 @@
                         <span class="meeting-span">Participants:</span>
                     </div>
                     <div id="participants-div">
-                        <!-- <span id="participants-span" t-esc="event.partner_id.name"/> -->
-                        <span id="participants-span" t-esc="event.participant_ids.partner_id.name"/>
+                        <!-- <span id="participants-span" t-esc="event.participant_ids.partner_id"/> -->
+                        <!-- <span id="participants-span" t-esc="event.participant_ids.partner_id.name"/> -->
+                        <t t-foreach="event.participant_ids" t-as="participant">
+                            <span class="participants-span" t-esc="participant.partner_id.name"/>
+                            <br></br>
+                        </t>
                     </div>
                 </div>
                 <div id="voting">
@@ -39,7 +43,41 @@
                         <span class="cell-day">Friday</span>
                         <span class="cell-day"></span>
                     </div>
-                    <div class="container-voting">
+                    <t t-foreach="event.participant_ids" t-as="participant">
+                        <t t-set="users" t-value="participant.partner_id - event.partner_id"/>
+                        <t t-if="users">
+                            <div class="container-voting">
+                                <span class="cell-name"  t-esc="participant.partner_id.name"></span>
+                                <span class="cell-time" t-esc="event.showtime"></span>
+                                <div class="vl"></div>
+                                <span class="cell-time" t-esc="event.showtime"></span>
+                                <div class="vl"></div>
+                                <span class="cell-time" t-esc="event.showtime"></span>
+                                <div class="vl"></div>
+                                <span class="cell-time" t-esc="event.showtime"></span>
+                                <div class="vl"></div>
+                                <span class="cell-time" t-esc="event.showtime"></span>
+                                <span class="cell-not-voting"></span>
+                            </div>
+                        </t>
+                    </t>
+                    <t t-foreach="event.partner_id" t-as="participant">
+                        <div class="container-the-voting">
+                            <span class="cell-voting-name" t-esc="participant.name"></span>
+                            <span id="cell-1" class="btn cell-voting-time" t-esc="event.showtime"></span>
+                            <div class="vl"></div>
+                            <span id="cell-2" class="btn cell-voted-time" t-esc="event.showtime"></span>
+                            <div class="vl"></div>
+                            <span id="cell-3" class="btn cell-voting-time" t-esc="event.showtime"></span>
+                            <div class="vl"></div>
+                            <span id="cell-4" class="btn cell-voting-time" t-esc="event.showtime"></span>
+                            <div class="vl"></div>
+                            <span id="cell-5" class="btn cell-voting-time" t-esc="event.showtime"></span>
+                            <span class="btn cell-voting">Vote</span>
+                        </div>
+                    </t>
+                    <!-- <div class="container-voting">
+                        t-esc="voting-div.partner_id.name
                         <span class="cell-name">Name 1</span>
                         <span class="cell-time">Time</span>
                         <div class="vl"></div>
@@ -51,8 +89,8 @@
                         <div class="vl"></div>
                         <span class="cell-time">Time</span>
                         <span class="cell-not-voting"></span>
-                    </div>
-                    <div class="container-the-voting">
+                    </div> -->
+                    <!-- <div class="container-the-voting">
                         <span class="cell-voting-name">Name 2</span>
                         <span class="btn btn-block cell-voting-time">Time</span>
                         <div class="vl"></div>
@@ -64,8 +102,8 @@
                         <div class="vl"></div>
                         <span class="btn cell-voting-time">Time</span>
                         <span class="btn cell-voting">Vote</span>
-                    </div>
-                    <div class="container-voting">
+                    </div> -->
+                    <!-- <div class="container-voting">
                         <span class="cell-name">Name3</span>
                         <span class="cell-time">Time</span>
                         <div class="vl"></div>
@@ -77,7 +115,7 @@
                         <div class="vl"></div>
                         <span class="cell-time">Time</span>
                         <span class="cell-not-voting"></span>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </t>

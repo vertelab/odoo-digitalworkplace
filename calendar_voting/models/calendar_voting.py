@@ -35,7 +35,7 @@ class CalendarEvent(models.Model):
         self_tz = self.with_context(tz=timezone)
         for record in self:
             date = fields.Datetime.context_timestamp(self_tz, fields.Datetime.from_string(record.start))
-            record.showtime = pycompat.to_text(date.strftime('%H:%M:%S'))
+            record.showtime = pycompat.to_text(date.strftime('%H:%M'))
 
     def create_participants(self, partners):
         for partner in partners:
@@ -119,7 +119,8 @@ class CalendarVoting(models.Model):
         for record in self:
             if record.event_id.choose_this_day == True:
                 raise UserError(_("The voting is over, you are not allowed to vote anymore!"))
-            elif record.partner_id != self.env.user.partner_id:
+            elif record.partner_id != self.env.user.partner_id and record.partner_id == record.event_id.user_id:
+                _logger.error(f"{record.event_id.user_id=}")
                 raise UserError(_("You are not allowed to vote for anyone but yourself!"))
         res = super().write(vals)
         return res
