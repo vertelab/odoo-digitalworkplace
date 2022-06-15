@@ -21,8 +21,6 @@
                         <span class="meeting-span">Participants:</span>
                     </div>
                     <div id="participants-div">
-                        <!-- <span id="participants-span" t-esc="event.participant_ids.partner_id"/> -->
-                        <!-- <span id="participants-span" t-esc="event.participant_ids.partner_id.name"/> -->
                         <t t-foreach="event.participant_ids" t-as="participant">
                             <span class="participants-span" t-esc="participant.partner_id.name"/>
                             <br></br>
@@ -48,15 +46,40 @@
                         <t t-if="users">
                             <div class="container-voting">
                                 <span class="cell-name"  t-esc="participant.partner_id.name"></span>
-                                <span class="cell-time" t-esc="event.showtime"></span>
+                                <t t-if="participant.monday">
+                                    <span class="voted-cell-time" t-esc="event.showtime"></span>
+                                </t>
+                                <t t-else="">
+                                    <span class="cell-time" t-esc="event.showtime"></span>
+                                </t>
                                 <div class="vl"></div>
-                                <span class="cell-time" t-esc="event.showtime"></span>
+                                <t t-if="participant.tuesday">
+                                    <span class="voted-cell-time" t-esc="event.showtime"></span>
+                                </t>
+                                <t t-else="">
+                                    <span class="cell-time" t-esc="event.showtime"></span>
+                                </t>
                                 <div class="vl"></div>
-                                <span class="cell-time" t-esc="event.showtime"></span>
+                                <t t-if="participant.wednesday">
+                                    <span class="voted-cell-time" t-esc="event.showtime"></span>
+                                </t>
+                                <t t-else="">
+                                    <span class="cell-time" t-esc="event.showtime"></span>
+                                </t>
                                 <div class="vl"></div>
-                                <span class="cell-time" t-esc="event.showtime"></span>
+                                <t t-if="participant.thursday">
+                                    <span class="voted-cell-time" t-esc="event.showtime"></span>
+                                </t>
+                                <t t-else="">
+                                    <span class="cell-time" t-esc="event.showtime"></span>
+                                </t>
                                 <div class="vl"></div>
-                                <span class="cell-time" t-esc="event.showtime"></span>
+                                <t t-if="participant.friday">
+                                    <span class="voted-cell-time" t-esc="event.showtime"></span>
+                                </t>
+                                <t t-else="">
+                                    <span class="cell-time" t-esc="event.showtime"></span>
+                                </t>
                                 <span class="cell-not-voting"></span>
                             </div>
                         </t>
@@ -76,47 +99,10 @@
                             <span class="btn cell-voting">Vote</span>
                         </div>
                     </t>
-                    <!-- <div class="container-voting">
-                        t-esc="voting-div.partner_id.name
-                        <span class="cell-name">Name 1</span>
-                        <span class="cell-time">Time</span>
-                        <div class="vl"></div>
-                        <span class="cell-time">Time</span>
-                        <div class="vl"></div>
-                        <span class="cell-time">Time</span>
-                        <div class="vl"></div>
-                        <span class="cell-time">Time</span>
-                        <div class="vl"></div>
-                        <span class="cell-time">Time</span>
-                        <span class="cell-not-voting"></span>
-                    </div> -->
-                    <!-- <div class="container-the-voting">
-                        <span class="cell-voting-name">Name 2</span>
-                        <span class="btn btn-block cell-voting-time">Time</span>
-                        <div class="vl"></div>
-                        <span class="btn cell-voted-time">Time</span>
-                        <div class="vl"></div>
-                        <span class="btn cell-voting-time">Time</span>
-                        <div class="vl"></div>
-                        <span class="btn cell-voting-time">Time</span>
-                        <div class="vl"></div>
-                        <span class="btn cell-voting-time">Time</span>
-                        <span class="btn cell-voting">Vote</span>
-                    </div> -->
-                    <!-- <div class="container-voting">
-                        <span class="cell-name">Name3</span>
-                        <span class="cell-time">Time</span>
-                        <div class="vl"></div>
-                        <span class="cell-time">Time</span>
-                        <div class="vl"></div>
-                        <span class="cell-time">Time</span>
-                        <div class="vl"></div>
-                        <span class="voted-cell-time">Time</span>
-                        <div class="vl"></div>
-                        <span class="cell-time">Time</span>
-                        <span class="cell-not-voting"></span>
-                    </div> -->
                 </div>
+                <!-- <div id="expose_data"
+                t-att-data-days-true="event.monday">
+                </div> -->
             </div>
         </t>
     </template>

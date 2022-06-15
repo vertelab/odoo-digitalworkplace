@@ -18,6 +18,7 @@ odoo.define("calendar_voting.controller_voting", function (require) {
             var self = this;
             return this._super.apply(this, arguments).then(function () {
                 const parent = $('#controller_content');
+                console.log(parent.data("days-true"));
             });
         },
 
