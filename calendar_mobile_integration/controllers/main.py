@@ -43,7 +43,7 @@ class CalendarSync(http.Controller):
             event_id = request.env.ref(f'__sync__.native_calendar_{event["id"]}')
             if not event_id:
                 event_id = request.env['calendar.event'].create(vals)
-                request.env['ir.model.data'].create({'module':'__sync__', 'name':f'native_calendar_{event['id']}','model':'calendar.event', 'res_id': event_id.id})
+#                request.env['ir.model.data'].create({'module':'__sync__', 'name':f'native_calendar_{event['id']}','model':'calendar.event', 'res_id': event_id.id})
             else:
                 event_id.write(vals)
 
@@ -55,9 +55,10 @@ class CalendarSync(http.Controller):
                         name = email
                     if not email:
                         continue
-                    partner_id = request.env['res.partner'].search([('email', '=', email)], limit=1)):
+#                    partner_id = request.env['res.partner'].search([('email', '=', email)], limit=1)):
                     if not partner_id:
-                        partner_id = request.env['res.partner'].create({'name':name, 'email':email}
+#                        partner_id = request.env['res.partner'].create({'name':name, 'email':email}
+                        pass
                     attendee_vals={'event_id':event_id.id, 'partner_id':partner_id.id}
                     
 
