@@ -156,6 +156,19 @@
     background-color: #d2d2ff;
 }
 
+.cell-voted {
+    height: 50px;
+    margin: 0% 1%;
+    width: 14%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #6d6d9e;
+    color: black;
+    font-weight: bold;
+    border-radius: 10px;
+}
+
 .cell-voting {
     height: 50px;
     margin: 0% 1%;

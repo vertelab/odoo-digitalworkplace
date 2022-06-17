@@ -116,6 +116,7 @@ class CalendarVoting(models.Model):
     friday = fields.Boolean()
 
     def write(self, vals):
+        _logger.error(f"{vals}")
         for record in self:
             if record.event_id.choose_this_day == True:
                 raise UserError(_("The voting is over, you are not allowed to vote anymore!"))
