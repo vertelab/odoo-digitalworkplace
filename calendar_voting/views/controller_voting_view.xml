@@ -42,7 +42,14 @@
                         <span class="cell-day"></span>
                     </div>
                     <t t-foreach="event.participant_ids" t-as="participant">
-                        <t t-set="users" t-value="participant.partner_id - event.partner_id"/>
+                        <t t-if ="true">
+                            <t t-set="users" t-value="participant.partner_id - event.partner_id"/>
+
+                        </t>
+                        <t t-else ="">
+                            <t t-set="users" t-value="participant.partner_id"/>
+
+                        </t>
                         <t t-if="users">
                             <div class="container-voting">
                                 <span class="cell-name"  t-esc="participant.partner_id.name"></span>
@@ -83,26 +90,49 @@
                                 <span class="cell-not-voting"></span>
                             </div>
                         </t>
-                    </t>
-                    <t t-foreach="event.partner_id" t-as="participant">
-                        <div class="container-the-voting">
-                            <span class="cell-voting-name" t-esc="participant.name"></span>
-                            <span id="cell-1" class="btn cell-voting-time" t-esc="event.showtime"></span>
-                            <div class="vl"></div>
-                            <span id="cell-2" class="btn cell-voted-time" t-esc="event.showtime"></span>
-                            <div class="vl"></div>
-                            <span id="cell-3" class="btn cell-voting-time" t-esc="event.showtime"></span>
-                            <div class="vl"></div>
-                            <span id="cell-4" class="btn cell-voting-time" t-esc="event.showtime"></span>
-                            <div class="vl"></div>
-                            <span id="cell-5" class="btn cell-voting-time" t-esc="event.showtime"></span>
-                            <span class="btn cell-voting">Vote</span>
-                        </div>
+                        <t t-if="not users">
+                            <div class="container-the-voting">
+                                <span class="cell-voting-name" t-esc="participant.name"></span>
+                                <t t-if="participant.monday">
+                                    <span id="cell-1" class="btn cell-voted-time" t-esc="event.showtime"></span>
+                                </t>
+                                <t t-else="">
+                                    <span id="cell-1" class="btn cell-voting-time" t-esc="event.showtime"></span>
+                                </t>
+                                <div class="vl"></div>
+                                <t t-if="participant.tuesday">
+                                    <span id="cell-2" class="btn cell-voted-time" t-esc="event.showtime"></span>
+                                </t>
+                                <t t-else="">
+                                    <span id="cell-2" class="btn cell-voting-time" t-esc="event.showtime"></span>
+                                </t>
+                                <div class="vl"></div>
+                                <t t-if="participant.wednesday">
+                                    <span id="cell-3" class="btn cell-voted-time" t-esc="event.showtime"></span>
+                                </t>
+                                <t t-else="">
+                                    <span id="cell-3" class="btn cell-voting-time" t-esc="event.showtime"></span>
+                                </t>
+                                <div class="vl"></div>
+                                <t t-if="participant.thursday">
+                                    <span id="cell-4" class="btn cell-voted-time" t-esc="event.showtime"></span>
+                                </t>
+                                <t t-else="">
+                                    <span id="cell-4" class="btn cell-voting-time" t-esc="event.showtime"></span>
+                                </t>
+                                <div class="vl"></div>
+                                <t t-if="participant.friday">
+                                    <span id="cell-5" class="btn cell-voted-time" t-esc="event.showtime"></span>
+                                </t>
+                                <t t-else="">
+                                    <span id="cell-5" class="btn cell-voting-time" t-esc="event.showtime"></span>
+                                </t>
+                                <span id="voting-button" class="btn cell-voting" t-att-data-id ="participant.id">Vote</span>
+                                
+                            </div>
+                        </t>
                     </t>
                 </div>
-                <!-- <div id="expose_data"
-                t-att-data-days-true="event.monday">
-                </div> -->
             </div>
         </t>
     </template>
