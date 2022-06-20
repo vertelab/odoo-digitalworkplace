@@ -74,11 +74,13 @@
             </ul>
         </td>
     </tr></table>
+    <br />
     % for participant in object.event_id.participant_ids:
     % if participant.partner_id == object.partner_id:
     <a href="/voting_calendar/${object.event_id.id}/${participant.access_token}"
     style="padding: 5px 10px; color: #FFFFFF; text-decoration: none; background-color: #875A7B; border: 1px solid #875A7B; border-radius: 3px">
     To Voting Site</a>
+    <br />
 % endif
     % endfor
     <br/>

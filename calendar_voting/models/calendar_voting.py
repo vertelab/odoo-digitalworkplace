@@ -46,7 +46,6 @@ class CalendarEvent(models.Model):
         res = super().create(vals)
         if vals.get("voting_checkbox"):
             if (partners := vals.get("partner_ids")) and len(partners[0][2]) >1:
-                _logger.error("sdsadf")
                 res.create_participants(partners[0][2])
             else:
                 raise UserError(_("Not allowed to create a voting with only yourself, please add another person."))
@@ -117,12 +116,10 @@ class CalendarVoting(models.Model):
     friday = fields.Boolean()
 
     def write(self, vals):
-        _logger.error(f"{vals}")
         for record in self:
             if record.event_id.choose_this_day == True:
                 raise UserError(_("The voting is over, you are not allowed to vote anymore!"))
             elif record.partner_id != self.env.user.partner_id and record.partner_id == record.event_id.user_id:
-                _logger.error(f"{record.event_id.user_id=}")
                 raise UserError(_("You are not allowed to vote for anyone but yourself!"))
         res = super().write(vals)
         return res
