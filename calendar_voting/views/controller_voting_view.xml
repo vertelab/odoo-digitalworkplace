@@ -41,16 +41,54 @@
                         <span class="cell-day">Friday</span>
                         <span class="cell-day"></span>
                     </div>
-                    <t t-foreach="event.participant_ids" t-as="participant">
+                    <div class="container-the-voting">
+                        <span class="cell-voting-name" t-esc="my_voting.name"></span>
+                        <t t-if="my_voting.monday">
+                            <span id="cell-1" class="btn cell-voted-time" t-esc="event.showtime"></span>
+                        </t>
+                        <t t-else="">
+                            <span id="cell-1" class="btn cell-voting-time" t-esc="event.showtime"></span>
+                        </t>
+                        <div class="vl"></div>
+                        <t t-if="my_voting.tuesday">
+                            <span id="cell-2" class="btn cell-voted-time" t-esc="event.showtime"></span>
+                        </t>
+                        <t t-else="">
+                            <span id="cell-2" class="btn cell-voting-time" t-esc="event.showtime"></span>
+                        </t>
+                        <div class="vl"></div>
+                        <t t-if="my_voting.wednesday">
+                            <span id="cell-3" class="btn cell-voted-time" t-esc="event.showtime"></span>
+                        </t>
+                        <t t-else="">
+                            <span id="cell-3" class="btn cell-voting-time" t-esc="event.showtime"></span>
+                        </t>
+                        <div class="vl"></div>
+                        <t t-if="my_voting.thursday">
+                            <span id="cell-4" class="btn cell-voted-time" t-esc="event.showtime"></span>
+                        </t>
+                        <t t-else="">
+                            <span id="cell-4" class="btn cell-voting-time" t-esc="event.showtime"></span>
+                        </t>
+                        <div class="vl"></div>
+                        <t t-if="my_voting.friday">
+                            <span id="cell-5" class="btn cell-voted-time" t-esc="event.showtime"></span>
+                        </t>
+                        <t t-else="">
+                            <span id="cell-5" class="btn cell-voting-time" t-esc="event.showtime"></span>
+                        </t>
+                        <span id="voting-button" class="btn cell-voting" t-att-data-id ="my_voting.id">Vote</span>
+                        
+                    </div>
+                    <t t-foreach="votings" t-as="participant">
                         <t t-if ="true">
                             <t t-set="users" t-value="participant.partner_id - event.partner_id"/>
 
                         </t>
                         <t t-else ="">
                             <t t-set="users" t-value="participant.partner_id"/>
-
+                            <!-- If the user is not loged in/dont have a token, all participants is generated in gray-->
                         </t>
-                        <t t-if="users">
                             <div class="container-voting">
                                 <span class="cell-name"  t-esc="participant.partner_id.name"></span>
                                 <t t-if="participant.monday">
@@ -90,48 +128,6 @@
                                 <span class="cell-not-voting"></span>
                             </div>
                         </t>
-                        <t t-if="not users">
-                            <div class="container-the-voting">
-                                <span class="cell-voting-name" t-esc="participant.name"></span>
-                                <t t-if="participant.monday">
-                                    <span id="cell-1" class="btn cell-voted-time" t-esc="event.showtime"></span>
-                                </t>
-                                <t t-else="">
-                                    <span id="cell-1" class="btn cell-voting-time" t-esc="event.showtime"></span>
-                                </t>
-                                <div class="vl"></div>
-                                <t t-if="participant.tuesday">
-                                    <span id="cell-2" class="btn cell-voted-time" t-esc="event.showtime"></span>
-                                </t>
-                                <t t-else="">
-                                    <span id="cell-2" class="btn cell-voting-time" t-esc="event.showtime"></span>
-                                </t>
-                                <div class="vl"></div>
-                                <t t-if="participant.wednesday">
-                                    <span id="cell-3" class="btn cell-voted-time" t-esc="event.showtime"></span>
-                                </t>
-                                <t t-else="">
-                                    <span id="cell-3" class="btn cell-voting-time" t-esc="event.showtime"></span>
-                                </t>
-                                <div class="vl"></div>
-                                <t t-if="participant.thursday">
-                                    <span id="cell-4" class="btn cell-voted-time" t-esc="event.showtime"></span>
-                                </t>
-                                <t t-else="">
-                                    <span id="cell-4" class="btn cell-voting-time" t-esc="event.showtime"></span>
-                                </t>
-                                <div class="vl"></div>
-                                <t t-if="participant.friday">
-                                    <span id="cell-5" class="btn cell-voted-time" t-esc="event.showtime"></span>
-                                </t>
-                                <t t-else="">
-                                    <span id="cell-5" class="btn cell-voting-time" t-esc="event.showtime"></span>
-                                </t>
-                                <span id="voting-button" class="btn cell-voting" t-att-data-id ="participant.id">Vote</span>
-                                
-                            </div>
-                        </t>
-                    </t>
                 </div>
             </div>
         </t>

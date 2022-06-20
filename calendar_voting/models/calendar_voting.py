@@ -13,7 +13,7 @@ _logger = logging.getLogger("\033[100m"+__name__+"\033[0m")
 
 
 class CalendarEvent(models.Model):
-    _inherit='calendar.event'
+    _inherit= 'calendar.event'
 
     voting_checkbox = fields.Boolean(string="Voting")
     participant_ids = fields.One2many(comodel_name="calendar.voting", inverse_name="event_id")
@@ -105,6 +105,7 @@ class CalendarEvent(models.Model):
 
 class CalendarVoting(models.Model):
     _name='calendar.voting'
+    _inherit=['portal.mixin']
 
     event_id = fields.Many2one(comodel_name="calendar.event")
     partner_id = fields.Many2one(comodel_name="res.partner")
@@ -124,5 +125,13 @@ class CalendarVoting(models.Model):
                 _logger.error(f"{record.event_id.user_id=}")
                 raise UserError(_("You are not allowed to vote for anyone but yourself!"))
         res = super().write(vals)
+        return res
+
+    @api.model
+    def create(self, vals):
+        res = super().create(vals)
+        if res:
+            res._portal_ensure_token()
+
         return res
 
