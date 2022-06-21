@@ -22,6 +22,7 @@ class CalendarEvent(models.Model):
     is_voting_admin = fields.Boolean(compute="_compute_voting_off")
     choose_day_calendar = fields.Date()
     showtime = fields.Char(compute="_compute_showtime")
+    show_date = fields.Char(compute="_compute_showtime")
 
     @api.depends("is_voting_admin", "user_id")
     def _compute_voting_off(self):
@@ -36,6 +37,7 @@ class CalendarEvent(models.Model):
         for record in self:
             date = fields.Datetime.context_timestamp(self_tz, fields.Datetime.from_string(record.start))
             record.showtime = pycompat.to_text(date.strftime('%H:%M'))
+            record.show_date = pycompat.to_text(date.strftime('%Y-%m-%d %H:%M'))
 
     def create_participants(self, partners):
         for partner in partners:
