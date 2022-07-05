@@ -37,5 +37,6 @@ User Settings Dav
     """,
     'depends': ['base_dav',],
     'data': ['views/user_collection_views.xml',
-    'views/assets.xml',],
+    'views/assets.xml',
+    'data/collection.xml',],
 }
