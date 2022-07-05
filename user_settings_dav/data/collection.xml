@@ -25,11 +25,11 @@
                 <field name="mapping_type">simple</field>
                 <field name="field_id" ref="calendar.field_calendar_event__stop"></field>
         </record>
-        <record model="dav.collection.field_mapping" id="sumery4">
+        <!-- <record model="dav.collection.field_mapping" id="sumery4">
             <field name="collection_id" ref="collection_data"></field>
                 <field name="name">ATTENDEE</field>
                 <field name="mapping_type">simple</field>
                 <field name="field_id" ref="calendar.field_calendar_event__stop"></field>
-        </record>
+        </record> -->
     </data>
 </odoo>
