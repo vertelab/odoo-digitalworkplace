@@ -144,9 +144,14 @@ odoo.define("communication_center_jitsi.metting_settings.js", function (require)
                                 <a class='btn btn-room-react jitsi_button_room'>
                                 <i class="fa fa-users" />
                                 </a>
-                                <a id="screen_btn" class='btn ${this.Lobby_on ? 'btn-on' : 'btn-off'} jitsi_button_fullscreen'>
-                                <i class="fa fa-expand" /> </a>
+                                <a id="screen_btn" class='btn ${this.Lobby_on ? 'btn-on' : 'btn-off'} 
+                                 jitsi_button_fullscreen'>
+                                 <i class="fa fa-expand" /> </a>
                                 </div>`
+                                // ${self.menu_for_all}
+            // let menu_for_all = `<a id="screen_btn" class='btn ${this.Lobby_on ? 'btn-on' : 'btn-off'} 
+            //                     jitsi_button_fullscreen'>
+            //                     <i class="fa fa-expand" /> </a>`
                                 //${this._render_recording(rec_on_start)}   
                                 
             api.addEventListener('participantRoleChanged', function (event) {
@@ -158,6 +163,7 @@ odoo.define("communication_center_jitsi.metting_settings.js", function (require)
                         $('#center_meeting').append(menu_html)
                     }
                 }
+                //else vass menu_for_all, det är knappen för helskärm, vet inte om koden jag skrev funkar, det är i test
             })
         },
         _toggle_server_lobby: function (client_link_suffix, client_lobby_status) {
