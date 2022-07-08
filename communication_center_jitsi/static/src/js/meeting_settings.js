@@ -91,6 +91,10 @@ odoo.define("communication_center_jitsi.metting_settings.js", function (require)
                     toolbarButtons.splice(toolbarButtons.indexOf('recording'), 1);
                 };
 
+                let roomSubject = parent.data("room_subject");
+                if (parent.data("room_subject") == undefined){
+                    roomSubject = parent.data("meeting_subject")}
+
                 const options = {
                     roomName: self.unicId,
                     width: 1500,
@@ -116,6 +120,9 @@ odoo.define("communication_center_jitsi.metting_settings.js", function (require)
                 };
 
                 self.api = new JitsiMeetExternalAPI(domain, options);
+                
+                self.api.executeCommand('subject', roomSubject);
+
 
                 self._render_buttons(self.api, self.rec_on_start);
 
@@ -224,9 +231,9 @@ odoo.define("communication_center_jitsi.metting_settings.js", function (require)
             this.api.executeCommand('addBreakoutRoom', 'room')
         },
         _toggle_screen: function () {
-            console.log("HEYTO")
             document.querySelector("#jitsiConferenceFrame0").requestFullscreen();
         }
+
     })
 });
 

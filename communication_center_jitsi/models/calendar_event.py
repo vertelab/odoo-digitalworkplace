@@ -1,5 +1,6 @@
 from datetime import timedelta
 from distutils.command.clean import clean
+from email.policy import default
 import json
 import jwt
 import logging
@@ -19,8 +20,8 @@ class Meeting(models.Model):
     url_link = fields.Char(string="Url")
     jwt_token = fields.Text(string="JWT Token", default="", compute="_getJWTtoken")
     jwt_validation = fields.Boolean(string="Toggle JWT validation")
-    microphone_off = fields.Boolean(string="Microphone off")
-    webcam_off = fields.Boolean(string="Webcam off")
+    microphone_off = fields.Boolean(string="Microphone off", default=True)
+    webcam_off = fields.Boolean(string="Webcam off", default=True)
     lobby_with_name = fields.Boolean(string="Start a lobby, name is required")
     lobby_with_let_in = fields.Boolean(string="Start a lobby, with name and knocking to get in")
     link_for_participants = fields.Boolean(string="Link for participants")
