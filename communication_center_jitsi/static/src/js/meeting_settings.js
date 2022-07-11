@@ -119,8 +119,6 @@ odoo.define("communication_center_jitsi.metting_settings.js", function(require) 
                     },
                 };
 
-                console.log('mic', parent.data("microphone"));
-
                 self.api = new JitsiMeetExternalAPI(domain, options);
 
                 self.api.executeCommand('subject', roomSubject);
@@ -132,32 +130,12 @@ odoo.define("communication_center_jitsi.metting_settings.js", function(require) 
                 if (parent[0].attributes['data-jwt']) {
                     parent[0].removeAttribute('data-jwt')
                 }
-
-                console.log("DONEEEEEE")
             });
         },
         //--------------------------------------------------------------------------
         // Private Methods
         //--------------------------------------------------------------------------
         _render_buttons: function(api, rec_on_start) {
-            // let menu_html = `<div class='btn_holder' style='height:${this.$el.height()}px; width:auto; display:flex;'>   
-            //                     <a id="lobby_btn" class='btn ${this.Lobby_on ? 'btn-on' : 'btn-off'} jitsi_button_lobby'>
-            //                     ${this.Lobby_on ? '<i class="fa fa-lock" />' : '<i class="fa fa-unlock" />'}</a>
-            //                     <a class='btn btn-room-react jitsi_button_room'>
-            //                     <i class="fa fa-users" />
-            //                     </a>
-            //                     <a id="screen_btn" class='btn ${this.Lobby_on ? 'btn-on' : 'btn-off'} 
-            //                      jitsi_button_fullscreen'>
-            //                      <i class="fa fa-expand" /> </a>
-            //                     </div>`
-
-            // let user_menu_html = `<div class='btn_holder' style='height:${this.$el.height()}px; width:auto; display:flex;'>   
-            //                         <a id="screen_btn" class='btn ${this.Lobby_on ? 'btn-on' : 'btn-off'} 
-            //                         jitsi_button_fullscreen'>
-            //                         <i class="fa fa-trash" /> </a>
-            //                         </div>`
-
-            // ${self.menu_for_all}
             // let menu_for_all = `<a id="screen_btn" class='btn ${this.Lobby_on ? 'btn-on' : 'btn-off'} 
             //                     jitsi_button_fullscreen'>
             //                     <i class="fa fa-expand" /> </a>`
