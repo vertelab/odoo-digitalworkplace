@@ -43,8 +43,8 @@
                         <group col="3">
                                 <field name="room_name" id="room_name_id"/>
                                 <field name="jwt_validation" widget="boolean_toggle"/>
-                                <field name="microphone_off" widget="boolean_toggle"/>
-                                <field name="webcam_off" widget="boolean_toggle"/>
+                                <field name="microphone" widget="boolean_toggle"/>
+                                <field name="webcam" widget="boolean_toggle"/>
                                 <field name="lobby_with_name" widget="boolean_toggle"/>
                                 <field name="lobby_with_let_in" widget="boolean_toggle"/>
                                 <!-- <field name="link_for_participants"/>
