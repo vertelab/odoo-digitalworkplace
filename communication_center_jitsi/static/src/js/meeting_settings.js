@@ -113,8 +113,8 @@ odoo.define("communication_center_jitsi.metting_settings.js", function(require) 
                     configOverwrite: {
                         requireDisplayName: self.Lobby_on,
                         prejoinPageEnabled: self.Lobby_on,
-                        startWithAudioMuted: parent.data("microphone") == "False",
-                        startWithVideoMuted: parent.data("webcam") == "False",
+                        startWithAudioMuted: parent.data("microphone") ? false : true,
+                        startWithVideoMuted: parent.data("webcam") ? false : true,
                         toolbarButtons: toolbarButtons,
                     },
                 };
