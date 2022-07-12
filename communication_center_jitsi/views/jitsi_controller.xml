@@ -9,8 +9,8 @@
                 t-att-data-lobby_with_knocking="event.lobby_with_let_in"
                 t-att-data-lobby_with_name="event.lobby_with_name"
                 t-att-data-link_suffix="event.link_suffix"
-                t-att-data-microphone_off="event.microphone"
-                t-att-data-webcam_off="event.webcam"
+                t-att-data-microphone="event.microphone"
+                t-att-data-webcam="event.webcam"
                 t-att-data-start_recording="event.start_recording"
                 t-att-data-no_recording="event.no_recording"
                 t-att-data-meeting_subject="event.name">
