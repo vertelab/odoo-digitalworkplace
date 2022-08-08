@@ -136,29 +136,31 @@ odoo.define("communication_center_jitsi.metting_settings.js", function(require) 
         // Private Methods
         //--------------------------------------------------------------------------
         _render_buttons: function (api, rec_on_start) {
-            let menu_html = `<div class='btn_holder' style='height:${this.$el.height()}px; width:auto; display:flex;'>   
-                                <a id="lobby_btn" class='btn ${this.Lobby_on ? 'btn-on' : 'btn-off'} jitsi_button_lobby'>
-                                ${this.Lobby_on ? '<i class="fa fa-lock" />' : '<i class="fa fa-unlock" />'}</a>
-                                <a class='btn btn-room-react jitsi_button_room'>
-                                <i class="fa fa-users" />
-                                </a>
-                                <a id="screen_btn" class='btn ${this.Lobby_on ? 'btn-on' : 'btn-off'} 
-                                 jitsi_button_fullscreen'>
-                                 <i class="fa fa-expand" /> </a>
-                                </div>`
-                                // ${self.menu_for_all}
-            let menu_for_all = `<div class='btn_holder_for_all' style='height:${this.$el.height()}px; width:auto; display:flex;'>   
-                                <a id="screen_btn" class='btn ${this.Lobby_on ? 'btn-on' : 'btn-off'} 
-                                jitsi_button_fullscreen'>
-                                <i class="fa fa-expand" /> </a>
-                                </div>`
-                                
+            // let menu_html = `<div class='btn_holder' style='height:${this.$el.height()}px; width:auto; display:flex;'>   
+            //                     <a id="lobby_btn" class='btn ${this.Lobby_on ? 'btn-on' : 'btn-off'} jitsi_button_lobby'>
+            //                     ${this.Lobby_on ? '<i class="fa fa-lock" />' : '<i class="fa fa-unlock" />'}</a>
+            //                     <a class='btn btn-room-react jitsi_button_room'>
+            //                     <i class="fa fa-users" />
+            //                     </a>
+            //                     <a id="screen_btn" class='btn ${this.Lobby_on ? 'btn-on' : 'btn-off'} 
+            //                      jitsi_button_fullscreen'>
+            //                      <i class="fa fa-expand" /> </a>
+            //                     </div>`
+            //                     // ${self.menu_for_all}
+            // let menu_for_all = `<div class='btn_holder_for_all' style='height:${this.$el.height()}px; width:auto; display:flex;'>   
+            //                     <a id="screen_btn" class='btn ${this.Lobby_on ? 'btn-on' : 'btn-off'} 
+            //                     jitsi_button_fullscreen'>
+            //                     <i class="fa fa-expand" /> </a>
+            //                     </div>`
+                              
+            let height = this.$el.height();
+
             api.addEventListener('participantRoleChanged', function (event) {
                 console.log("participantRoleChanged", event);
                 if (event.role === 'moderator') {
                     api.executeCommand('toggleLobby', true)
                     this.Lobby_on = true;
-                    if ($('.btn_holder').length <= 0) {
+                    //if ($('.btn_holder').length <= 0) {
                     $('#center_meeting').append(
                             `<div class='btn_holder' style='height:${height}px; width:auto; display:flex;'>   
                             <a id="lobby_btn" class='btn ${this.Lobby_on ? 'btn-on' : 'btn-off'} jitsi_button_lobby'>
@@ -172,11 +174,11 @@ odoo.define("communication_center_jitsi.metting_settings.js", function(require) 
                             </a>
                         </div>`
                         )
-                        }
+                        //}
                 } else if (event.role !== 'moderator') {
                     api.executeCommand('toggleLobby', true)
                     this.Lobby_on = true;
-                    if ($('.btn_holder').length <= 0) {
+                    //if ($('.btn_holder').length <= 0) {
                     $('#center_meeting').append(
                             `<div class='btn_holder' style='height:${height}px; width:auto; display:flex;'>   
                             <a id="screen_btn" class='btn ${this.Lobby_on ? 'btn-on' : 'btn-off'} jitsi_button_fullscreen'>
@@ -184,13 +186,13 @@ odoo.define("communication_center_jitsi.metting_settings.js", function(require) 
                             </a>
                         </div>`
                         )
-                        }
+                        //}
                 }
-                else if (event.role !== 'moderator'){
-                    if ($('.btn_holder_for_all').length <= 0) {
-                        $('#center_meeting').append(menu_for_all)
-                    }
-                }
+                // else if (event.role !== 'moderator'){
+                //     if ($('.btn_holder_for_all').length <= 0) {
+                //         $('#center_meeting').append(menu_for_all)
+                //     }
+                // }
             })
         },
         _toggle_server_lobby: function(client_link_suffix, client_lobby_status) {
