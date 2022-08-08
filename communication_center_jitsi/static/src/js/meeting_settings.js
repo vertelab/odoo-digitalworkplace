@@ -1,4 +1,4 @@
-odoo.define("communication_center_jitsi.metting_settings.js", function (require) {
+odoo.define("communication_center_jitsi.metting_settings.js", function(require) {
     "use strict";
 
     var ajax = require('web.ajax')
@@ -12,7 +12,7 @@ odoo.define("communication_center_jitsi.metting_settings.js", function (require)
             'click .jitsi_button_fullscreen': '_toggle_screen',
         },
 
-        check_lobby: function (lobby_with_knocking, lobby_with_name) {
+        check_lobby: function(lobby_with_knocking, lobby_with_name) {
             if (lobby_with_knocking && lobby_with_name) {
                 return true
             } else if (lobby_with_knocking || lobby_with_name) {
@@ -26,11 +26,11 @@ odoo.define("communication_center_jitsi.metting_settings.js", function (require)
         //--------------------------------------------------------------------------
 
         /**
-        * @override
-        */
-        start: function () {
+         * @override
+         */
+        start: function() {
             var self = this;
-            return this._super.apply(this, arguments).then(function () {
+            return this._super.apply(this, arguments).then(function() {
                 const parent = $('#jitsi_meeting_placeholder');
                 var div = document.createElement("div");
                 div.id = "center_meeting";
@@ -92,8 +92,9 @@ odoo.define("communication_center_jitsi.metting_settings.js", function (require)
                 };
 
                 let roomSubject = parent.data("room_subject");
-                if (parent.data("room_subject") == undefined){
-                    roomSubject = parent.data("meeting_subject")}
+                if (parent.data("room_subject") == undefined) {
+                    roomSubject = parent.data("meeting_subject")
+                }
 
                 const options = {
                     roomName: self.unicId,
@@ -109,18 +110,17 @@ odoo.define("communication_center_jitsi.metting_settings.js", function (require)
                     //         self.Toggle_recording = true
                     //     };
                     // },
-                    configOverwrite:
-                    {
+                    configOverwrite: {
                         requireDisplayName: self.Lobby_on,
                         prejoinPageEnabled: self.Lobby_on,
-                        startWithAudioMuted: parent.data("microphone_off") == "True",
-                        startWithVideoMuted: parent.data("webcam_off") == "True",
+                        startWithAudioMuted: parent.data("microphone") ? false : true,
+                        startWithVideoMuted: parent.data("webcam") ? false : true,
                         toolbarButtons: toolbarButtons,
                     },
                 };
 
                 self.api = new JitsiMeetExternalAPI(domain, options);
-                
+
                 self.api.executeCommand('subject', roomSubject);
 
 
@@ -130,8 +130,6 @@ odoo.define("communication_center_jitsi.metting_settings.js", function (require)
                 if (parent[0].attributes['data-jwt']) {
                     parent[0].removeAttribute('data-jwt')
                 }
-
-                console.log("DONEEEEEE")
             });
         },
         //--------------------------------------------------------------------------
@@ -154,11 +152,6 @@ odoo.define("communication_center_jitsi.metting_settings.js", function (require)
                                 jitsi_button_fullscreen'>
                                 <i class="fa fa-expand" /> </a>
                                 </div>`
-            // `<a id="screen_btn" class='btn ${this.Lobby_on ? 'btn-on' : 'btn-off'} 
-            //                     jitsi_button_fullscreen'>
-            //                     <i class="fa fa-expand" /> </a>`
-
-                                //${this._render_recording(rec_on_start)}   
                                 
             api.addEventListener('participantRoleChanged', function (event) {
                 console.log("participantRoleChanged", event);
@@ -166,18 +159,41 @@ odoo.define("communication_center_jitsi.metting_settings.js", function (require)
                     api.executeCommand('toggleLobby', true)
                     this.Lobby_on = true;
                     if ($('.btn_holder').length <= 0) {
-                        $('#center_meeting').append(menu_html)
-                    }
+                    $('#center_meeting').append(
+                            `<div class='btn_holder' style='height:${height}px; width:auto; display:flex;'>   
+                            <a id="lobby_btn" class='btn ${this.Lobby_on ? 'btn-on' : 'btn-off'} jitsi_button_lobby'>
+                                ${this.Lobby_on ? '<i class="fa fa-lock" />' : '<i class="fa fa-unlock" />'}
+                            </a>
+                            <a class='btn btn-room-react jitsi_button_room'>
+                                <i class="fa fa-users" />
+                            </a>
+                            <a id="screen_btn" class='btn ${this.Lobby_on ? 'btn-on' : 'btn-off'} jitsi_button_fullscreen'>
+                                <i class="fa fa-expand" /> 
+                            </a>
+                        </div>`
+                        )
+                        }
+                } else if (event.role !== 'moderator') {
+                    api.executeCommand('toggleLobby', true)
+                    this.Lobby_on = true;
+                    if ($('.btn_holder').length <= 0) {
+                    $('#center_meeting').append(
+                            `<div class='btn_holder' style='height:${height}px; width:auto; display:flex;'>   
+                            <a id="screen_btn" class='btn ${this.Lobby_on ? 'btn-on' : 'btn-off'} jitsi_button_fullscreen'>
+                                <i class="fa fa-expand" />
+                            </a>
+                        </div>`
+                        )
+                        }
                 }
                 else if (event.role !== 'moderator'){
                     if ($('.btn_holder_for_all').length <= 0) {
                         $('#center_meeting').append(menu_for_all)
                     }
                 }
-                //else vass menu_for_all, det är knappen för helskärm, vet inte om koden jag skrev funkar, det är i test
             })
         },
-        _toggle_server_lobby: function (client_link_suffix, client_lobby_status) {
+        _toggle_server_lobby: function(client_link_suffix, client_lobby_status) {
             let uri = `/video_meeting/${client_link_suffix}/toggle_lobby`
             let toggleMenu = ajax.jsonRpc(uri, 'call', {
                 link_suffix: client_link_suffix,
@@ -195,7 +211,7 @@ odoo.define("communication_center_jitsi.metting_settings.js", function (require)
         //     }
         // },
 
-        _toggle_lobby: function (e) {
+        _toggle_lobby: function(e) {
             console.log("TOGGLE LOBBY");
             let button = $(e.target)
             let the_button = document.getElementById("lobby_btn");
@@ -219,12 +235,12 @@ odoo.define("communication_center_jitsi.metting_settings.js", function (require)
             }
         },
 
-        _toggle_record: function (e) {
+        _toggle_record: function(e) {
             let button = $(e.target)
             let the_button2 = document.getElementById("rec_btn");
             console.log(button)
             console.log(e)
-          
+
             if (!this.Toggle_recording) {
                 this.Toggle_recording = true;
                 this.api.executeCommand('startRecording', {
@@ -232,8 +248,7 @@ odoo.define("communication_center_jitsi.metting_settings.js", function (require)
                 })
                 the_button2.classList.replace("btn-success", "btn-primary");
                 the_button2.innerHTML = "<p>New Text</p>";
-            }
-            else if (this.Toggle_recording) {
+            } else if (this.Toggle_recording) {
                 this.Toggle_recording = false;
                 this.api.executeCommand('stopRecording', {
                     mode: 'file'
@@ -243,14 +258,13 @@ odoo.define("communication_center_jitsi.metting_settings.js", function (require)
             }
         },
 
-        _toggle_room: function () {
+        _toggle_room: function() {
             console.log(this.api.getParticipantsInfo())
             this.api.executeCommand('addBreakoutRoom', 'room')
         },
-        _toggle_screen: function () {
+        _toggle_screen: function() {
             document.querySelector("#jitsiConferenceFrame0").requestFullscreen();
         }
 
     })
 });
-
