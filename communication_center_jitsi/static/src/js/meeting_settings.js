@@ -149,9 +149,15 @@ odoo.define("communication_center_jitsi.metting_settings.js", function (require)
                                  <i class="fa fa-expand" /> </a>
                                 </div>`
                                 // ${self.menu_for_all}
-            // let menu_for_all = `<a id="screen_btn" class='btn ${this.Lobby_on ? 'btn-on' : 'btn-off'} 
+            let menu_for_all = `<div class='btn_holder_for_all' style='height:${this.$el.height()}px; width:auto; display:flex;'>   
+                                <a id="screen_btn" class='btn ${this.Lobby_on ? 'btn-on' : 'btn-off'} 
+                                jitsi_button_fullscreen'>
+                                <i class="fa fa-expand" /> </a>
+                                </div>`
+            // `<a id="screen_btn" class='btn ${this.Lobby_on ? 'btn-on' : 'btn-off'} 
             //                     jitsi_button_fullscreen'>
             //                     <i class="fa fa-expand" /> </a>`
+
                                 //${this._render_recording(rec_on_start)}   
                                 
             api.addEventListener('participantRoleChanged', function (event) {
@@ -161,6 +167,11 @@ odoo.define("communication_center_jitsi.metting_settings.js", function (require)
                     this.Lobby_on = true;
                     if ($('.btn_holder').length <= 0) {
                         $('#center_meeting').append(menu_html)
+                    }
+                }
+                else if (event.role !== 'moderator'){
+                    if ($('.btn_holder_for_all').length <= 0) {
+                        $('#center_meeting').append(menu_for_all)
                     }
                 }
                 //else vass menu_for_all, det är knappen för helskärm, vet inte om koden jag skrev funkar, det är i test

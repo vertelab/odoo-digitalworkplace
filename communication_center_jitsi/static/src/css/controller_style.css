@@ -23,6 +23,20 @@
     margin: 15px;
 }
 
+.btn_holder_for_all{
+    pointer-events: none;
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+}
+
+.btn_holder_for_all>a {
+    pointer-events: all;
+    margin: 15px;
+}
+
 .btn-on {
     background-color: white;
     width: 50px;

@@ -34,4 +34,3 @@ class JitsiController(http.Controller):
         _logger.error(f'jitsi, {link}')
         return link
 
-#/{link_suffix}
