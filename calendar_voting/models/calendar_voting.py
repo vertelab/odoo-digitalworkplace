@@ -71,6 +71,8 @@ class CalendarEvent(models.Model):
                 template = self.env.ref('calendar_voting.calendar_template_voting_invitation')
                 for attendee in record.attendee_ids:
                     template.send_mail(attendee.id)
+                    start_mail_message = f"Voting start mail has ben sent to {attendee.partner_id.name}"
+                    record.message_post(body=start_mail_message)
 
     def write(self, vals):
         if "voting_checkbox" in vals or "choose_this_day" in vals:
@@ -113,6 +115,8 @@ class CalendarEvent(models.Model):
                     template = self.env.ref('calendar_voting.calendar_template_voting_ended')
                     for attendee in record.attendee_ids:
                         template.send_mail(attendee.id)
+                        end_mail_message = f"Voting end mail has ben sent to {attendee.partner_id.name}"
+                        record.message_post(body=end_mail_message)
 
 
 class CalendarVoting(models.Model):
