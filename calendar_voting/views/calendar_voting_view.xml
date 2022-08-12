@@ -25,6 +25,11 @@
                             <field name="friday" />
                         </tree>
                     </field>
+                    <ul style="list-style-type:none">
+                        <li> Link to voting site:
+                            <field name="calendar_access" widget="url"/>
+                        </li>
+                    </ul>
                 </div>
             </xpath>
         </field>

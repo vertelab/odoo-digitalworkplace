@@ -24,6 +24,17 @@ class CalendarEvent(models.Model):
     showtime = fields.Char(compute="_compute_showtime")
     show_date = fields.Char(compute="_compute_showtime")
 
+    calendar_access = fields.Char(compute="_compute_calendar_access")
+
+    def _compute_calendar_access(self):
+        base_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url')
+        for event in self:
+            token=""
+            my_voting = event.participant_ids.filtered(lambda p: p.partner_id == self.env.user.partner_id)
+            if my_voting:
+                token = my_voting.access_token
+            event.calendar_access = f"{base_url}/voting_calendar/{event.id}/{token}"
+
     @api.depends("is_voting_admin", "user_id")
     def _compute_voting_off(self):
         for record in self:
@@ -116,6 +127,7 @@ class CalendarVoting(models.Model):
     wednesday = fields.Boolean()
     thursday = fields.Boolean()
     friday = fields.Boolean()
+    
 
     def write(self, vals):
         for record in self:

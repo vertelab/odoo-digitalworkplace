@@ -22,7 +22,6 @@ odoo.define("calendar_voting.controller_voting", function (require) {
                 const parent = $('#controller_content');
             });
         },
-
         
         _toggle_cell_on: function(e) {
             let button = $(e.target).click(function(){
