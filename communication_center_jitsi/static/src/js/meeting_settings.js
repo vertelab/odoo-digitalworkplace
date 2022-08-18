@@ -6,16 +6,17 @@ odoo.define("communication_center_jitsi.metting_settings.js", function(require) 
     publicWidget.registry.jitsiMeetSettingsButtons = publicWidget.Widget.extend({
         selector: '#jitsi_meeting_placeholder',
         read_events: {
-            'click .jitsi_button_lobby': '_toggle_lobby',
+            'click .jitsi_button_knocking_lobby': '_toggle_knocking_lobby',
+            'click .jitsi_button_name_lobby': '_toggle_name_lobby',
             'click .jitsi_button_rec': '_toggle_record',
             'click .jitsi_button_room': '_toggle_room',
             'click .jitsi_button_fullscreen': '_toggle_screen',
         },
 
-        check_lobby: function(lobby_with_knocking, lobby_with_name) {
-            if (lobby_with_knocking && lobby_with_name) {
+        check_lobby: function(Lobby_with_knocking, Lobby_with_name) {
+            if (Lobby_with_knocking && Lobby_with_name) {
                 return true
-            } else if (lobby_with_knocking || lobby_with_name) {
+            } else if (Lobby_with_knocking || Lobby_with_name) {
                 return true
             } else {
                 return false
@@ -32,6 +33,7 @@ odoo.define("communication_center_jitsi.metting_settings.js", function(require) 
             var self = this;
             return this._super.apply(this, arguments).then(function() {
                 const parent = $('#jitsi_meeting_placeholder');
+                console.log(parent);
                 var div = document.createElement("div");
                 div.id = "center_meeting";
                 if (parent.length === 1) {
@@ -39,15 +41,17 @@ odoo.define("communication_center_jitsi.metting_settings.js", function(require) 
                 }
                 const domain = parent.data("jitsi");
                 const jwt_token = parent.data("jwt");
-                const lobby_with_knocking = parent.data('lobby_with_knocking');
-                const lobby_with_name = parent.data('lobby_with_name');
+                const Lobby_with_knocking = parent.data('lobby_with_knocking') ? true : false;
+                const Lobby_with_name = parent.data('lobby_with_name') ? true : false;
 
                 //Check if there is a lobby.
                 self.unicId = parent.data("link_suffix");
                 self.rec_on_start = parent.data('start_recording');
                 self.no_recording = parent.data('no_recording');
-                self.Lobby_on = self.check_lobby(lobby_with_knocking, lobby_with_name);
+                // self.Lobby_with_name = parent.data('lobby_with_name');
+                // self.Lobby_with_knocking = parent.data('lobby_with_knocking');
                 self.Toggle_recording = false;
+                self.Lobby_on = self.check_lobby(Lobby_with_knocking, Lobby_with_name);
 
                 let toolbarButtons = [
                     'camera',
@@ -111,8 +115,8 @@ odoo.define("communication_center_jitsi.metting_settings.js", function(require) 
                     //     };
                     // },
                     configOverwrite: {
-                        requireDisplayName: self.Lobby_on,
-                        prejoinPageEnabled: self.Lobby_on,
+                        requireDisplayName: parent.data('lobby_with_name') ? true : false,
+                        prejoinPageEnabled: parent.data('lobby_with_knocking') ? true : false,
                         startWithAudioMuted: parent.data("microphone") ? false : true,
                         startWithVideoMuted: parent.data("webcam") ? false : true,
                         toolbarButtons: toolbarButtons,
@@ -157,34 +161,46 @@ odoo.define("communication_center_jitsi.metting_settings.js", function(require) 
 
             api.addEventListener('participantRoleChanged', function (event) {
                 console.log("participantRoleChanged", event);
+                $('#center_meeting').append( `<div class='btn_holder' id='btn_holder_id' style='height:${height}px; width:auto; display:flex;'></div>`)
+                $('.btn_holder').empty();
                 if (event.role === 'moderator') {
                     api.executeCommand('toggleLobby', true)
-                    this.Lobby_on = true;
+                    console.log("Hello");
+                    console.log(self);
+                    console.log(this);
+                    console.log(self.Lobby_with_knocking);
+                    console.log(this.Lobby_with_knocking);
+                    console.log(self.Lobby_with_name);
+                    console.log(this.Lobby_with_name);
+                    console.log(this.Lobby_on = true);
+                    // this = true;
                     //if ($('.btn_holder').length <= 0) {
-                    $('#center_meeting').append(
-                            `<div class='btn_holder' style='height:${height}px; width:auto; display:flex;'>   
-                            <a id="lobby_btn" class='btn ${this.Lobby_on ? 'btn-on' : 'btn-off'} jitsi_button_lobby'>
-                                ${this.Lobby_on ? '<i class="fa fa-lock" />' : '<i class="fa fa-unlock" />'}
+                        $('.btn_holder').append(
+                            `<a id="lobby_knocking_btn" class='btn ${this.Lobby_with_knocking ? 'btn-on' : 'btn-off'} jitsi_button_knocking_lobby'>
+                            ${this.Lobby_with_knocking ? '<i class="fa fa-lock" />' : '<i class="fa fa-unlock" />'}
                             </a>
-                            <a class='btn btn-room-react jitsi_button_room'>
-                                <i class="fa fa-users" />
+                            <a id="lobby_name_btn" class='btn ${this.Lobby_with_name ? 'btn-on' : 'btn-off'} jitsi_button_name_lobby'>
+                            ${this.Lobby_with_name ? '<i class="fa fa-address-card" />' : '<i class="fa fa-address-card-o" />'}
                             </a>
-                            <a id="screen_btn" class='btn ${this.Lobby_on ? 'btn-on' : 'btn-off'} jitsi_button_fullscreen'>
+                            }
+                            <a id="screen_btn" class='btn ${this ? 'btn-on' : 'btn-off'} jitsi_button_fullscreen'>
                                 <i class="fa fa-expand" /> 
                             </a>
-                        </div>`
-                        )
-                        //}
-                } else if (event.role !== 'moderator') {
+                            <a class='btn btn-room-react jitsi_button_room'>
+                            <i class="fa fa-users" />
+                            </a>`
+                            )
+                            
+                } 
+                else if (event.role !== 'moderator') {
                     api.executeCommand('toggleLobby', true)
-                    this.Lobby_on = true;
+                    $('.btn_holder').empty();
+                    // this = true;
                     //if ($('.btn_holder').length <= 0) {
-                    $('#center_meeting').append(
-                            `<div class='btn_holder' style='height:${height}px; width:auto; display:flex;'>   
-                            <a id="screen_btn" class='btn ${this.Lobby_on ? 'btn-on' : 'btn-off'} jitsi_button_fullscreen'>
+                        $('.btn_holder').append(
+                            `<a id="screen_btn" class='btn ${this ? 'btn-on' : 'btn-off'} jitsi_button_fullscreen'>
                                 <i class="fa fa-expand" />
-                            </a>
-                        </div>`
+                            </a>`
                         )
                         //}
                 }
@@ -213,23 +229,47 @@ odoo.define("communication_center_jitsi.metting_settings.js", function(require) 
         //     }
         // },
 
-        _toggle_lobby: function(e) {
+        _toggle_knocking_lobby: function(e) {
             console.log("TOGGLE LOBBY");
             let button = $(e.target)
-            let the_button = document.getElementById("lobby_btn");
+            let the_button = document.getElementById("lobby_knocking_btn");
             console.log(the_button)
-            if (this.Lobby_on) {
+            if (this.Lobby_with_knocking) {
                 this.api.executeCommand('toggleLobby', false)
-                this.Lobby_on = false
-                this._toggle_server_lobby(this.unicId, this.Lobby_on)
+                this.Lobby_with_knocking = false
+                this._toggle_server_lobby(this.unicId, this.Lobby_with_knocking)
 
                 the_button.classList.replace("btn-on", "btn-off");
                 the_button.innerHTML = '<i class="fa fa-unlock" />';
                 console.log(the_button)
             } else {
                 this.api.executeCommand('toggleLobby', true)
-                this.Lobby_on = true
-                this._toggle_server_lobby(this.unicId, this.Lobby_on)
+                this.Lobby_with_knocking = true
+                this._toggle_server_lobby(this.unicId, this.Lobby_with_knocking)
+
+                the_button.classList.replace("btn-off", "btn-on");
+                the_button.innerHTML = '<i class="fa fa-lock" />';
+                console.log(the_button)
+            }
+        },
+
+        _toggle_name_lobby: function(e) {
+            console.log("TOGGLE LOBBY");
+            let button = $(e.target)
+            let the_button = document.getElementById("lobby_name_btn");
+            console.log(the_button)
+            if (this.Lobby_with_name) {
+                this.api.executeCommand('toggleLobby', false)
+                this.Lobby_with_name = false
+                this._toggle_server_lobby(this.unicId, this.Lobby_with_name)
+
+                the_button.classList.replace("btn-on", "btn-off");
+                the_button.innerHTML = '<i class="fa fa-unlock" />';
+                console.log(the_button)
+            } else {
+                this.api.executeCommand('toggleLobby', true)
+                this.Lobby_with_name = true
+                this._toggle_server_lobby(this.unicId, this.Lobby_with_name)
 
                 the_button.classList.replace("btn-off", "btn-on");
                 the_button.innerHTML = '<i class="fa fa-lock" />';
