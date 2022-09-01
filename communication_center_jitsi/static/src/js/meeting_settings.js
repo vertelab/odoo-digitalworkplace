@@ -3,6 +3,7 @@ odoo.define("communication_center_jitsi.metting_settings.js", function(require) 
 
     var ajax = require('web.ajax')
     var publicWidget = require('web.public.widget')
+    let name_lobby_on_off;
     publicWidget.registry.jitsiMeetSettingsButtons = publicWidget.Widget.extend({
         selector: '#jitsi_meeting_placeholder',
         read_events: {
@@ -12,11 +13,15 @@ odoo.define("communication_center_jitsi.metting_settings.js", function(require) 
             'click .jitsi_button_room': '_toggle_room',
             'click .jitsi_button_fullscreen': '_toggle_screen',
         },
-
-        check_lobby: function(Lobby_with_knocking, Lobby_with_name) {
-            if (Lobby_with_knocking && Lobby_with_name) {
+        check_name_lobby: function(Lobby_with_name) {
+            if (Lobby_with_name) {
                 return true
-            } else if (Lobby_with_knocking || Lobby_with_name) {
+            } else {
+                return false
+            }
+        },
+        check_knocking_lobby: function(Lobby_with_knocking) {
+            if (Lobby_with_knocking) {
                 return true
             } else {
                 return false
@@ -33,25 +38,24 @@ odoo.define("communication_center_jitsi.metting_settings.js", function(require) 
             var self = this;
             return this._super.apply(this, arguments).then(function() {
                 const parent = $('#jitsi_meeting_placeholder');
-                console.log(parent);
                 var div = document.createElement("div");
                 div.id = "center_meeting";
                 if (parent.length === 1) {
                     parent.append(div);
                 }
+                let name_lobby_on_off;
+
                 const domain = parent.data("jitsi");
                 const jwt_token = parent.data("jwt");
-                const Lobby_with_knocking = parent.data('lobby_with_knocking') ? true : false;
-                const Lobby_with_name = parent.data('lobby_with_name') ? true : false;
+                const Lobby_with_knocking = parent.data('lobby_with_knocking');
+                const Lobby_with_name = parent.data('lobby_with_name');
 
                 //Check if there is a lobby.
                 self.unicId = parent.data("link_suffix");
                 self.rec_on_start = parent.data('start_recording');
                 self.no_recording = parent.data('no_recording');
-                // self.Lobby_with_name = parent.data('lobby_with_name');
-                // self.Lobby_with_knocking = parent.data('lobby_with_knocking');
                 self.Toggle_recording = false;
-                self.Lobby_on = self.check_lobby(Lobby_with_knocking, Lobby_with_name);
+                // self.Lobby_on = self.check_lobby(Lobby_with_knocking, Lobby_with_name);
 
                 let toolbarButtons = [
                     'camera',
@@ -115,13 +119,17 @@ odoo.define("communication_center_jitsi.metting_settings.js", function(require) 
                     //     };
                     // },
                     configOverwrite: {
-                        requireDisplayName: parent.data('lobby_with_name') ? true : false,
-                        prejoinPageEnabled: parent.data('lobby_with_knocking') ? true : false,
+                        // requireDisplayName = Name + Knocking
+                        requireDisplayName: parent.data('lobby_with_knocking') ? true : false,
+                        // prejoinPageEnabled = Name Only
+                        prejoinPageEnabled: parent.data('lobby_with_name') ? true : false,
+                        name_lobby_on_off: parent.data('lobby_with_name') ? true : false,
                         startWithAudioMuted: parent.data("microphone") ? false : true,
                         startWithVideoMuted: parent.data("webcam") ? false : true,
                         toolbarButtons: toolbarButtons,
                     },
                 };
+                console.log(parent.data('lobby_with_name'));
 
                 self.api = new JitsiMeetExternalAPI(domain, options);
 
@@ -134,6 +142,13 @@ odoo.define("communication_center_jitsi.metting_settings.js", function(require) 
                 if (parent[0].attributes['data-jwt']) {
                     parent[0].removeAttribute('data-jwt')
                 }
+
+                // api.addEventListener('participantRoleChanged', function (event) {
+                //     const lobby_with_knocking = parent.data('lobby_with_knocking')
+                //     if (event.role === 'moderator' && lobby_with_knocking == "True") {
+                //             api.executeCommand('toggleLobby', true)
+                //     }
+                // });
             });
         },
         //--------------------------------------------------------------------------
@@ -160,64 +175,50 @@ odoo.define("communication_center_jitsi.metting_settings.js", function(require) 
             let height = this.$el.height();
 
             api.addEventListener('participantRoleChanged', function (event) {
-                console.log("participantRoleChanged", event);
-                $('#center_meeting').append( `<div class='btn_holder' id='btn_holder_id' style='height:${height}px; width:auto; display:flex;'></div>`)
-                $('.btn_holder').empty();
+                const element = document.getElementById('btn_holder_id');
+                // const lobby_with_knocking = document.getElementsByName('lobby_with_knocking')
+                if (element){
+                    element.remove();}
                 if (event.role === 'moderator') {
-                    api.executeCommand('toggleLobby', true)
-                    console.log("Hello");
-                    console.log(self);
-                    console.log(this);
-                    console.log(self.Lobby_with_knocking);
-                    console.log(this.Lobby_with_knocking);
-                    console.log(self.Lobby_with_name);
-                    console.log(this.Lobby_with_name);
-                    console.log(this.Lobby_on = true);
-                    // this = true;
-                    //if ($('.btn_holder').length <= 0) {
-                        $('.btn_holder').append(
-                            `<a id="lobby_knocking_btn" class='btn ${this.Lobby_with_knocking ? 'btn-on' : 'btn-off'} jitsi_button_knocking_lobby'>
-                            ${this.Lobby_with_knocking ? '<i class="fa fa-lock" />' : '<i class="fa fa-unlock" />'}
-                            </a>
-                            <a id="lobby_name_btn" class='btn ${this.Lobby_with_name ? 'btn-on' : 'btn-off'} jitsi_button_name_lobby'>
-                            ${this.Lobby_with_name ? '<i class="fa fa-address-card" />' : '<i class="fa fa-address-card-o" />'}
-                            </a>
-                            }
-                            <a id="screen_btn" class='btn ${this ? 'btn-on' : 'btn-off'} jitsi_button_fullscreen'>
-                                <i class="fa fa-expand" /> 
-                            </a>
-                            <a class='btn btn-room-react jitsi_button_room'>
-                            <i class="fa fa-users" />
-                            </a>`
-                            )
+                    // if(lobby_with_knocking == true){
+                    //     api.executeCommand('toggleLobby', true)
+                    // }
+                        $('#center_meeting').append( `<div class='btn_holder' id='btn_holder_id' style='height:${height}px; width:auto; display:flex;'>
+                                <a id="lobby_knocking_btn" class='btn ${this.Lobby_with_knocking ? 'btn-on' : 'btn-off'} jitsi_button_knocking_lobby'>
+                                ${this.Lobby_with_knocking ? '<i class="fa fa-lock" />' : '<i class="fa fa-unlock" />'}
+                                </a>
+                                <a id="lobby_name_btn" class='btn ${this.Lobby_with_name ? 'btn-on' : 'btn-off'} jitsi_button_name_lobby'>
+                                ${this.Lobby_with_name ? '<i class="fa fa-address-card" />' : '<i class="fa fa-address-card-o" />'}
+                                </a>
+                                <a id="screen_btn" class='btn ${this ? 'btn-on' : 'btn-off'} jitsi_button_fullscreen'>
+                                    <i class="fa fa-expand" /> 
+                                </a>
+                                <a class='btn btn-room-react jitsi_button_room'>
+                                <i class="fa fa-users" />
+                                </a></div>`
+                                )
                             
                 } 
                 else if (event.role !== 'moderator') {
-                    api.executeCommand('toggleLobby', true)
-                    $('.btn_holder').empty();
-                    // this = true;
-                    //if ($('.btn_holder').length <= 0) {
-                        $('.btn_holder').append(
-                            `<a id="screen_btn" class='btn ${this ? 'btn-on' : 'btn-off'} jitsi_button_fullscreen'>
+                    // api.executeCommand('toggleLobby', true)
+                    const element = document.getElementById('btn_holder_id');
+                    if (element){
+                        element.remove();}
+                            $('#center_meeting').append( `<div class='btn_holder' id='btn_holder_id' style='height:${height}px; width:auto; display:flex;'>
+                            <a id="screen_btn" class='btn ${this ? 'btn-on' : 'btn-off'} jitsi_button_fullscreen'>
                                 <i class="fa fa-expand" />
-                            </a>`
+                            </a></div>`
                         )
-                        //}
                 }
-                // else if (event.role !== 'moderator'){
-                //     if ($('.btn_holder_for_all').length <= 0) {
-                //         $('#center_meeting').append(menu_for_all)
-                //     }
-                // }
             })
         },
-        _toggle_server_lobby: function(client_link_suffix, client_lobby_status) {
-            let uri = `/video_meeting/${client_link_suffix}/toggle_lobby`
-            let toggleMenu = ajax.jsonRpc(uri, 'call', {
-                link_suffix: client_link_suffix,
-                lobby_status: client_lobby_status
-            }).then(console.log(`Server Lobby Status: ${client_lobby_status}`))
-        },
+        // _toggle_server_lobby: function(client_link_suffix, client_lobby_status) {
+        //     let uri = `/video_meeting/${client_link_suffix}/toggle_lobby`
+        //     let toggleMenu = ajax.jsonRpc(uri, 'call', {
+        //         link_suffix: client_link_suffix,
+        //         lobby_status: client_lobby_status
+        //     })
+        // },
 
         // _render_recording: function (rec_on_start) {
         //     if (this.no_recording) {
@@ -230,78 +231,73 @@ odoo.define("communication_center_jitsi.metting_settings.js", function(require) 
         // },
 
         _toggle_knocking_lobby: function(e) {
-            console.log("TOGGLE LOBBY");
             let button = $(e.target)
             let the_button = document.getElementById("lobby_knocking_btn");
-            console.log(the_button)
-            if (this.Lobby_with_knocking) {
+            if (this.Lobby_with_knocking == "False") {
                 this.api.executeCommand('toggleLobby', false)
                 this.Lobby_with_knocking = false
                 this._toggle_server_lobby(this.unicId, this.Lobby_with_knocking)
 
                 the_button.classList.replace("btn-on", "btn-off");
                 the_button.innerHTML = '<i class="fa fa-unlock" />';
-                console.log(the_button)
-            } else {
+            } else if (this.Lobby_with_knocking == "True") {
                 this.api.executeCommand('toggleLobby', true)
                 this.Lobby_with_knocking = true
                 this._toggle_server_lobby(this.unicId, this.Lobby_with_knocking)
 
                 the_button.classList.replace("btn-off", "btn-on");
                 the_button.innerHTML = '<i class="fa fa-lock" />';
-                console.log(the_button)
             }
         },
 
         _toggle_name_lobby: function(e) {
-            console.log("TOGGLE LOBBY");
-            let button = $(e.target)
+            // let button = $(e.target)
+            // console.log(name_lobby_on_off);
+            // console.log(this.check_name_lobby());
             let the_button = document.getElementById("lobby_name_btn");
-            console.log(the_button)
-            if (this.Lobby_with_name) {
-                this.api.executeCommand('toggleLobby', false)
-                this.Lobby_with_name = false
-                this._toggle_server_lobby(this.unicId, this.Lobby_with_name)
-
+            // console.log(the_button);
+            console.log(the_button.classList.contains("btn_on"));
+            console.log(the_button.classList.contains("btn_off"));
+            console.log(the_button.classList);
+            if (the_button.classList.contains("btn-on")) {
+                // name_lobby_on_off = "false";
+                console.log("off");
                 the_button.classList.replace("btn-on", "btn-off");
-                the_button.innerHTML = '<i class="fa fa-unlock" />';
-                console.log(the_button)
-            } else {
-                this.api.executeCommand('toggleLobby', true)
-                this.Lobby_with_name = true
-                this._toggle_server_lobby(this.unicId, this.Lobby_with_name)
-
+                the_button.innerHTML = '<i class="fa fa-address-card-o" />';
+            } else if (name_lobby_on_off == "false"){
+                // this.the_button && 
+                name_lobby_on_off = "true";
+                console.log(name_lobby_on_off);
+                console.log("on");
                 the_button.classList.replace("btn-off", "btn-on");
-                the_button.innerHTML = '<i class="fa fa-lock" />';
-                console.log(the_button)
+                the_button.innerHTML = '<i class="fa fa-address-card" />';
             }
         },
 
-        _toggle_record: function(e) {
-            let button = $(e.target)
-            let the_button2 = document.getElementById("rec_btn");
-            console.log(button)
-            console.log(e)
+        // _toggle_record: function(e) {
+        //     let button = $(e.target)
+        //     let the_button2 = document.getElementById("rec_btn");
+        //     console.log(button)
+        //     console.log(e)
 
-            if (!this.Toggle_recording) {
-                this.Toggle_recording = true;
-                this.api.executeCommand('startRecording', {
-                    mode: 'file'
-                })
-                the_button2.classList.replace("btn-success", "btn-primary");
-                the_button2.innerHTML = "<p>New Text</p>";
-            } else if (this.Toggle_recording) {
-                this.Toggle_recording = false;
-                this.api.executeCommand('stopRecording', {
-                    mode: 'file'
-                })
-                the_button2.classList.replace("btn-primary", "btn-success");
-                the_button2.innerHTML = "<i class='fa fa-users'></i>";
-            }
-        },
+        //     if (!this.Toggle_recording) {
+        //         this.Toggle_recording = true;
+        //         this.api.executeCommand('startRecording', {
+        //             mode: 'file'
+        //         })
+        //         the_button2.classList.replace("btn-success", "btn-primary");
+        //         the_button2.innerHTML = "<p>New Text</p>";
+        //     } else if (this.Toggle_recording) {
+        //         this.Toggle_recording = false;
+        //         this.api.executeCommand('stopRecording', {
+        //             mode: 'file'
+        //         })
+        //         the_button2.classList.replace("btn-primary", "btn-success");
+        //         the_button2.innerHTML = "<i class='fa fa-users'></i>";
+        //     }
+        // },
 
         _toggle_room: function() {
-            console.log(this.api.getParticipantsInfo())
             this.api.executeCommand('addBreakoutRoom', 'room')
         },
         _toggle_screen: function() {
