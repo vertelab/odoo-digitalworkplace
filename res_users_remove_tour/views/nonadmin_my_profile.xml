@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="myprofile_button" model="ir.ui.view">
+        <field name="name">res.users.my.profile.button</field>
+        <field name="model">res.users</field>
+        <field name="priority" eval="1"/>
+        <field name="inherit_id" ref="base.view_users_form_simple_modif"/>
+        <field name="arch" type="xml">
+            <!-- <xpath expr="//page[@*='Account Security']" position="after"> -->
+            <xpath expr="//group[@name='preferences']" position="inside">
+                <button string="Cancel tours" class="js_class" name="cancel_tours"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

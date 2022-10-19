@@ -1,0 +1,9 @@
+<odoo>
+    <data>
+        <template id="assets_backend" name="consume_tours" inherit_id="web.assets_backend">
+            <xpath expr="//script[last()]" position="after">
+                <script type="text/javascript" src="/res_users_remove_tour/static/src/js/consume_tour.js"/>
+            </xpath>
+        </template>
+    </data>
+</odoo>
