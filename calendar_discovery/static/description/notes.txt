@@ -1,14 +1,14 @@
-odoo-website-dermanord / barcode_dermanord
-2022-10-25
+odoo-digitalworkplace / calendar_discovery
+2022-11-01
 
 Be aware of these!
 [project]/[module]/static/description/banner.png
 [project]/[module]/static/description/icon.png
 
 
-Icons is made of Maria Åkerberg, former Dermanord.
-maria-logotype.png
-maria-logotype-neg.pdf
+Icons is made of the digital workplace icon.
+digital-workspace_150.png
+digital-workspace_150-neg.png
 
 
 Icons may be found at: https://fontawesome.com/v5/cheatsheet
