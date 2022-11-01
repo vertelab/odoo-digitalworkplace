@@ -20,7 +20,7 @@
 ##############################################################################
 
 {
-    'name': 'Workspace: Calendar Discovery',
+    'name': 'Workplace: Calendar Discovery',
     'version': '14.0.0.0.1',
     # Version ledger: 14.0 = Odoo version. 1 = Major. Non regressionable code. 2 = Minor. New features that are regressionable. 3 = Bug fixes
     'summary': 'Sets up an endpoint that redirects CalDAV/CardCAV to the correct server.',
