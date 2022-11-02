@@ -40,15 +40,15 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.0714286"
-     inkscape:cx="42.000006"
-     inkscape:cy="140"
+     inkscape:cx="126"
+     inkscape:cy="189.46667"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:window-width="1881"
      inkscape:window-height="773"
-     inkscape:window-x="39"
-     inkscape:window-y="87"
+     inkscape:window-x="75"
+     inkscape:window-y="222"
      inkscape:window-maximized="0">
     <inkscape:grid
        type="xygrid"
@@ -130,12 +130,12 @@
          x="292.06674"
          y="72.822594"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.66666603px;font-family:Ubuntu;-inkscape-font-specification:'Ubuntu, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.99999994px"
-         id="tspan2047">Calendar </tspan><tspan
+         id="tspan832">Calendar Mobile </tspan><tspan
          sodipodi:role="line"
          x="292.06674"
          y="95.160004"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.66666603px;font-family:Ubuntu;-inkscape-font-specification:'Ubuntu, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.99999994px"
-         id="tspan832">Mobile Integration</tspan></text>
+         id="tspan835">Integration</tspan></text>
     <flowRoot
        xml:space="preserve"
        id="flowRoot892"
@@ -156,7 +156,7 @@
          x="342.03513"
          y="154.41"
          style="stroke-width:0.99999994px"
-         id="tspan2041">odoo-digitalworkspace</tspan></text>
+         id="tspan2041">odoo-digitalworkplace</tspan></text>
     <image
        y="122.45184"
        x="305.59711"

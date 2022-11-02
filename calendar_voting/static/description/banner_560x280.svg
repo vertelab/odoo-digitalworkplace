@@ -40,15 +40,15 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.0714286"
-     inkscape:cx="200.66667"
-     inkscape:cy="103.6"
+     inkscape:cx="166.13334"
+     inkscape:cy="77.466667"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:window-width="1881"
      inkscape:window-height="773"
-     inkscape:window-x="39"
-     inkscape:window-y="87"
+     inkscape:window-x="95"
+     inkscape:window-y="380"
      inkscape:window-maximized="0">
     <inkscape:grid
        type="xygrid"
@@ -121,13 +121,13 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;line-height:125%;font-family:Ubuntu;-inkscape-font-specification:'Ubuntu, Normal';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.99999994px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="318.06674"
+       x="316.06674"
        y="88.822594"
        id="text2035"
        inkscape:export-xdpi="92"
        inkscape:export-ydpi="92"><tspan
          sodipodi:role="line"
-         x="318.06674"
+         x="316.06674"
          y="88.822594"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.66666603px;font-family:Ubuntu;-inkscape-font-specification:'Ubuntu, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.99999994px"
          id="tspan832">Calendar Voting</tspan></text>
@@ -151,7 +151,7 @@
          x="342.03513"
          y="154.41"
          style="stroke-width:0.99999994px"
-         id="tspan2041">odoo-digitalworkspace</tspan></text>
+         id="tspan2041">odoo-digitalworkplace</tspan></text>
     <image
        y="122.45184"
        x="305.59711"
