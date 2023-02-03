@@ -42,7 +42,7 @@
     'maintainer': 'Vertel AB',
     'repository': 'https://github.com/vertelab/odoo-digitalworkplace',
     # Any module necessary for this one to work correctly
-    "depends": ['mail'],
+    'depends': ['mail'],
     "data": [
         'security/security.xml',
         'security/ir.model.access.csv',
