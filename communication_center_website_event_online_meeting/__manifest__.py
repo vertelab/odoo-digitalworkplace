@@ -49,6 +49,5 @@
         'data/email_template_data.xml',
     ],
     'application': True,
-    'license': 'OEEL-1',
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
