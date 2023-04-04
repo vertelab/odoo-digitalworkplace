@@ -34,15 +34,17 @@
     #'sequence': '1',
     'author': 'Vertel AB',
     'website': 'https://vertel.se/apps/odoo-digitalworkplace/user_settings_dav',
-    'images': ['static/description/banner.png'], # 560x280 px.
+    'images': ['static/description/banner.png'],  # 560x280 px.
     'license': 'AGPL-3',
     'contributor': '',
     'maintainer': 'Vertel AB',
     'repository': 'https://github.com/vertelab/odoo-digitalworkplace',
     # Any module necessary for this one to work correctly
-    'depends': ['base_dav',],
-    'data': ['views/user_collection_views.xml',
-    'views/assets.xml',
-    'data/collection.xml',],
+    'depends': ['base_dav', ],
+    'data': [
+        'views/user_collection_views.xml',
+        'views/assets.xml',
+        'data/collection.xml',
+    ],
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
