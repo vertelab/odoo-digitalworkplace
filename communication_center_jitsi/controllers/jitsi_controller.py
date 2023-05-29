@@ -6,6 +6,7 @@ import logging, string, random
 
 _logger = logging.getLogger(__name__)
 
+
 class JitsiController(http.Controller):
     
     @http.route(['/video_meeting/<string:link_suffix>/toggle_lobby'], type="json", auth='public')
@@ -22,7 +23,7 @@ class JitsiController(http.Controller):
 
     def _get_event(self, link_suffix):
         event = request.env["calendar.event"].sudo().search([('link_suffix', '=', link_suffix)])
-        _logger.warning(f'event, {event}')
+        _logger.info(f'event, {event}')
         fields = event.fields_get()
         return event
 
@@ -30,7 +31,4 @@ class JitsiController(http.Controller):
         event = request.env["calendar.event"].sudo().search([('link_suffix', '=', link_suffix)])
         jitsi_url = event.env['ir.config_parameter'].get_param('jitsi_url')
         link = f'{jitsi_url}'
-        _logger.error(f'jitsi_url, {jitsi_url}')
-        _logger.error(f'jitsi, {link}')
         return link
-

@@ -1,4 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_mail_message_history,mail.message.history,model_mail_message_history,,1,1,1,1
-access_edit_history,access.edit.history,model_edit_history,,1,1,1,1
-access_edit_message_log_note,access.edit.message.log.note,model_edit_message_log_note,,1,1,1,1

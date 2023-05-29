@@ -1,2 +1,0 @@
-This is not a module for Odoo.
-It's an app made in Flutter for syncing the mobile calendar with the odoo calendar.

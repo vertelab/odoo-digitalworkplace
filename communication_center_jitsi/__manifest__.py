@@ -21,7 +21,7 @@
 
 {
     'name': 'Workplace: Communication Center Jitsi',
-    'version': '14.0.0.0.1',
+    'version': '16.0.0.0.1',
     # Version ledger: 14.0 = Odoo version. 1 = Major. Non regressionable code. 2 = Minor. New features that are regressionable. 3 = Bug fixes
     'summary': 'Setup communication with Jitsi.',
     # Categories can be used to filter modules in modules listing
@@ -45,10 +45,17 @@
     # always loaded
     'data': [
         'views/res_config_settings_view.xml',
-        'views/assets.xml',
+        # 'views/assets.xml',
         'views/jitsi_controller.xml',
         'views/calendar_view.xml',
     ],
+    'assets': {
+        'web.assets_frontend': [
+            'communication_center_jitsi/static/src/js/meeting_settings.js',
+            'communication_center_jitsi/static/src/js/external_api.js',
+            'communication_center_jitsi/static/src/css/controller_style.css',
+        ]
+    },
     'qweb': [
         'static/src/xml/calendar_view_templet.xml',
     ],

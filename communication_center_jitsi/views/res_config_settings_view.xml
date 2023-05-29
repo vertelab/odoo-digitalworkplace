@@ -16,13 +16,17 @@
                                 Enter your Jitsi URL without https:// or http://
                             </div>
                             <div class="content-group">
-                                <div class="row mt16">
-                                    <label for="jitsi_url" string="Jitsi URL" class="col-lg-3 o_light_label"/>
-                                    <field name="jitsi_url"/>
-                                    <label for="jitsi_app_id" string="Jitsi App ID" class="col-lg-3 o_light_label"/>
-                                    <field name="jitsi_app_id"/>
-                                    <label for="jwt_secret" string="JWT secret" class="col-lg-3 o-light_label"/>
-                                    <field name="jwt_secret"/>
+                                <div class="row mt8">
+                                    <label class="col-lg-3" string="Jitsi URL" for="jitsi_url"/>
+                                    <field name="jitsi_url" placeholder="meet.vertel.se"/>
+                                </div>
+                                <div class="row mt8">
+                                    <label class="col-lg-3" string="Jitsi App ID" for="jitsi_app_id"/>
+                                    <field name="jitsi_app_id" placeholder="jitsi app id"/>
+                                </div>
+                                <div class="row mt8">
+                                    <label class="col-lg-3" string="JWT Secret" for="jwt_secret"/>
+                                    <field name="jwt_secret" placeholder="secret"/>
                                 </div>
                             </div>
                         </div>
@@ -36,22 +40,22 @@
             <field name="model">calendar.event</field>
             <field name="inherit_id" ref="calendar.view_calendar_event_form"/>
             <field name="arch" type="xml">
-                <xpath expr="//page[@name='page_misc']" position="after">
+                <xpath expr="//page[@name='page_options']" position="after">
                     <field name="video_meeting_checkbox" invisible="1"/>
                     <field name="link_suffix" invisible="1"/>
                     <page name="video_meeting" string ="Video Meeting" attrs="{'invisible': [('video_meeting_checkbox', '!=', True)]}">
                         <group col="3">
-                                <field name="room_name" id="room_name_id"/>
-                                <field name="jwt_validation" widget="boolean_toggle"/>
-                                <field name="microphone" widget="boolean_toggle"/>
-                                <field name="webcam" widget="boolean_toggle"/>
-                                <field name="lobby_with_name" widget="boolean_toggle"/>
-                                <field name="lobby_with_let_in" widget="boolean_toggle"/>
-                                <!-- <field name="link_for_participants"/>
-                                <field name="link_for_moderator"/-->
-                                <field name="no_recording" widget="boolean_toggle"/>
-                                <field name="start_recording" widget="boolean_toggle"/>
-                                <!--field name="rooms_creation"/> -->
+                            <field name="room_name" id="room_name_id"/>
+                            <field name="jwt_validation" widget="boolean_toggle"/>
+                            <field name="microphone" widget="boolean_toggle"/>
+                            <field name="webcam" widget="boolean_toggle"/>
+                            <field name="lobby_with_name" widget="boolean_toggle"/>
+                            <field name="lobby_with_let_in" widget="boolean_toggle"/>
+                            <!-- <field name="link_for_participants"/>
+                            <field name="link_for_moderator"/-->
+                            <field name="no_recording" widget="boolean_toggle"/>
+                            <field name="start_recording" widget="boolean_toggle"/>
+                            <!--field name="rooms_creation"/> -->
                         </group>
                     </page>
                 </xpath>

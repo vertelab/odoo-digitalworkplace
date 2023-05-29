@@ -28,9 +28,9 @@ class Meeting(models.Model):
     link_for_moderator = fields.Boolean(string="Link for moderator")
     no_recording = fields.Boolean(string="Turn off the possibility to record")
     start_recording = fields.Boolean(string="Start recording from beginning off the meeting")
-    rooms_creation = fields.Boolean(string="Create and move participants to roomes")
+    rooms_creation = fields.Boolean(string="Create and move participants to rooms")
     room_name = fields.Char(string="Enter room name")
-    controller_link = fields.Char(string="Video meeting link", default = " ")
+    controller_link = fields.Char(string="Video meeting link", default=" ")
     link_suffix = fields.Char(string='Unique ID of Event')
 
     @api.onchange("controller_link","video_meeting_checkbox")
@@ -40,18 +40,16 @@ class Meeting(models.Model):
         if not self.video_meeting_checkbox:
             self.controller_link = self.create_controller_link(self.link_suffix)
 
-
     def create_controller_link(self, link_suffix):
         web_name = self.env['ir.config_parameter'].sudo().get_param('web.base.url')
         return f'{web_name}/video_meeting/{link_suffix}'
 
-
     @api.onchange("jwt_validation")
     def _getJWTtoken(self):
-        secret = self.env['ir.config_parameter'].get_param('jwt_secret');
-        app_id = self.env['ir.config_parameter'].get_param('jitsi_app_id');
-        domain = self.env['ir.config_parameter'].get_param('jitsi_url');
-        expiary = self.start + timedelta(days=1);
+        secret = self.env['ir.config_parameter'].get_param('jwt_secret')
+        app_id = self.env['ir.config_parameter'].get_param('jitsi_app_id')
+        domain = self.env['ir.config_parameter'].get_param('jitsi_url')
+        expiary = self.start + timedelta(days=1)
         if self.jwt_validation and secret and app_id and domain:
             token = jwt.encode({
                 "aud": "jitsi",
@@ -62,18 +60,17 @@ class Meeting(models.Model):
             }, secret)
             self.jwt_token = token #.decode('utf-8')
 
-        elif self.jwt_validation == False and secret and app_id and domain:
+        elif not self.jwt_validation and secret and app_id and domain:
             self.jwt_token = ""
         else:
             raise UserError(_("Please configure your jitsi_url, jitsi_app_id, and jwt_secret in Settings -> Calendar."))
 
-
-    @api.model
-    def create(self, vals):
-        if  vals.get("video_meeting_checkbox"):
-            vals["controller_link"] = self.create_controller_link(vals.get("link_suffix"))
-        res = super().create(vals)
-        return res
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if vals.get("video_meeting_checkbox"):
+                vals["controller_link"] = self.create_controller_link(vals.get("link_suffix"))
+        return super(Meeting, self).create(vals_list)
 
     def write(self, vals):
         for rec in self:
