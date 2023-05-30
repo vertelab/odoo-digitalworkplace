@@ -41,12 +41,13 @@
     'maintainer': 'Vertel AB',
     'repository': 'https://github.com/vertelab/odoo-digitalworkplace',
     # Any module necessary for this one to work correctly
-    'depends': ['base', 'communication_center_jitsi', 'event', 'website_event'],
+    'depends': ['base', 'event', 'website_event'],
 
     # always loaded
     'data': [
         'views/event_view.xml',
         'data/email_template_data.xml',
+        # ~ 'views/res_config_settings_view.xml',
     ],
     'application': True,
 }

@@ -142,7 +142,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 5px 5px 10px #2d2c2c;
+/*
+    box-shadow: 5px 5px 10px #2d2c2c !important;
+*/
+    background-color: red;
 }
 
 .cell-voted-time {
@@ -189,6 +192,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.btn{
+    box-shadow: 5px 5px 10px #2d2c2c !important;
 }
 
 .btn:hover {

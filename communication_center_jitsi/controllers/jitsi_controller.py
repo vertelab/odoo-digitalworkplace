@@ -34,3 +34,16 @@ class JitsiController(http.Controller):
         _logger.error(f'jitsi, {link}')
         return link
 
+    def _get_event(self, link_suffix):
+        event = request.env["event.event"].sudo().search([('link_suffix', '=', link_suffix)])
+        _logger.warning(f'event, {event}')
+        fields = event.fields_get()
+        return event
+
+    def _create_jitsi_link(self, link_suffix):
+        event = request.env["event.event"].sudo().search([('link_suffix', '=', link_suffix)])
+        jitsi_url = event.env['ir.config_parameter'].get_param('jitsi_url')
+        link = f'{jitsi_url}'
+        _logger.error(f'jitsi_url, {jitsi_url}')
+        _logger.error(f'jitsi, {link}')
+        return link

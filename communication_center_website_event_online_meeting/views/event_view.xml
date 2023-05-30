@@ -6,10 +6,8 @@
             <field name="inherit_id" ref="event.view_event_form"/>
             <field name="arch" type="xml">
                 <field name="tag_ids" position="after">
-                    <label for="online_meeting_link"/>
                     <div>
-                        <field name="online_meeting_link" widget="url"/>
-                        <button string="Get Link" name="create_meeting_link" icon="fa-check" type="object" groups="base.group_no_one"/>
+                        <field name="video_meeting_checkbox" string="Video Meeting"/>
                     </div>
                 </field>
             </field>
