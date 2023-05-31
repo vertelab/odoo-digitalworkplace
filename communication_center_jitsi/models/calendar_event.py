@@ -1,6 +1,4 @@
 from datetime import timedelta
-from distutils.command.clean import clean
-from email.policy import default
 import json
 import jwt
 import logging
