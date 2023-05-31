@@ -72,7 +72,7 @@ class CalendarMeeting(models.Model):
         for vals in vals_list:
             if vals.get("video_meeting_checkbox"):
                 vals["controller_link"] = self.create_controller_link(vals.get("link_suffix"))
-        return super(Meeting, self).create(vals_list)
+        return super(CalendarMeeting, self).create(vals_list)
 
     def write(self, vals):
         for rec in self:
