@@ -14,7 +14,7 @@ from odoo.exceptions import UserError
 _logger = logging.getLogger(__name__)
 
 
-class Meeting(models.Model):
+class CalendarMeeting(models.Model):
     _inherit = 'calendar.event'
 
     url_link = fields.Char(string="Url")
