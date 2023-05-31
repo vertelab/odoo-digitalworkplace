@@ -57,5 +57,34 @@
                 </xpath>
             </field>
         </record>
+        
+        <record id="event_event_view_video_padge" model="ir.ui.view">
+            <field name="name">event.event.video.page</field>
+            <field name="model">event.event</field>
+            <field name="inherit_id" ref="event.view_event_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='event_notes']" position="after">
+                    <field name="video_meeting_checkbox" invisible="1"/>
+                    <field name="link_suffix" invisible="1"/>
+                    <page name="video_meeting" string ="Video Meeting" attrs="{'invisible': [('video_meeting_checkbox', '!=', True)]}">
+                        <group col="3">
+                                <field name="room_name" id="room_name_id"/>
+<!--
+                                 <field name="jwt_validation" widget="boolean_toggle"/> 
+-->
+                                <field name="microphone" widget="boolean_toggle"/>
+                                <field name="webcam" widget="boolean_toggle"/>
+                                <field name="lobby_with_name" widget="boolean_toggle"/>
+                                <field name="lobby_with_let_in" widget="boolean_toggle"/>
+                                <!-- <field name="link_for_participants"/>
+                                <field name="link_for_moderator"/-->
+                                <field name="no_recording" widget="boolean_toggle"/>
+                                <!-- <field name="start_recording" widget="boolean_toggle"/> -->
+                                <!--field name="rooms_creation"/> -->
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
     </data>
 </odoo>
