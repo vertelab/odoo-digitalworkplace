@@ -9,7 +9,7 @@ class Event(models.Model):
     _inherit = 'event.event'
 
     online_meeting_link = fields.Char(string="Meeting Link")
-    video_meeting_checkbox = fields.Boolean(string ="Video Meeting")
+    video_meeting_checkbox = fields.Boolean(string="Video Meeting")
 
     # ~ def create_meeting_link(self):
         # ~ jitsi_url = self.env['ir.config_parameter'].get_param('jitsi_url')

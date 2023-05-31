@@ -7,7 +7,7 @@
             <field name="arch" type="xml">
                 <field name="tag_ids" position="after">
                     <div>
-                        <field name="video_meeting_checkbox" string="Video Meeting"/>
+                        <string style="font-weight: bold;">Video Meeting </string><field name="video_meeting_checkbox"></field>
                     </div>
                 </field>
             </field>

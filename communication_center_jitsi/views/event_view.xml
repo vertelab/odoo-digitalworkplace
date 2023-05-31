@@ -6,6 +6,7 @@
             <field name="inherit_id" ref="event.view_event_form"/>
             <field name="arch" type="xml">
                 <field name="tag_ids"  position="after">
+                    <field name="link_suffix" invisible="1" />
                     <field name="video_meeting_checkbox" invisible="1"/>
                     <field name="controller_link" attrs="{'invisible': [('video_meeting_checkbox', '!=', False)]}" widget="url">
                     </field>

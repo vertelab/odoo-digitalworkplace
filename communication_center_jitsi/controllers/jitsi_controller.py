@@ -16,34 +16,40 @@ class JitsiController(http.Controller):
 
     @http.route(['/video_meeting/<string:link_suffix>'], type="http", auth='public', website=True)
     def meeting(self, link_suffix, **kw):
+        _logger.error(f"{link_suffix=}")
         event = self._get_event(link_suffix)
         jitsi = self._create_jitsi_link(link_suffix)
         return request.render("communication_center_jitsi.jitsi_meeting_site", {"event": event, "jitsi": jitsi})
 
     def _get_event(self, link_suffix):
         event = request.env["calendar.event"].sudo().search([('link_suffix', '=', link_suffix)])
-        _logger.warning(f'event, {event}')
+        if not event:
+            event = request.env["event.event"].sudo().search([('link_suffix', '=', link_suffix)])
+        _logger.error(f"{link_suffix=}")
+        _logger.error(f'event, {event}')
         fields = event.fields_get()
         return event
 
     def _create_jitsi_link(self, link_suffix):
         event = request.env["calendar.event"].sudo().search([('link_suffix', '=', link_suffix)])
+        if not event:
+            event = request.env["event.event"].sudo().search([('link_suffix', '=', link_suffix)])
         jitsi_url = event.env['ir.config_parameter'].get_param('jitsi_url')
         link = f'{jitsi_url}'
         _logger.error(f'jitsi_url, {jitsi_url}')
         _logger.error(f'jitsi, {link}')
         return link
 
-    def _get_event(self, link_suffix):
-        event = request.env["event.event"].sudo().search([('link_suffix', '=', link_suffix)])
-        _logger.warning(f'event, {event}')
-        fields = event.fields_get()
-        return event
+    # ~ def _get_event_event(self, link_suffix):
+        # ~ event = request.env["event.event"].sudo().search([('link_suffix', '=', link_suffix)])
+        # ~ _logger.warning(f'event, {event}')
+        # ~ fields = event.fields_get()
+        # ~ return event
 
-    def _create_jitsi_link(self, link_suffix):
-        event = request.env["event.event"].sudo().search([('link_suffix', '=', link_suffix)])
-        jitsi_url = event.env['ir.config_parameter'].get_param('jitsi_url')
-        link = f'{jitsi_url}'
-        _logger.error(f'jitsi_url, {jitsi_url}')
-        _logger.error(f'jitsi, {link}')
-        return link
+    # ~ def _create_jitsi_link_event(self, link_suffix):
+        # ~ event = request.env["event.event"].sudo().search([('link_suffix', '=', link_suffix)])
+        # ~ jitsi_url = event.env['ir.config_parameter'].get_param('jitsi_url')
+        # ~ link = f'{jitsi_url}'
+        # ~ _logger.error(f'jitsi_url, {jitsi_url}')
+        # ~ _logger.error(f'jitsi, {link}')
+        # ~ return link
