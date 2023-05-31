@@ -12,5 +12,27 @@
                 </field>
             </field>
         </record>
+        
+        <record id="event_event_list_roles" model="ir.ui.view">
+            <field name="name">event.event.list.roles</field>
+            <field name="model">event.registration</field>
+            <field name="inherit_id" ref="event.view_event_registration_tree" ></field>
+            <field name="arch" type="xml">
+                <field name="visitor_id" position="before">
+                    <field name="select_roles" ></field>
+                </field>
+            </field>
+        </record>
+        
+        <record id="event_event_form_roles" model="ir.ui.view">
+            <field name="name">event.event.form.roles</field>
+            <field name="model">event.registration</field>
+            <field name="inherit_id" ref="event.view_event_registration_form" ></field>
+            <field name="arch" type="xml">
+                <field name="visitor_id" position="before">
+                    <field name="select_roles" ></field>
+                </field>
+            </field>
+        </record>
     </data>
 </odoo>

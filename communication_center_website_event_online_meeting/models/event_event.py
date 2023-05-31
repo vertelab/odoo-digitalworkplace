@@ -10,6 +10,11 @@ class Event(models.Model):
 
     online_meeting_link = fields.Char(string="Meeting Link")
     video_meeting_checkbox = fields.Boolean(string="Video Meeting")
+    
+class EventRegistration(models.Model):
+     _inherit = 'event.registration'
+    
+     select_roles = fields.Selection([('Admin', 'admin'),('Audience', 'audience')], string="Select Roles")
 
     # ~ def create_meeting_link(self):
         # ~ jitsi_url = self.env['ir.config_parameter'].get_param('jitsi_url')
