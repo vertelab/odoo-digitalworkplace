@@ -14,11 +14,5 @@ class Event(models.Model):
 class EventRegistration(models.Model):
      _inherit = 'event.registration'
     
-     select_roles = fields.Selection([('Admin', 'admin'),('Audience', 'audience')], string="Select Roles")
+     select_roles = fields.Selection([('Moderator', 'moderator'),('Audience', 'audience'), ('Presentor', 'presentor')], string="Select Roles")
 
-    # ~ def create_meeting_link(self):
-        # ~ jitsi_url = self.env['ir.config_parameter'].get_param('jitsi_url')
-        # ~ if not jitsi_url:
-            # ~ raise UserError(_("Kindly set a Jitsi URL"))
-        # ~ link_suffix = ''.join(random.choices(string.ascii_letters, k=8))
-        # ~ self.online_meeting_link = f"{jitsi_url}/{link_suffix}"
