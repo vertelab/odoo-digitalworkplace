@@ -41,13 +41,14 @@
     'maintainer': 'Vertel AB',
     'repository': 'https://github.com/vertelab/odoo-digitalworkplace',
     # Any module necessary for this one to work correctly
-    'depends': ['base', 'communication_center_calendar_online_meeting', 'website',],
+    'depends': ['base', 'communication_center_calendar_online_meeting', 'website', 'communication_center_website_event_online_meeting'],
     # always loaded
     'data': [
         'views/res_config_settings_view.xml',
         # 'views/assets.xml',
         'views/jitsi_controller.xml',
         'views/calendar_view.xml',
+        'views/event_view.xml',
     ],
     'assets': {
         'web.assets_frontend': [
