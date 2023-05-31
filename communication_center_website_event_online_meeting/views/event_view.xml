@@ -1,0 +1,16 @@
+<odoo>
+    <data>
+        <record id="event_event_form_view" model="ir.ui.view">
+            <field name="name">event.event.form</field>
+            <field name="model">event.event</field>
+            <field name="inherit_id" ref="event.view_event_form"/>
+            <field name="arch" type="xml">
+                <field name="tag_ids" position="after">
+                    <div>
+                        <string style="font-weight: bold;">Video Meeting </string><field name="video_meeting_checkbox"></field>
+                    </div>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>
