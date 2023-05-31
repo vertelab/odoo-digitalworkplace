@@ -14,8 +14,8 @@ from odoo.exceptions import UserError
 _logger = logging.getLogger(__name__)
 
 
-class CalendarMeeting(models.Model):
-    _inherit = 'calendar.event'
+class EventMeeting(models.Model):
+    _inherit = 'event.event'
 
     url_link = fields.Char(string="Url")
     jwt_token = fields.Text(string="JWT Token", default="", compute="_getJWTtoken")
@@ -48,31 +48,32 @@ class CalendarMeeting(models.Model):
 
     @api.onchange("jwt_validation")
     def _getJWTtoken(self):
-        secret = self.env['ir.config_parameter'].get_param('jwt_secret')
-        app_id = self.env['ir.config_parameter'].get_param('jitsi_app_id')
-        domain = self.env['ir.config_parameter'].get_param('jitsi_url')
-        expiary = self.start + timedelta(days=1)
+        secret = self.env['ir.config_parameter'].get_param('jwt_secret');
+        app_id = self.env['ir.config_parameter'].get_param('jitsi_app_id');
+        domain = self.env['ir.config_parameter'].get_param('jitsi_url');
+        # ~ expiary = self.start + timedelta(days=1);
         if self.jwt_validation and secret and app_id and domain:
             token = jwt.encode({
                 "aud": "jitsi",
                 "iss": app_id,
                 "sub": domain,
                 "room": "*",
-                "exp": int(expiary.strftime('%s'))
+                # ~ "exp": int(expiary.strftime('%s'))
             }, secret)
             self.jwt_token = token #.decode('utf-8')
 
-        elif not self.jwt_validation and secret and app_id and domain:
+        elif self.jwt_validation == False and secret and app_id and domain:
             self.jwt_token = ""
         else:
             raise UserError(_("Please configure your jitsi_url, jitsi_app_id, and jwt_secret in Settings -> Calendar."))
 
-    @api.model_create_multi
-    def create(self, vals_list):
-        for vals in vals_list:
-            if vals.get("video_meeting_checkbox"):
-                vals["controller_link"] = self.create_controller_link(vals.get("link_suffix"))
-        return super(CalendarMeeting, self).create(vals_list)
+
+    @api.model
+    def create(self, vals):
+        if  vals.get("video_meeting_checkbox"):
+            vals["controller_link"] = self.create_controller_link(vals.get("link_suffix"))
+        res = super().create(vals)
+        return res
 
     def write(self, vals):
         for rec in self:

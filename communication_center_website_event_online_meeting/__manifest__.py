@@ -20,45 +20,34 @@
 ##############################################################################
 
 {
-    'name': 'Workplace: Communication Center Jitsi',
+    'name': 'Workplace: Communication Center Website Event Online Meeting',
     'version': '16.0.0.0.1',
     # Version ledger: 14.0 = Odoo version. 1 = Major. Non regressionable code. 2 = Minor. New features that are regressionable. 3 = Bug fixes
-    'summary': 'Setup communication with Jitsi.',
+    'summary': 'Setup a link for your online event',
     # Categories can be used to filter modules in modules listing
     # Check https://github.com/odoo/odoo/blob/14.0/odoo/addons/base/data/ir_module_category_data.xml
     # for the full list
     'category': 'Productivity',
     'description': """
-    Setup communication with Jitsi.
+    Setup a link for your online link for events.
     """,
     #'sequence': '1',
     'sequence': '280',
     'author': 'Vertel AB',
-    'website': 'https://vertel.se/apps/odoo-digitalworkplace/communication_center_jitsi',
+    'website': 'https://vertel.se/apps/odoo-digitalworkplace/communication_center_website_event_online_meeting',
     'images': ['static/description/banner.png'], # 560x280 px.
     'license': 'AGPL-3',
     'contributor': '',
     'maintainer': 'Vertel AB',
     'repository': 'https://github.com/vertelab/odoo-digitalworkplace',
     # Any module necessary for this one to work correctly
-    'depends': ['base', 'communication_center_calendar_online_meeting', 'website', 'communication_center_website_event_online_meeting'],
+    'depends': ['base', 'event', 'website_event'],
+
     # always loaded
     'data': [
-        'views/res_config_settings_view.xml',
-        # 'views/assets.xml',
-        'views/jitsi_controller.xml',
-        'views/calendar_view.xml',
         'views/event_view.xml',
-    ],
-    'assets': {
-        'web.assets_frontend': [
-            'communication_center_jitsi/static/src/js/meeting_settings.js',
-            'communication_center_jitsi/static/src/js/external_api.js',
-            'communication_center_jitsi/static/src/css/controller_style.css',
-        ]
-    },
-    'qweb': [
-        'static/src/xml/calendar_view_templet.xml',
+        'data/email_template_data.xml',
+        # ~ 'views/res_config_settings_view.xml',
     ],
     'application': True,
 }
