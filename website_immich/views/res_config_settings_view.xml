@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.web.immich</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base_setup.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <div id="product_get_pic_setting" position="after">
+                <setting string="Immich Image Library" help="Connect to your Immich server to access photos" id="immich">
+                    <div class="content-group mt16" id="immich_settings">
+                        <div class="content-group mt16">
+                            <label for="immich_url" class="o_light_label mr8"/>
+                            <field name="immich_url" placeholder="https://photos.example.com"/>
+                        </div>
+                        <div class="content-group">
+                            <label for="immich_api_key" class="o_light_label mr8"/>
+                            <field name="immich_api_key" password="True"/>
+                        </div>
+                        <div class="pb16">
+                            <a href="https://immich.app/docs/features/command-line-interface#obtain-the-api-key"
+                               target="_blank" class="btn btn-link" role="button">How to get an Immich API Key</a>
+                        </div>
+                    </div>
+                </setting>
+            </div>
+        </field>
+    </record>
+</odoo>

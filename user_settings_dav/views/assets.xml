@@ -1,7 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <template id="clipbord" name="dav_assets" inherit_id="web.assets_backend">
-        <xpath expr="." position="inside">
-            <script type="text/javascript" src="/user_settings_dav/static/src/js/copy_to_clipbord.js"/>
-        </xpath>
-    </template>
+    <record id="assets_backend_user_settings_dav" model="ir.asset">
+        <field name="name">user_settings_dav_copy_to_clipboard</field>
+        <field name="bundle">web.assets_backend</field>
+        <field name="path">user_settings_dav/static/src/js/copy_to_clipbord.js</field>
+        <field name="target">body</field>
+        <field name="sequence" eval="50"/>
+    </record>
 </odoo>
