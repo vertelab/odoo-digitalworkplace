@@ -3,6 +3,9 @@ import { patch } from "@web/core/utils/patch";
 import { KeepLast } from "@web/core/utils/concurrency";
 import { MediaDialog, TABS } from "@web_editor/components/media_dialog/media_dialog";
 import { ImageSelector } from "@web_editor/components/media_dialog/image_selector";
+import { FileSelectorControlPanel } from "@web_editor/components/media_dialog/file_selector";
+
+FileSelectorControlPanel.props.useImmich = { type: Boolean, optional: true };
 import { rpc } from "@web/core/network/rpc";
 import { useService } from "@web/core/utils/hooks";
 import { ImmichError } from "../immich_error/immich_error";

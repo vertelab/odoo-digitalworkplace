@@ -4,6 +4,9 @@ import { KeepLast } from "@web/core/utils/concurrency";
 import { rpc } from "@web/core/network/rpc";
 import { useService } from "@web/core/utils/hooks";
 import { ImageSelector } from "@html_editor/main/media/media_dialog/image_selector";
+import { FileSelectorControlPanel } from "@html_editor/main/media/media_dialog/file_selector";
+
+FileSelectorControlPanel.props.useImmich = { type: Boolean, optional: true };
 
 import { ImmichError } from "../immich_error/immich_error";
 import { useState } from "@odoo/owl";
