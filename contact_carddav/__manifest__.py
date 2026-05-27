@@ -7,6 +7,7 @@
     'website': 'https://vertel.se',
     'license': 'AGPL-3',
     'depends': [
+        'contacts',
         'base_dav',
         'user_settings_dav',
     ],
