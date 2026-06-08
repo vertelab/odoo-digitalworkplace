@@ -32,6 +32,118 @@ class Web_Immich(http.Controller):
         config = self._get_immich_config()
         return f"{config['url']}/api{path}"
 
+    def _asset_to_dict(self, item, config):
+        """Convert an Immich asset item to our image dict format."""
+        if item.get('type') != 'IMAGE':
+            return None
+        return {
+            'id': item['id'],
+            'type': 'IMAGE',
+            'url': f"/website_immich/thumbnail/{item['id']}",
+            'original_url': f"{config['url']}/api/assets/{item['id']}/original",
+            'original_filename': item.get('originalFileName', ''),
+            'thumbhash': item.get('thumbhash', ''),
+            'exif_info': {
+                'width': item.get('exifInfo', {}).get('exifImageWidth'),
+                'height': item.get('exifInfo', {}).get('exifImageHeight'),
+            },
+        }
+
+    def _search_people(self, query, config):
+        """Search for people matching the query. Returns list of person dicts."""
+        try:
+            resp = requests.get(
+                self._immich_url('/people'),
+                headers=self._immich_headers(),
+                params={'page': 1, 'size': 100},
+                timeout=15,
+            )
+            if resp.status_code == 200:
+                people = resp.json()
+                items = people if isinstance(people, list) else people.get('people', people.get('data', []))
+                matches = [p for p in items if query.lower() in (p.get('name', '') or '').lower()]
+                return matches[:5]
+        except requests.exceptions.RequestException:
+            logger.debug("People search failed, trying alternative endpoint")
+        try:
+            resp = requests.get(
+                self._immich_url('/search/person'),
+                headers=self._immich_headers(),
+                params={'name': query},
+                timeout=15,
+            )
+            if resp.status_code == 200:
+                data = resp.json()
+                return data if isinstance(data, list) else [data]
+        except requests.exceptions.RequestException:
+            logger.debug("Search-person endpoint not available")
+        return []
+
+    def _get_person_assets(self, person_id, page, size, config):
+        """Get assets for a specific person."""
+        for endpoint in [f'/people/{person_id}/assets', f'/person/{person_id}/assets']:
+            try:
+                resp = requests.get(
+                    self._immich_url(endpoint),
+                    headers=self._immich_headers(),
+                    params={'page': page, 'size': size},
+                    timeout=30,
+                )
+                if resp.status_code == 200:
+                    data = resp.json()
+                    items = data if isinstance(data, list) else data.get('items', data.get('data', []))
+                    images = [self._asset_to_dict(item, config) for item in items if item.get('type') == 'IMAGE']
+                    images = [img for img in images if img]
+                    total = data.get('total', len(images)) if not isinstance(data, list) else len(images)
+                    return images, total
+            except requests.exceptions.RequestException:
+                continue
+        return [], 0
+
+    def _search_smart(self, query, page, size, config):
+        """Search Immich by CLIP smart search (understands image content/context).
+        Requires immich-machine-learning service to be running."""
+        try:
+            response = requests.post(
+                self._immich_url('/search/smart'),
+                headers=self._immich_headers(),
+                json={'query': query, 'page': page, 'size': size},
+                timeout=30,
+            )
+            if response.status_code == 200:
+                data = response.json()
+                items = data.get('items', data.get('assets', {}).get('items', []))
+                total = data.get('total', data.get('assets', {}).get('total', len(items)))
+                images = [self._asset_to_dict(item, config) for item in items]
+                images = [img for img in images if img]
+                return images, total
+            elif response.status_code == 501:
+                logger.info("Smart search not available (ML service not running)")
+        except requests.exceptions.RequestException:
+            pass
+        return [], 0
+
+    def _search_metadata(self, query, page, size, config):
+        """Search Immich by metadata (covers location, filename, description)."""
+        try:
+            response = requests.post(
+                self._immich_url('/search/metadata'),
+                headers=self._immich_headers(),
+                json={'query': query, 'page': page, 'size': size},
+                timeout=30,
+            )
+            if response.status_code == 200:
+                data = response.json()
+                assets = data.get('assets', {})
+                items = assets.get('items', [])
+                total = assets.get('total', 0)
+                images = [self._asset_to_dict(item, config) for item in items]
+                images = [img for img in images if img]
+                return images, total
+        except requests.exceptions.RequestException:
+            pass
+        return [], 0
+
     @http.route('/website_immich/fetch_images', type='json', auth='user')
     def fetch_immich_images(self, **post):
         config = self._get_immich_config()
@@ -40,55 +152,35 @@ class Web_Immich(http.Controller):
                 return {'error': 'no_access'}
             return {'error': 'config_not_found'}
 
-        query = post.get('query', '')
+        query = post.get('query', '').strip()
         page = post.get('page', 1)
         size = post.get('size', 30)
+        search_type = post.get('search_type', 'auto')
 
         try:
-            response = requests.post(
-                self._immich_url('/search/metadata'),
-                headers=self._immich_headers(),
-                json={
-                    'query': query,
-                    'page': page,
-                    'size': size,
-                },
-                timeout=30,
-            )
-            if response.status_code == 200:
-                data = response.json()
-                assets = data.get('assets', {})
-                items = assets.get('items', [])
-                total = assets.get('total', 0)
+            images = []
+            total = 0
 
-                images = []
-                for item in items:
-                    if item.get('type') != 'IMAGE':
-                        continue
-                    thumbnail_url = f"{config['url']}/api/assets/{item['id']}/thumbnail?size=preview"
-                    original_url = f"{config['url']}/api/assets/{item['id']}/original"
-                    images.append({
-                        'id': item['id'],
-                        'type': 'IMAGE',
-                        'url': thumbnail_url,
-                        'original_url': original_url,
-                        'original_filename': item.get('originalFileName', ''),
-                        'thumbhash': item.get('thumbhash', ''),
-                        'exif_info': {
-                            'width': item.get('exifInfo', {}).get('exifImageWidth'),
-                            'height': item.get('exifInfo', {}).get('exifImageHeight'),
-                        },
-                    })
-
-                return {
-                    'images': images,
-                    'total': total,
-                    'page': page,
-                }
+            if search_type == 'auto' and query:
+                people = self._search_people(query, config)
+                if people:
+                    logger.info("Person search for '%s' matched: %s", query, [p.get('name') for p in people])
+                    person = people[0]
+                    images, total = self._get_person_assets(person['id'], page, size, config)
+                    if not images:
+                        images, total = self._search_metadata(query, page, size, config)
+                else:
+                    images, total = self._search_smart(query, page, size, config)
+                    if not images:
+                        images, total = self._search_metadata(query, page, size, config)
             else:
-                if not request.env.user._can_manage_immich_settings():
-                    return {'error': 'no_access'}
-                return {'error': response.status_code}
+                images, total = self._search_metadata(query, page, size, config)
+
+            return {
+                'images': images,
+                'total': total,
+                'page': page,
+            }
         except requests.exceptions.ConnectionError:
             return {'error': 'connection_error'}
         except requests.exceptions.Timeout:
@@ -182,3 +274,26 @@ class Web_Immich(http.Controller):
             return {'success': False, 'error': 'connection_error'}
         except Exception as e:
             return {'success': False, 'error': str(e)}
+
+    @http.route('/website_immich/thumbnail/<asset_id>', type='http', auth='user')
+    def proxy_thumbnail(self, asset_id, size='preview'):
+        config = self._get_immich_config()
+        if not config['url'] or not config['api_key']:
+            raise werkzeug.exceptions.NotFound()
+
+        url = f"{config['url']}/api/assets/{asset_id}/thumbnail?size={size}"
+        headers = self._immich_headers()
+        headers['Accept'] = '*/*'
+
+        try:
+            resp = requests.get(url, headers=headers, timeout=30)
+            if resp.status_code != 200:
+                logger.warning("Immich thumbnail proxy failed for %s: %s", asset_id, resp.status_code)
+                raise werkzeug.exceptions.NotFound()
+            return request.make_response(resp.content, [
+                ('Content-Type', resp.headers.get('Content-Type', 'image/jpeg')),
+                ('Cache-Control', 'public, max-age=3600'),
+            ])
+        except requests.exceptions.RequestException as e:
+            logger.exception("Immich thumbnail proxy error for %s: %s", asset_id, e)
+            raise werkzeug.exceptions.NotFound()

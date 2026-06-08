@@ -110,8 +110,10 @@ patch(ImageSelector.prototype, {
 
     async fetchImmichRecords(offset) {
         if (!this.state.needle) {
+            console.debug("[Immich] fetchImmichRecords: no needle, skipping");
             return { records: [], isMaxed: false };
         }
+        console.debug("[Immich] fetchImmichRecords:", { needle: this.state.needle, offset, searchService: this.state.searchService });
         this.immichState.isFetchingImmich = true;
         try {
             const { isMaxed, images } = await this.immich.getImages(
@@ -159,19 +161,24 @@ patch(ImageSelector.prototype, {
     },
 
     async search(...args) {
+        console.debug("[Immich] search called:", args[0]);
         await super.search(...args);
         await this.searchImmich();
     },
 
     async searchImmich() {
+        console.debug("[Immich] searchImmich called, needle:", this.state.needle);
         if (!this.state.needle) {
             this.immichState.immichError = false;
             this.immichState.immichRecords = [];
             this.immichState.isMaxed = false;
+            return;
         }
+        this.immich.invalidateCache(this.state.needle);
         return this.keepLastImmich
             .add(this.fetchImmichRecords(0))
             .then(({ records, isMaxed }) => {
+                console.debug("[Immich] searchImmich results:", { records: records.length, isMaxed });
                 this.immichState.immichRecords = records;
                 this.immichState.isMaxed = isMaxed;
             });

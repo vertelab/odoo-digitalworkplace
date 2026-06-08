@@ -3,12 +3,19 @@ import { registry } from "@web/core/registry";
 import { _t } from "@web/core/l10n/translation";
 import { AUTOCLOSE_DELAY } from "@html_editor/main/media/media_dialog/upload_progress_toast/upload_service";
 
+const immichLogger = {
+    debug: (...args) => console.debug("[Immich]", ...args),
+    error: (...args) => console.error("[Immich]", ...args),
+};
+
 export const immichService = {
     dependencies: ["upload"],
     async start(env, { upload }) {
+        immichLogger.debug("Immich service started");
         const _cache = {};
         return {
             async uploadImmichRecords(records, { resModel, resId }, onUploaded) {
+                immichLogger.debug("Uploading Immich records:", records.length, records[0]?.query);
                 upload.incrementId();
                 const file = upload.addFile({
                     id: upload.fileId,
@@ -65,6 +72,7 @@ export const immichService = {
             },
 
             async getImages(query, offset = 0, pageSize = 30, orientation) {
+                immichLogger.debug("getImages called:", { query, offset, pageSize });
                 const from = offset;
                 const to = offset + pageSize;
                 let cachedData = _cache[query];
@@ -86,7 +94,18 @@ export const immichService = {
                 };
             },
 
+            invalidateCache(query) {
+                if (query) {
+                    delete _cache[query];
+                    immichLogger.debug("Cache invalidated for query:", query);
+                } else {
+                    Object.keys(_cache).forEach(k => delete _cache[k]);
+                    immichLogger.debug("Full cache invalidated");
+                }
+            },
+
             async _fetchImages(query, orientation) {
+                immichLogger.debug("_fetchImages:", { query, page: _cache[query]?.page ? _cache[query].page + 1 : 1 });
                 if (!_cache[query]) {
                     _cache[query] = {
                         images: [],
@@ -102,8 +121,10 @@ export const immichService = {
                 };
                 const result = await rpc("/website_immich/fetch_images", payload);
                 if (result.error) {
+                    immichLogger.error("fetch_images error:", result.error);
                     return Promise.reject(result.error);
                 }
+                immichLogger.debug("fetch_images result:", { total: result.total, count: result.images?.length });
                 cachedData.page++;
                 cachedData.images.push(...result.images);
                 cachedData.totalImages = result.total;
