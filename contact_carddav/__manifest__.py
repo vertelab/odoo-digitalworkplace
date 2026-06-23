@@ -8,12 +8,14 @@
     'license': 'AGPL-3',
     'depends': [
         'contacts',
-        'base_dav',
-        'user_settings_dav',
+        'calendar_dav',
     ],
     'data': [
         'data/contact_carddav_data.xml',
     ],
+    'external_dependencies': {
+        'python': ['vobject'],
+    },
     'installable': True,
     'auto_install': False,
 }

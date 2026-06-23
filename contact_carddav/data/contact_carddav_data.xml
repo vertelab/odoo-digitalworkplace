@@ -8,6 +8,14 @@
         <field name="rights">authenticated</field>
     </record>
 
+    <record id="collection_my_contacts" model="dav.collection">
+        <field name="name">My Contacts</field>
+        <field name="dav_type">addressbook</field>
+        <field name="model_id" ref="base.model_res_partner"/>
+        <field name="domain">[('user_id', '=', user.id)]</field>
+        <field name="rights">authenticated</field>
+    </record>
+
     <record id="field_mapping_fn" model="dav.collection.field_mapping">
         <field name="name">FN</field>
         <field name="field_id" ref="base.field_res_partner__name"/>
@@ -42,5 +50,41 @@
         <field name="name">NOTE</field>
         <field name="field_id" ref="base.field_res_partner__comment"/>
         <field name="collection_id" ref="collection_contacts"/>
+    </record>
+
+    <record id="field_mapping_my_fn" model="dav.collection.field_mapping">
+        <field name="name">FN</field>
+        <field name="field_id" ref="base.field_res_partner__name"/>
+        <field name="collection_id" ref="collection_my_contacts"/>
+    </record>
+
+    <record id="field_mapping_my_email" model="dav.collection.field_mapping">
+        <field name="name">EMAIL</field>
+        <field name="field_id" ref="base.field_res_partner__email"/>
+        <field name="collection_id" ref="collection_my_contacts"/>
+    </record>
+
+    <record id="field_mapping_my_photo" model="dav.collection.field_mapping">
+        <field name="name">PHOTO</field>
+        <field name="field_id" ref="base.field_res_partner__image_1920"/>
+        <field name="collection_id" ref="collection_my_contacts"/>
+    </record>
+
+    <record id="field_mapping_my_title" model="dav.collection.field_mapping">
+        <field name="name">TITLE</field>
+        <field name="field_id" ref="base.field_res_partner__function"/>
+        <field name="collection_id" ref="collection_my_contacts"/>
+    </record>
+
+    <record id="field_mapping_my_url" model="dav.collection.field_mapping">
+        <field name="name">URL</field>
+        <field name="field_id" ref="base.field_res_partner__website"/>
+        <field name="collection_id" ref="collection_my_contacts"/>
+    </record>
+
+    <record id="field_mapping_my_note" model="dav.collection.field_mapping">
+        <field name="name">NOTE</field>
+        <field name="field_id" ref="base.field_res_partner__comment"/>
+        <field name="collection_id" ref="collection_my_contacts"/>
     </record>
 </odoo>

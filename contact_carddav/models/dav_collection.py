@@ -1,12 +1,26 @@
 import logging
 
-from odoo import models
+from odoo import api, models, SUPERUSER_ID
+from odoo.http import request
 
 _logger = logging.getLogger(__name__)
 
 
 class DavCollection(models.Model):
     _inherit = 'dav.collection'
+
+    @api.model
+    def _eval_context(self):
+        ctx = super()._eval_context()
+        # eval() switches to SUPERUSER before evaluating the domain,
+        # but user-specific filters (e.g. [('user_id','=',user.id)])
+        # need the actual authenticated DAV user from the HTTP request.
+        try:
+            if request and request.env.uid != SUPERUSER_ID:
+                ctx['user'] = request.env.user
+        except Exception:
+            pass
+        return ctx
 
     def _get_vobject(self, item):
         """Extract the vobject Component from a radicale Item or vobject."""
