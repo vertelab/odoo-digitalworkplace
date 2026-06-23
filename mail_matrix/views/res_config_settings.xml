@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_mail_matrix" model="ir.ui.view">
+        <field name="name">mail.matrix.settings</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass("settings")]" position="inside">
+                <div class="app_settings_block">
+                    <h2>Matrix Bridge</h2>
+                    <div class="row mt16">
+                        <div class="col-12 col-md-6">
+                            <label for="mail_matrix.matrix_domain" class="col-form-label">
+                                Matrix Domain
+                            </label>
+                            <field name="mail_matrix_domain" placeholder="matrix.example.com"/>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label for="mail_matrix.server_url" class="col-form-label">
+                                Matrix Server URL
+                            </label>
+                            <field name="mail_matrix_server_url" placeholder="https://matrix.example.com"/>
+                        </div>
+                    </div>
+                    <div class="row mt16">
+                        <div class="col-12 col-md-6">
+                            <label for="mail_matrix.bot_token" class="col-form-label">
+                                Bot Access Token
+                            </label>
+                            <field name="mail_matrix_bot_token" password="True" placeholder="syt_..."/>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label for="mail_matrix.webhook_token" class="col-form-label">
+                                Webhook Token
+                            </label>
+                            <field name="mail_matrix_webhook_token" password="True" placeholder="shared-secret"/>
+                        </div>
+                    </div>
+                    <div class="row mt16">
+                        <div class="col-12 col-md-6">
+                            <label for="mail_matrix.rabbitmq_host" class="col-form-label">
+                                RabbitMQ Host
+                            </label>
+                            <field name="mail_matrix_rabbitmq_host" placeholder="localhost"/>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label for="mail_matrix.rabbitmq_user" class="col-form-label">
+                                RabbitMQ User
+                            </label>
+                            <field name="mail_matrix_rabbitmq_user" placeholder="matrix"/>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

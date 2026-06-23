@@ -1,0 +1,102 @@
+### Task 4: Views and menu
+
+**Files:**
+- Create: `personal_contact_carddav/views/res_ppartner_views.xml`
+
+- [ ] **Step 1: Create views XML**
+
+Menu "Personliga Kontakter" placed after "Kontakter" under `menu_contacts` with `sequence=3`.
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_personal_contacts" model="ir.actions.act_window">
+        <field name="name">Personliga Kontakter</field>
+        <field name="res_model">res.ppartner</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Skapa en personlig kontakt
+            </p>
+        </field>
+    </record>
+
+    <record id="view_res_ppartner_list" model="ir.ui.view">
+        <field name="name">res.ppartner.list</field>
+        <field name="model">res.ppartner</field>
+        <field name="arch" type="xml">
+            <list string="Personliga Kontakter">
+                <field name="name"/>
+                <field name="email"/>
+                <field name="phone"/>
+                <field name="mobile"/>
+                <field name="company_name"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_res_ppartner_form" model="ir.ui.view">
+        <field name="name">res.ppartner.form</field>
+        <field name="model">res.ppartner</field>
+        <field name="arch" type="xml">
+            <form string="Personlig Kontakt">
+                <sheet>
+                    <field name="image" widget="image" class="oe_avatar"/>
+                    <div class="oe_title">
+                        <h1><field name="name" placeholder="Namn..."/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="email" widget="email"/>
+                            <field name="phone" widget="phone"/>
+                            <field name="mobile" widget="phone"/>
+                            <field name="company_name"/>
+                        </group>
+                        <group>
+                            <field name="street" placeholder="Gata..."/>
+                            <field name="street2"/>
+                            <field name="city"/>
+                            <field name="zip"/>
+                            <field name="state_id" options="{'no_create': True}"/>
+                            <field name="country_id" options="{'no_create': True}"/>
+                        </group>
+                    </group>
+                    <group string="Tags">
+                        <field name="category_ids" widget="many2many_tags"/>
+                    </group>
+                    <notebook>
+                        <page string="Anteckningar">
+                            <field name="notes"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_res_ppartner_search" model="ir.ui.view">
+        <field name="name">res.ppartner.search</field>
+        <field name="model">res.ppartner</field>
+        <field name="arch" type="xml">
+            <search string="Sök personliga kontakter">
+                <field name="name"/>
+                <field name="email"/>
+                <field name="phone"/>
+                <field name="mobile"/>
+                <field name="company_name"/>
+            </search>
+        </field>
+    </record>
+
+    <menuitem id="menu_personal_contacts"
+        name="Personliga Kontakter"
+        parent="menu_contacts"
+        sequence="3"
+        action="action_personal_contacts"
+        groups="base.group_user"/>
+</odoo>
+```
+
+- [ ] **Step 2: Verify XML file**
+
+---

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_partner_form_inherit_mail_matrix" model="ir.ui.view">
+        <field name="name">res.partner.form.inherit.mail.matrix</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name=\"function\"]" position="after">
+                <field name="matrix_id" placeholder="@user:matrix.server"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
