@@ -47,11 +47,16 @@
         'security/security.xml',
         'security/ir.model.access.csv',
         'data/data.xml',
-        'views/assets.xml',
         'views/mail_message_views.xml',
         'wizard/edit_message_log_note_views.xml',
         'views/res_config_settings_views.xml',
     ],
+    "assets": {
+        'web.assets_backend': [
+            'communication_center_mail_admin/static/src/components/message/message.js',
+            'communication_center_mail_admin/static/src/models/message/message.js',
+        ],
+    },
     "qweb": [
         'static/src/components/message/message.xml'
     ],

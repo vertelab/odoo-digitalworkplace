@@ -50,12 +50,18 @@
         'views/res_partner_views.xml',
         'views/res_users_views.xml',
         'views/voip_phonecall_views.xml',
-        'views/voip_templates.xml',
         'data/mail_activity_data.xml',
     ],
-    'qweb': [
-        'static/src/xml/*.xml',
-    ],
+    'assets': {
+        'web.assets_backend': [
+            'communication_center_sip/static/lib/sip.js',
+            'communication_center_sip/static/src/js/*.js',
+            'communication_center_sip/static/src/models/activity/activity.js',
+            'communication_center_sip/static/src/scss/call_center_field.scss',
+            'communication_center_sip/static/src/scss/voip.scss',
+            'communication_center_sip/static/src/xml/*.xml',
+        ],
+    },
     'application': True,
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
