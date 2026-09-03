@@ -1,10 +1,17 @@
-"""Matrix webhook and .well-known controller for mail_matrix."""
+"""Matrix controller for mail_matrix (Fas 2).
+
+- /.well-known/matrix/server — federation delegation
+- /mail/matrix/appservice — appservice transaction endpoint (inbound)
+- /mail/matrix/webhook — legacy webhook (retained until fully phased out)
+"""
 
 import json
 import logging
 
 from odoo import http, _
 from odoo.http import request
+
+from odoo.addons.mail_matrix.publisher.http import matrix_request
 
 _logger = logging.getLogger(__name__)
 
@@ -19,11 +26,7 @@ class MailMatrixController(http.Controller):
         csrf=False,
     )
     def well_known_matrix_server(self):
-        """Serve Matrix .well-known delegation.
-
-        Returns the Matrix server domain as configured in settings.
-        Coexists with CardDAV/CalDAV/WebDAV on the same Odoo domain.
-        """
+        """Serve Matrix .well-known delegation."""
         matrix_domain = (
             request.env["ir.config_parameter"]
             .sudo()
@@ -34,20 +37,85 @@ class MailMatrixController(http.Controller):
                 "web.base.url", ""
             )
             if matrix_domain:
-                # Extract domain from URL
                 matrix_domain = matrix_domain.replace("https://", "").replace(
                     "http://", ""
                 ).split("/")[0]
-                matrix_domain = "matrix." + matrix_domain
 
         data = {"m.server": f"{matrix_domain}:443"}
-
         return request.make_response(
             json.dumps(data),
             headers=[
                 ("Content-Type", "application/json"),
                 ("Access-Control-Allow-Origin", "*"),
             ],
+        )
+
+    @http.route(
+        "/mail/matrix/appservice",
+        type="http",
+        auth="public",
+        methods=["PUT", "POST"],
+        csrf=False,
+        save_session=False,
+    )
+    def appservice_transaction(self, **kw):
+        """Receive appservice transactions from the homeserver.
+
+        Legacy alias (kept for compatibility). The canonical appservice path
+        is /_matrix/app/v1/transactions/<txn_id> (see below).
+        """
+        return self._handle_transaction()
+
+    @http.route(
+        "/_matrix/app/v1/transactions/<txn_id>",
+        type="http",
+        auth="public",
+        methods=["PUT", "POST"],
+        csrf=False,
+        save_session=False,
+    )
+    def appservice_transaction_v1(self, txn_id, **kw):
+        """Receive appservice transactions from the homeserver (canonical path)."""
+        _logger.info("Appservice transaction %s", txn_id)
+        return self._handle_transaction()
+
+    def _handle_transaction(self):
+        """Shared appservice transaction handler."""
+        # Appservice protocol: Authorization: Bearer <hs_token>
+        auth_header = request.httprequest.headers.get("Authorization", "")
+        expected = request.env["ir.config_parameter"].sudo().get_param(
+            "mail_matrix.hs_token", ""
+        )
+        if expected and auth_header != "Bearer %s" % expected:
+            _logger.warning("Appservice: invalid hs_token in Authorization")
+            return self._as_response(403, {"errcode": "M_FORBIDDEN", "error": "Invalid hs_token"})
+
+        # Read raw body
+        try:
+            body = request.httprequest.get_data(as_text=True)
+            data = json.loads(body or "{}")
+        except Exception as e:
+            _logger.error("Appservice: bad JSON: %s", e)
+            return self._as_response(400, {"errcode": "M_BAD_JSON", "error": "Bad JSON"})
+
+        events = data.get("events", [])
+        _logger.info("Appservice transaction with %d events", len(events))
+
+        try:
+            created = request.env["matrix.appservice"].sudo()._handle_transaction(events)
+        except Exception:
+            _logger.exception("Appservice transaction processing failed")
+            created = []
+
+        # Matrix appservice protocol: always 200 for accepted transactions.
+        return self._as_response(200, {"status": "ok", "created": len(created)})
+
+    def _as_response(self, code, payload):
+        body = json.dumps(payload)
+        return request.make_response(
+            body,
+            headers=[("Content-Type", "application/json")],
+            status=code,
         )
 
     @http.route(
@@ -58,68 +126,37 @@ class MailMatrixController(http.Controller):
         csrf=False,
     )
     def matrix_webhook(self, **kw):
-        """Receive inbound messages from Matrix via webhook.
+        """Legacy webhook endpoint (retained for compatibility)."""
+        try:
+            data = request.jsonrequest
+        except AttributeError:
+            data = request.get_json_data() if hasattr(request, "get_json_data") else {}
+        if not data:
+            data = kw
 
-        Called by the Matrix server when a message is sent in a
-        bridged room. Creates a mail.message in Odoo.
-
-        Auth: validates webhook token stored in system parameters.
-        """
-        # Validate webhook token
-        params = request.jsonrequest or {}
-        token = params.get("token", "")
+        token = data.get("token", "")
         expected_token = (
             request.env["ir.config_parameter"]
             .sudo()
             .get_param("mail_matrix.webhook_token", "")
         )
-
         if expected_token and token != expected_token:
             _logger.warning("Matrix webhook: invalid token")
             return {"status": "error", "message": "Invalid token"}
 
-        # Extract message data
-        matrix_room_id = params.get("room_id", "")
-        matrix_event_id = params.get("event_id", "")
-        matrix_sender = params.get("sender", "")
-        body = params.get("body", "")
-
+        sender = data.get("sender", "")
+        body = data.get("body", "")
+        room_id = data.get("room_id", "")
         if not body:
-            return {"status": "ok", "message": "Empty body, skipped"}
+            return {"status": "ok", "message": "Empty body"}
 
-        # Find partner by matrix_id
-        partner = False
-        if matrix_sender:
-            partner = (
-                request.env["res.partner"]
-                .sudo()
-                .search([("matrix_id", "=", matrix_sender)], limit=1)
-            )
-
-        # Create mail.message (simplified — in production, use mail.thread)
-        message_vals = {
-            "body": body,
-            "subject": f"Matrix: {matrix_sender}",
-            "message_type": "comment",
-            "subtype_id": request.env.ref("mail.mt_comment").id,
-            "is_matrix_message": True,
-            "matrix_room_id": matrix_room_id,
-            "matrix_event_id": matrix_event_id,
-            "matrix_sender_id": matrix_sender,
+        # Delegate to appservice handler (reuse logic; webhook payload maps to event)
+        event = {
+            "type": "m.room.message",
+            "sender": sender,
+            "room_id": room_id,
+            "content": {"body": body},
+            "event_id": data.get("event_id", ""),
         }
-        if partner:
-            message_vals["author_id"] = partner.id
-
-        message = request.env["mail.message"].sudo().create(message_vals)
-
-        _logger.info(
-            "Matrix webhook: created message %s from %s in room %s",
-            message.id,
-            matrix_sender,
-            matrix_room_id,
-        )
-
-        return {
-            "status": "ok",
-            "message_id": message.id,
-        }
+        created = request.env["matrix.appservice"].sudo()._handle_transaction([event])
+        return {"status": "ok", "message_id": created[0] if created else 0}

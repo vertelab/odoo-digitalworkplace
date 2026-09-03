@@ -21,18 +21,19 @@
 
 {
     "name": "Workplace: Mail Matrix Bridge",
-    "version": "0.0.5",
+    "version": "0.0.6",
     "summary": "Bridge Odoo mail/chat with Matrix protocol via RabbitMQ.",
     "category": "Productivity",
     "description": """
-Bridge Odoo mail/chat with Matrix protocol via RabbitMQ.
+Bridge Odoo mail/chat with Matrix via the Matrix appservice protocol.
 
-Outbound: Odoo chat message -> Publisher -> RabbitMQ -> Consumer -> Matrix API
-Inbound: Matrix message -> Webhook -> Odoo controller -> mail.message
+Inbound: Matrix message -> /mail/matrix/appservice -> mail.message
+Outbound: Odoo chat message -> Matrix client API (appservice token)
 
 - Adds matrix_id field to res.partner
-- Publishes chat messages to RabbitMQ odoo.messages exchange
-- Webhook endpoint for Matrix -> Odoo inbound messages
+- Adds matrix_localpart to res.users (incl. AI coworkers)
+- matrix.room.binding maps Matrix rooms to discuss.channel
+- Appservice endpoint /mail/matrix/appservice (hs_token auth)
 - .well-known/matrix/server delegation endpoint
     """,
     "sequence": "290",
@@ -44,9 +45,9 @@ Inbound: Matrix message -> Webhook -> Odoo controller -> mail.message
     "repository": "https://github.com/vertelab/odoo-digitalworkplace",
     "depends": ["mail", "base"],
     "data": [
+        "security/ir.model.access.csv",
         "views/res_partner_view.xml",
         "views/res_config_settings.xml",
-        "security/ir.model.access.csv",
     ],
     "application": True,
 }

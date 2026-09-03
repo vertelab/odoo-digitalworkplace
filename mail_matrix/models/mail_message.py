@@ -28,42 +28,45 @@ class MailMessage(models.Model):
     )
 
     def _matrix_publish(self):
-        """Publish this message to RabbitMQ for Matrix routing."""
+        """Publish this message to Matrix via the appservice client.
+
+        Returns True if at least one Matrix recipient was targeted.
+        """
         self.ensure_one()
 
+        # Find matrix recipients: partners with matrix_id, or users with matrix identity
         partner_ids = self.partner_ids or self.mapped(
             "notification_ids.res_partner_id"
         )
-        matrix_recipients = partner_ids.filtered(
-            lambda p: p.matrix_id
-        ).mapped("matrix_id")
-
-        matrix_sender = ""
-        if self.author_id and self.author_id.matrix_id:
-            matrix_sender = self.author_id.matrix_id
-
-        if not matrix_recipients:
+        matrix_partners = partner_ids.filtered(
+            lambda p: p.matrix_id or p.user_ids
+        )
+        if not matrix_partners:
             _logger.debug("No Matrix recipients for message %s", self.id)
             return False
 
-        payload = {
-            "message_id": self.id,
-            "model": self.model,
-            "res_id": self.res_id,
-            "body": self.body or "",
-            "subject": self.subject or "",
-            "date": self.date.isoformat() if self.date else "",
-            "author_id": self.author_id.id if self.author_id else 0,
-            "matrix_sender": matrix_sender,
-            "matrix_recipients": list(matrix_recipients),
-            "record_name": self.record_name or "",
-        }
+        # Determine the thread: if this message is in a mail.channel, use it.
+        channel = False
+        if self.model == "discuss.channel":
+            channel = self.env["discuss.channel"].browse(self.res_id)
 
-        try:
-            from odoo.addons.mail_matrix.publisher.matrix_publisher import publish_message
-            publish_message(payload)
-            _logger.info("Published message %s to Matrix via RabbitMQ", self.id)
-            return True
-        except Exception as e:
-            _logger.error("Failed to publish message %s: %s", self.id, e)
-            return False
+        author_id = self.author_id.id if self.author_id else False
+
+        outbound = self.env["matrix.appservice"]
+        if channel:
+            # Post to the bound Matrix room for this channel
+            return outbound._post_message(channel.id, self.body or "", author_id=author_id)
+        else:
+            # For non-channel messages, send DM to each matrix partner
+            ok = True
+            for partner in matrix_partners:
+                m = self.env["matrix.appservice"]
+                room_id, binding = m._find_or_create_dm_room(partner)
+                if room_id:
+                    resp = self.env["matrix.appservice"]._post_message(
+                        binding.channel_id.id if binding else False,
+                        self.body or "",
+                        author_id=author_id,
+                    )
+                    ok = ok and bool(resp)
+            return ok
