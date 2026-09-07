@@ -3,7 +3,7 @@
     'version': '0.1',
     'summary': 'Exposes res.partner contacts as CardDAV address book',
     'category': 'Productivity',
-    'author': 'Vertel AB',
+    'author': 'Vertel Sverige AB',
     'website': 'https://vertel.se',
     'license': 'AGPL-3',
     'depends': [

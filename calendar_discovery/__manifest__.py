@@ -32,7 +32,7 @@
     Sets up an endpoint that redirects CalDAV/CardCAV to the correct server.
     """,
     #'sequence': '1',
-    'author': 'Vertel AB',
+    'author': 'Vertel Sverige AB',
     'website': 'https://vertel.se/apps/odoo-digitalworkplace/calendar_discovery',
     'images': ['static/description/banner.png'], # 560x280 px.
     'license': 'AGPL-3',
