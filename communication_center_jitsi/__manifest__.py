@@ -45,11 +45,19 @@
     # always loaded
     'data': [
         'views/res_config_settings_view.xml',
-        'views/assets.xml',
         'views/jitsi_controller.xml',
         'views/calendar_view.xml',
         'views/event_view.xml',
     ],
+    'assets': {
+        'web.assets_frontend': [
+            'communication_center_jitsi/static/src/js/meeting_settings.js',
+            'communication_center_jitsi/static/src/js/external_api.js',
+        ],
+        'website.assets_frontend': [
+            'communication_center_jitsi/static/src/css/controller_style.css',
+        ],
+    },
     'qweb': [
         'static/src/xml/calendar_view_templet.xml',
     ],
