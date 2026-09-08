@@ -7,11 +7,11 @@
             <field name="arch" type="xml">
                 <field name="partner_ids"  position="before">
                     <field name="video_meeting_checkbox" invisible="1"/>
-                    <field name="controller_link" attrs="{'invisible': [('video_meeting_checkbox', '!=', False)]}" widget="url">
+                    <field name="controller_link" invisible="video_meeting_checkbox != False" widget="url">
                     </field>
                 </field>
                 <field name="controller_link" position="attributes">
-                    <attribute name="attrs">{'invisible':[('video_meeting_checkbox','!=',True)]}</attribute>
+                    <attribute name="invisible">video_meeting_checkbox != True</attribute>
                 </field>
                 </field>
         </record>
@@ -23,11 +23,11 @@
             <field name="arch" type="xml">
                 <field name="location"  position="before">
                     <field name="video_meeting_checkbox" invisible="1"/>
-                    <field name="controller_link" attrs="{'invisible': [('video_meeting_checkbox', '!=', True)]}" readonly="1" widget="url">
+                    <field name="controller_link" invisible="video_meeting_checkbox != True" readonly="1" widget="url">
                     </field>
                 </field>
                 <field name="location" position="attributes">
-                    <attribute name="attrs">{'invisible':[('video_meeting_checkbox','=',True)]}</attribute>
+                    <attribute name="invisible">video_meeting_checkbox = True</attribute>
                 </field>
             </field>
         </record>
