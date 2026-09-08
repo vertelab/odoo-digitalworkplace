@@ -29,7 +29,7 @@
                     </field>
                 </field>
                 <field name="location" position="attributes">
-                    <attribute name="invisible">video_meeting_checkbox = True</attribute>
+                    <attribute name="invisible">video_meeting_checkbox == True</attribute>
                 </field>
             </field>
         </record>
