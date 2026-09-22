@@ -4,7 +4,7 @@
     'summary': 'Exposes res.partner contacts as CardDAV address book',
     'category': 'Productivity',
     'author': 'Vertel Sverige AB',
-    'website': 'https://vertel.se',
+    'website': 'https://vertel.se/apps/odoo-digitalworkplace/contact_carddav',
     'license': 'AGPL-3',
     'depends': [
         'contacts',

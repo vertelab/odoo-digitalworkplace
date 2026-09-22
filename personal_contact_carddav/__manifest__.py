@@ -4,7 +4,7 @@
     'summary': 'User-specific personal contacts exposed as CardDAV address book',
     'category': 'Productivity',
     'author': 'Vertel AB',
-    'website': 'https://vertel.se',
+    'website': 'https://vertel.se/apps/odoo-digitalworkplace/personal_contact_carddav',
     'license': 'AGPL-3',
     'depends': [
         'contacts',
