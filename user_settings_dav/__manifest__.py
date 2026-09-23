@@ -54,9 +54,6 @@
     # /.well-known/caldav och kolliderar — bara ett får vara installerat.
     # Se README "CalDAV: val av spår".
     #
-    # installable=False -> Odoo sätter state='uninstallable' och vägrar
-    # både installera och auto-installera modulen (db.py:54,90).
-    # ------------------------------------------------------------------
-    'installable': False,
+    'installable': True,
     'auto_install': False,
 }
