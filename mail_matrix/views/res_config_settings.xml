@@ -5,56 +5,67 @@
         <field name="model">res.config.settings</field>
         <field name="inherit_id" ref="base.res_config_settings_view_form"/>
         <field name="arch" type="xml">
-            <!-- Inner quotes must be single quotes: a double quote inside a
-                 double-quoted attribute is not valid XML and aborts the whole
+            <!-- Odoo 18: hook into //form. The old
+                 //div[hasclass('settings')] selector no longer exists in
+                 base.res_config_settings_view_form, so it aborted the whole
                  registry with:
-                   XMLSyntaxError: attributes construct error, line 8, column 42 -->
-            <xpath expr="//div[hasclass('settings')]" position="inside">
-                <div class="app_settings_block">
-                    <h2>Matrix Bridge</h2>
-                    <div class="row mt16">
-                        <div class="col-12 col-md-6">
-                            <label for="mail_matrix.matrix_domain" class="col-form-label">
-                                Matrix Domain
-                            </label>
-                            <field name="mail_matrix_domain" placeholder="matrix.example.com"/>
-                        </div>
-                        <div class="col-12 col-md-6">
-                            <label for="mail_matrix.server_url" class="col-form-label">
-                                Matrix Server URL
-                            </label>
-                            <field name="mail_matrix_server_url" placeholder="https://matrix.example.com"/>
-                        </div>
-                    </div>
-                    <div class="row mt16">
-                        <div class="col-12 col-md-6">
-                            <label for="mail_matrix.bot_token" class="col-form-label">
-                                Bot Access Token
-                            </label>
-                            <field name="mail_matrix_bot_token" password="True" placeholder="syt_..."/>
-                        </div>
-                        <div class="col-12 col-md-6">
-                            <label for="mail_matrix.webhook_token" class="col-form-label">
-                                Webhook Token
-                            </label>
-                            <field name="mail_matrix_webhook_token" password="True" placeholder="shared-secret"/>
-                        </div>
-                    </div>
-                    <div class="row mt16">
-                        <div class="col-12 col-md-6">
-                            <label for="mail_matrix.rabbitmq_host" class="col-form-label">
-                                RabbitMQ Host
-                            </label>
-                            <field name="mail_matrix_rabbitmq_host" placeholder="localhost"/>
-                        </div>
-                        <div class="col-12 col-md-6">
-                            <label for="mail_matrix.rabbitmq_user" class="col-form-label">
-                                RabbitMQ User
-                            </label>
-                            <field name="mail_matrix_rabbitmq_user" placeholder="matrix"/>
-                        </div>
-                    </div>
-                </div>
+                   ParseError: Elementet "<xpath expr="//div[hasclass('settings')]">"
+                   kan inte hittas i den överordnade vyn
+                 Also note: inner quotes in an xpath attribute must be single
+                 quotes, otherwise lxml raises "attributes construct error".
+
+                 This module reads its configuration from ir.config_parameter
+                 (see controllers/main.py and publisher/matrix_publisher.py),
+                 so the settings use config_parameter= instead of dedicated
+                 res.config.settings fields. -->
+            <xpath expr="//form" position="inside">
+                <app string="Matrix Bridge" name="mail_matrix" groups="base.group_system">
+                    <block title="Matrix Bridge">
+                        <setting string="Matrix Domain" help="Domain used for Matrix user IDs">
+                            <field name="mail_matrix_matrix_domain"
+                                   placeholder="matrix.example.com"
+                                   config_parameter="mail_matrix.matrix_domain"/>
+                        </setting>
+                        <setting string="Webhook Token" help="Shared secret for incoming Matrix webhooks">
+                            <field name="mail_matrix_webhook_token"
+                                   password="True"
+                                   placeholder="shared-secret"
+                                   config_parameter="mail_matrix.webhook_token"/>
+                        </setting>
+                    </block>
+                    <block title="RabbitMQ">
+                        <setting string="RabbitMQ Host" help="Host running the RabbitMQ broker">
+                            <field name="mail_matrix_rabbitmq_host"
+                                   placeholder="localhost"
+                                   config_parameter="mail_matrix.rabbitmq_host"/>
+                        </setting>
+                        <setting string="RabbitMQ Port" help="RabbitMQ broker port">
+                            <field name="mail_matrix_rabbitmq_port"
+                                   placeholder="5672"
+                                   config_parameter="mail_matrix.rabbitmq_port"/>
+                        </setting>
+                        <setting string="RabbitMQ Vhost" help="RabbitMQ virtual host">
+                            <field name="mail_matrix_rabbitmq_vhost"
+                                   placeholder="/"
+                                   config_parameter="mail_matrix.rabbitmq_vhost"/>
+                        </setting>
+                        <setting string="RabbitMQ User" help="RabbitMQ user for the Matrix bridge">
+                            <field name="mail_matrix_rabbitmq_user"
+                                   placeholder="matrix"
+                                   config_parameter="mail_matrix.rabbitmq_user"/>
+                        </setting>
+                        <setting string="RabbitMQ Password" help="RabbitMQ password for the Matrix bridge">
+                            <field name="mail_matrix_rabbitmq_password"
+                                   password="True"
+                                   config_parameter="mail_matrix.rabbitmq_password"/>
+                        </setting>
+                        <setting string="RabbitMQ Exchange" help="Exchange used to publish graph events">
+                            <field name="mail_matrix_rabbitmq_exchange"
+                                   placeholder="odoo.messages"
+                                   config_parameter="mail_matrix.rabbitmq_exchange"/>
+                        </setting>
+                    </block>
+                </app>
             </xpath>
         </field>
     </record>
