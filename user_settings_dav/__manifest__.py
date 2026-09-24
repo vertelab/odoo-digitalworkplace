@@ -40,19 +40,36 @@
     'maintainer': 'Vertel AB',
     'repository': 'https://github.com/vertelab/odoo-digitalworkplace',
     # Any module necessary for this one to work correctly
-    'depends': ['base_dav', ],
+    #
+    # 'calendar' is REQUIRED: data/collection.xml seeds a dav.collection for
+    # calendar events and references calendar.model_calendar_event,
+    # calendar.field_calendar_event__name/__start/__stop/__users. Odoo loads
+    # data files before the dependency graph is fully resolved, so without
+    # 'calendar' in depends the xmlids are not yet in ir.model.data and the
+    # install aborts with:
+    #   ValueError: External ID not found in the system:
+    #               calendar.model_calendar_event
+    #   ParseError: while parsing .../user_settings_dav/data/collection.xml:4
+    # (verified on vixner 2026-09-24).
+    'depends': ['base_dav', 'calendar'],
     'data': [
         'views/user_collection_views.xml',
         'views/assets.xml',
         'data/collection.xml',
     ],
     # ------------------------------------------------------------------
-    # INSTALLABLE: False — 2026-09-22
+    # CalDAV-spår (uppdaterad 2026-09-24)
     #
-    # Ingår i OCA/Radicale-sparet (base_dav), som spärrats till förmån för
-    # Vertels egna calendar_caldav (endpoint /caldav/). Båda registrerar
-    # /.well-known/caldav och kolliderar — bara ett får vara installerat.
-    # Se README "CalDAV: val av spår".
+    # Den tidigare kommentaren här påstod "INSTALLABLE: False" med hänvisning
+    # till att modulen skulle registrera /.well-known/caldav och kollidera med
+    # calendar_caldav. Det stämmer INTE för denna modul:
+    #   - user_settings_dav har ingen controllers/-katalog och registrerar
+    #     ingen route alls.
+    #   - Den lägger bara till dav_collection_ids på res.users och en flik i
+    #     användarformuläret, plus ett dav.collection för kalenderhändelser.
+    # Kollisionen mellan /.well-known/caldav gäller base_dav vs
+    # calendar_caldav — inte denna modul. Kommentaren och koden sade emot
+    # varandra (False vs True); koden har varit True hela tiden.
     #
     'installable': True,
     'auto_install': False,
