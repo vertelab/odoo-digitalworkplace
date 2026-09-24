@@ -5,7 +5,11 @@
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_partner_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name=\"function\"]" position="after">
+            <!-- Inner quotes must be single quotes: a backslash-escaped
+                 double quote (\") is not valid XML and aborts the whole
+                 registry with:
+                   XMLSyntaxError: attributes construct error, line 8, column 42 -->
+            <xpath expr="//field[@name='function']" position="after">
                 <field name="matrix_id" placeholder="@user:matrix.server"/>
             </xpath>
         </field>
