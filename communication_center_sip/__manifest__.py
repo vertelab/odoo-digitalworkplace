@@ -21,16 +21,25 @@
 
 {
     'name': 'Workplace: Communication Center SIP',
-    'version': '0.0.1',
+    'version': '18.0.1.0.0',
     # Version ledger: 14.0 = Odoo version. 1 = Major. Non regressionable code. 2 = Minor. New features that are regressionable. 3 = Bug fixes
     'summary': 'Make calls using a VOIP system.',
     # Categories can be used to filter modules in modules listing
     # Check https://github.com/odoo/odoo/blob/14.0/odoo/addons/base/data/ir_module_category_data.xml
     # for the full list
     'category': 'Productivity',
-    'description': """
+    'description': '''
+Communication Center SIP
+========================
+
     Allows to make call from next activities or with click-to-dial.
-    """,
+
+    Features:
+
+        - Guided Wizards: Step-by-step dialogs for data entry.
+        - UI Integration: Extends 5 view(s) in the Odoo interface.
+        - Extends Odoo: Builds on mail.activity, mail.activity.type, voip.configurator, voip.phonecall.
+    ''',
     #'sequence': '1',
     'sequence': '280',
     'author': 'Vertel Sverige AB',

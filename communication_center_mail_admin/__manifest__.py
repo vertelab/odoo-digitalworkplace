@@ -21,18 +21,27 @@
 
 {
     'name': 'Workplace: Communication Center Mail Admin',
-    'version': '1.0.0',
+    'version': '18.0.1.0.0',
     # Version ledger: 14.0 = Odoo version. 1 = Major. Non regressionable code. 2 = Minor. New features that are regressionable. 3 = Bug fixes
-    'summary': 'Edit and Delete option for chatter''s Message & Log Note.',
+    'summary': 'Edit and Delete option for chatters Message & Log Note.''s Message & Log Note.',
     # Categories can be used to filter modules in modules listing
     # Check https://github.com/odoo/odoo/blob/14.0/odoo/addons/base/data/ir_module_category_data.xml
     # for the full list
     'category': 'Productivity',
-    'description': """
+    'description': '''
+Communication Center Mail Admin
+===============================
+
     Log Note
-    ====================
-    This module will add edit/delete option in chatter's message & log note .
-    """,
+        ====================
+        This module will add edit/delete option in chatter's message & log note .
+
+    Features:
+
+        - Guided Wizards: Step-by-step dialogs for data entry.
+        - UI Integration: Extends 3 view(s) in the Odoo interface.
+        - Extends Odoo: Builds on mail.message, mail.message.history.
+    ''',
     #'sequence': '1',
     'author': 'Vertel Sverige AB',
     'website': 'https://vertel.se/apps/odoo-digitalworkplace/communication_center_mail_admin',

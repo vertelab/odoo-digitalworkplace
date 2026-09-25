@@ -21,16 +21,25 @@
 
 {
     'name': 'Workplace: Calendar Voting',
-    'version': '0.0.1',
+    'version': '18.0.1.0.0',
     # Version ledger: 14.0 = Odoo version. 1 = Major. Non regressionable code. 2 = Minor. New features that are regressionable. 3 = Bug fixes
     'summary': 'Ability to vote for which day a meeting in Odoo should be hold.',
     # Categories can be used to filter modules in modules listing
     # Check https://github.com/odoo/odoo/blob/14.0/odoo/addons/base/data/ir_module_category_data.xml
     # for the full list
     'category': 'Productivity',
-    'description': """
+    'description': '''
+Calendar Voting
+===============
+
     Ability to vote for which day a meeting in Odoo should be hold.
-    """,
+
+    Features:
+
+        - Web integration: Exposes HTTP endpoints for external systems.
+        - UI Integration: Extends 3 view(s) in the Odoo interface.
+        - Extends Odoo: Builds on calendar.event, calendar.voting, event_id, portal.mixin.
+    ''',
     #'sequence': '1',
     'author': 'Vertel Sverige AB',
     'website': 'https://vertel.se/apps/odoo-digitalworkplace/calendar_voting',

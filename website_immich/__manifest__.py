@@ -21,14 +21,23 @@
 
 {
     'name': 'Workplace: Website Immich',
-    'version': '0.1',
-    'summary': 'Find images from your Immich server',
+    'version': '18.0.1.0.0',
+    'summary': 'Find images from your Immich server.',
     'category': 'Productivity',
-    'description': """
-Explore the photo library of your self-hosted Immich server and find
-images to use in Odoo. An Immich search bar is added to the image
-library modal, just like Unsplash integration.
-    """,
+    'description': '''
+Website Immich
+==============
+
+    Explore the photo library of your self-hosted Immich server and find
+    images to use in Odoo. An Immich search bar is added to the image
+    library modal, just like Unsplash integration.
+
+    Features:
+
+        - Web integration: Exposes HTTP endpoints for external systems.
+        - UI Integration: Extends 1 view(s) in the Odoo interface.
+        - Extends Odoo: Builds on existing Odoo models.
+    ''',
     'author': 'Vertel Sverige AB',
     'website': 'https://vertel.se/apps/odoo-digitalworkplace/website_immich',
     'license': 'AGPL-3',

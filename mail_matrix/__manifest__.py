@@ -21,7 +21,7 @@
 
 {
     "name": "Workplace: Mail Matrix Bridge",
-    "version": "0.0.1",
+    'version': '18.0.1.0.0',
     "summary": "Bridge Odoo mail/chat with Matrix protocol via RabbitMQ.",
     "category": "Productivity",
     "description": """

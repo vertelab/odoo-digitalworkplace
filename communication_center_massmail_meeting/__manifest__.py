@@ -21,16 +21,24 @@
 
 {
     'name': 'Workplace: Communication Center Massmail Meeting',
-    'version': '0.0.1',
+    'version': '18.0.1.0.0',
     # Version ledger: 14.0 = Odoo version. 1 = Major. Non regressionable code. 2 = Minor. New features that are regressionable. 3 = Bug fixes
     'summary': 'Setup Jitsi for Mass Mailing.',
     # Categories can be used to filter modules in modules listing
     # Check https://github.com/odoo/odoo/blob/14.0/odoo/addons/base/data/ir_module_category_data.xml
     # for the full list
     'category': 'Productivity',
-    'description': """
+    'description': '''
+Communication Center Massmail Meeting
+=====================================
+
     Setup Jitsi for Mass Mailing.
-    """,
+
+    Features:
+
+        - UI Integration: Extends 1 view(s) in the Odoo interface.
+        - Extends Odoo: Builds on mailing.mailing.
+    ''',
     #'sequence': '1',
     'sequence': '280',
     'author': 'Vertel Sverige AB',
