@@ -1,12 +1,12 @@
 <odoo>
     <data>
         <record id="jitsi_res_config_settings_view_form" model="ir.ui.view">
-            <field name="name">res.config.settings.view.form.inherit.account</field>
+            <field name="name">res.config.settings.view.form.inherit.cc_jitsi</field>
             <field name="model">res.config.settings</field>
             <field name="priority" eval="40"/>
             <field name="inherit_id" ref="communication_center_calendar_online_meeting.calendar_res_config_settings_view_form"/>
             <field name="arch" type="xml">
-                <xpath expr="//div[hasclass('app_settings_block')]/div[@name='calendar_meeting_settings']" position="inside">
+                <xpath expr="//setting[@name='calendar_meeting_settings']" position="inside">
                     <div class="col-12 col-lg-6 o_setting_box">
                         <div class="o_setting_left_pane"/>
                         <div class="o_setting_right_pane">
@@ -36,10 +36,10 @@
             <field name="model">calendar.event</field>
             <field name="inherit_id" ref="calendar.view_calendar_event_form"/>
             <field name="arch" type="xml">
-                <xpath expr="//page[@name='page_misc']" position="after">
+                <xpath expr="//page[@name='page_invitations']" position="after">
                     <field name="video_meeting_checkbox" invisible="1"/>
                     <field name="link_suffix" invisible="1"/>
-                    <page name="video_meeting" string ="Video Meeting" attrs="{'invisible': [('video_meeting_checkbox', '!=', True)]}">
+                    <page name="video_meeting" string ="Video Meeting" invisible="video_meeting_checkbox != True">
                         <group col="3">
                                 <field name="room_name" id="room_name_id"/>
                                 <field name="jwt_validation" widget="boolean_toggle"/>
@@ -66,7 +66,7 @@
                 <xpath expr="//page[@name='event_notes']" position="after">
                     <field name="video_meeting_checkbox" invisible="1"/>
                     <field name="link_suffix" invisible="1"/>
-                    <page name="video_meeting" string ="Video Meeting" attrs="{'invisible': [('video_meeting_checkbox', '!=', True)]}">
+                    <page name="video_meeting" string ="Video Meeting" invisible="video_meeting_checkbox != True">
                         <group col="3">
                                 <field name="room_name" id="room_name_id"/>
 <!--

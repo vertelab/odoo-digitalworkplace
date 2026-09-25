@@ -34,7 +34,7 @@
     Show Discuss Members in Channels.
     """,
     #'sequence': '1',
-    'author': 'Vertel AB',
+    'author': 'Vertel Sverige AB',
     'website': 'https://vertel.se/apps/odoo-digitalworkplace/discuss_show_members',
     'images': ['static/description/banner.png'], # 560x280 px.
     'license': 'AGPL-3',
@@ -51,7 +51,11 @@
     },
     'installable': True,
     'application': False,
-    'auto_install': True,
+    # Odoo 18: mail.channel renamed to discuss.channel; this module is
+    # Odoo-17 code and crashes on fresh installs (TypeError: Model
+    # 'mail.channel' does not exist). Disable auto_install so it is only
+    # installed explicitly once ported to discuss.channel.
+    'auto_install': False,
     'license': 'LGPL-3',
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

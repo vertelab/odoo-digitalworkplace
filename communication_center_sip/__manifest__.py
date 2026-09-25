@@ -33,7 +33,7 @@
     """,
     #'sequence': '1',
     'sequence': '280',
-    'author': 'Vertel AB',
+    'author': 'Vertel Sverige AB',
     'website': 'https://vertel.se/apps/odoo-digitalworkplace/communication_center_sip',
     'images': ['static/description/banner.png'], # 560x280 px.
     'license': 'AGPL-3',

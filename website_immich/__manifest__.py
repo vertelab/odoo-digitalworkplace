@@ -29,7 +29,7 @@ Explore the photo library of your self-hosted Immich server and find
 images to use in Odoo. An Immich search bar is added to the image
 library modal, just like Unsplash integration.
     """,
-    'author': 'Vertel AB',
+    'author': 'Vertel Sverige AB',
     'website': 'https://vertel.se/apps/odoo-digitalworkplace/website_immich',
     'license': 'AGPL-3',
     'maintainer': 'Vertel AB',

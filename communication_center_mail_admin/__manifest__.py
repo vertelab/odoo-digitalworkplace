@@ -34,7 +34,7 @@
     This module will add edit/delete option in chatter's message & log note .
     """,
     #'sequence': '1',
-    'author': 'Vertel AB',
+    'author': 'Vertel Sverige AB',
     'website': 'https://vertel.se/apps/odoo-digitalworkplace/communication_center_mail_admin',
     'images': ['static/description/banner.png'], # 560x280 px.
     'license': 'AGPL-3',
