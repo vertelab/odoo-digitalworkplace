@@ -1,5 +1,7 @@
 import logging
 
+import vobject
+
 from odoo import api, models, SUPERUSER_ID
 from odoo.http import request
 
@@ -170,7 +172,6 @@ class DavCollection(models.Model):
         given = parts[1].strip() if len(parts) > 1 else ''
         if not family and not given:
             return None
-        import vobject
         return vobject.vcard.Name(family=family, given=given)
 
     def _export_tel(self, record):
@@ -184,33 +185,25 @@ class DavCollection(models.Model):
 
     def _export_adr(self, record):
         self.ensure_one()
-        parts = [''] * 7
-        if record.street:
-            parts[2] = record.street
-        if record.street2:
-            parts[1] = record.street2
-        if record.city:
-            parts[3] = record.city
-        if record.state_id:
-            parts[4] = record.state_id.name
-        if record.zip:
-            parts[5] = record.zip
-        if record.country_id:
-            parts[6] = record.country_id.name
-        if not any(parts[1:]):
+        if not any([record.street, record.street2, record.city,
+                    record.state_id, record.zip, record.country_id]):
             return None
-        return ';'.join(parts)
+        adr = vobject.vcard.Address()
+        adr.street = ' '.join(filter(None, [record.street, record.street2]))
+        adr.city = record.city or ''
+        adr.region = record.state_id.name or ''
+        adr.code = record.zip or ''
+        adr.country = record.country_id.name or ''
+        return adr
 
     def _export_org(self, record):
         self.ensure_one()
-        if record.parent_id:
-            return record.parent_id.name
-        if record.is_company:
-            return record.name
-        return None
+        org = record.parent_id.name if record.parent_id else (
+            record.name if record.is_company else None)
+        return [org] if org else None
 
     def _export_categories(self, record):
         self.ensure_one()
         if record.category_id:
-            return ','.join(record.category_id.mapped('name'))
+            return record.category_id.mapped('name')
         return None

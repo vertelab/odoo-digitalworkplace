@@ -51,12 +51,12 @@ Discuss Show Members
     'repository': 'https://github.com/vertelab/odoo-digitalworkplace',
     # Any module necessary for this one to work correctly
     'depends': ['mail',],
-    "data": [
-        'views/assets.xml',
-    ],
-    'qweb': [
-        'static/src/components/thread_view/thread_view.xml',
-    ],
+    'assets': {
+        'web.assets_backend': [
+            'discuss_show_members/static/src/components/**/*',
+            'discuss_show_members/static/src/scss/style.scss',
+        ],
+    },
     'installable': True,
     'application': False,
     # Odoo 18: mail.channel renamed to discuss.channel; this module is

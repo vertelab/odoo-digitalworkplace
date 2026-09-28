@@ -26,6 +26,14 @@ Contact CardDAV
     'external_dependencies': {
         'python': ['vobject'],
     },
+    # ------------------------------------------------------------------
+    # INSTALLABLE: False — 2026-09-22
+    #
+    # Ingår i OCA/Radicale-sparet (base_dav), som spärrats till förmån för
+    # Vertels egna calendar_caldav (endpoint /caldav/). Båda registrerar
+    # /.well-known/caldav och kolliderar — bara ett får vara installerat.
+    # Se README "CalDAV: val av spår".
+    #
     'installable': True,
     'auto_install': False,
 }
