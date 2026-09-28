@@ -69,4 +69,3 @@ Communication Center Mail Admin
     "auto_install": False,
     "pre_init_hook": "pre_init_check",
 }
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
