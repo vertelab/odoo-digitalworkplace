@@ -18,7 +18,7 @@
                             <label for="reschedule_option"/>
                             <div>
                                 <field name="reschedule_option" widget="radio" nolabel="1"/>
-                                <field name="reschedule_date" nolabel="1" attrs="{'invisible': [('reschedule_option', '!=', 'custom')], 'required':[('reschedule_option', '=','custom')]}"/>
+                                <field name="reschedule_date" nolabel="1" invisible="reschedule_option != 'custom'" required="reschedule_option == 'custom'"/>
                             </div>
                         </group>
                     </group>

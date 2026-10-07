@@ -16,7 +16,7 @@
                         <div class="text-muted">
                             Schedule &amp; make calls from your database
                         </div>
-                        <div class="content-group" attrs="{'invisible': [('module_voip','=',False)]}">
+                        <div class="content-group" invisible="module_voip == False">
                             <div class="row mt16">
                                 <label for="pbx_ip" class="col-4 col-lg-4 o_light_label"/>
                                 <field name="pbx_ip" nolabel="1"/>

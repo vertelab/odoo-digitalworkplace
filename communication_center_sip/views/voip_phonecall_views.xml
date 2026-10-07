@@ -6,7 +6,7 @@
         <field name="name">Phonecalls Tree</field>
         <field name="model">voip.phonecall</field>
         <field name="arch" type="xml">
-            <tree string="Phonecalls" editable="top">
+            <list string="Phonecalls" editable="top">
                 <field name="phonecall_type"/>
                 <field name="name"/>
                 <field name="call_date"/>
@@ -17,7 +17,7 @@
                 <field name="duration"/>
                 <field name="partner_id"/>
                 <field name="in_queue"/>
-            </tree>
+            </list>
         </field>
     </record>
 

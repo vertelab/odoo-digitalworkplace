@@ -31,7 +31,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-12 col-lg-6 o_setting_box" attrs="{'invisible': [('wk_has_edit', '=', False)]}">
+                        <div class="col-12 col-lg-6 o_setting_box" invisible="wk_has_edit == False">
                             <div class="o_setting_left_pane">
                                 <field name="group_wk_history"/>
                             </div>
