@@ -6,7 +6,7 @@
     'description': """
 Lär dig chatta i kanaler, starta videomöten och bjuda in externa deltagare.
 """,
-    'author': 'Vertel AB',
+    'author': 'Vertel Sverige AB',
     'website': 'https://vertel.se',
     'license': 'LGPL-3',
     'category': 'Website/eLearning',
