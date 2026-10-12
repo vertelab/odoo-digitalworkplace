@@ -20,7 +20,7 @@
         <field name="arch" type="xml">
             <xpath expr="//notebook" position="inside">
                 <page name="user_collection" string="Calendar">
-                    <field name="dav_collection_ids" view_ids="[(4, %(view_dav_user_collection_tree)d)]" mode="tree"/>
+                    <field name="dav_collection_ids" view_ids="[(4, %(view_dav_user_collection_tree)d)]" mode="list"/>
                 </page>
             </xpath>
         </field>
