@@ -34,6 +34,6 @@ Contact CardDAV
     # /.well-known/caldav och kolliderar — bara ett får vara installerat.
     # Se README "CalDAV: val av spår".
     #
-    'installable': True,
+    'installable': False,
     'auto_install': False,
 }
