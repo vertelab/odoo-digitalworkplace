@@ -23,8 +23,11 @@ class DavCollection(models.Model):
 
     def _export_categories(self, record):
         if self.model_id.model == 'res.ppartner':
+            # CATEGORIES is a list in vCard 3.0. Handing vobject a joined
+            # string makes it escape every comma ("A\,,B"), which clients
+            # read as a single tag named "A,B".
             if record.category_ids:
-                return ','.join(record.category_ids.mapped('name'))
+                return record.category_ids.mapped('name')
             return None
         return super()._export_categories(record)
 

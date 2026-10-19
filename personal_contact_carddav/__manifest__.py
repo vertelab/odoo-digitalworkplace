@@ -1,6 +1,6 @@
 {
     'name': 'Personal Contact CardDAV',
-    'version': '18.0.1.0.0',
+    'version': '18.0.1.0.1',
     'summary': 'User-specific personal contacts exposed as CardDAV address book',
     'category': 'Productivity',
     'author': 'Vertel Sverige AB',
