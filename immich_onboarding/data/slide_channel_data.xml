@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--
+        Immich onboarding course.
+
+        Conventions (same as the other workspace onboarding modules):
+          * depends only on website_slides + the feature module
+          * auto_install = False — a course must never install itself
+          * noupdate="1" — the customer edits the course freely; an
+            upgrade must not overwrite their wording, translations or
+            added lessons.
+
+        The four lessons follow the order in which a user actually meets
+        the feature: connect -> search -> insert -> understand what is
+        shared. That order matters — lesson 1 sets immich.url/api_key,
+        which every later lesson assumes.
+    -->
+    <data noupdate="1">
+
+        <record id="slide_channel_immich_onboarding" model="slide.channel">
+            <field name="name">Immich: your photo library in Odoo</field>
+            <field name="description">
+                <![CDATA[
+                <p>Your organization keeps its photos in <b>Immich</b>, the
+                self-hosted photo library. This short course shows how to
+                reach those photos from inside Odoo, so you stop
+                re-uploading the same pictures into every document you
+                write.</p>
+                <p>Work through the four lessons in order. The first one
+                connects Odoo to your Immich server; the rest assume that
+                connection exists.</p>
+                ]]>
+            </field>
+            <field name="channel_type">training</field>
+            <field name="enroll">public</field>
+            <field name="visibility">public</field>
+            <field name="allow_comment">True</field>
+            <field name="sequence">20</field>
+        </record>
+
+        <record id="slide_immich_1_connect" model="slide.slide">
+            <field name="name">1. Connect Odoo to your Immich server</field>
+            <field name="channel_id" ref="slide_channel_immich_onboarding"/>
+            <field name="sequence">1</field>
+            <field name="slide_category">article</field>
+            <field name="html_content">
+                <![CDATA[
+                <h3>What you need</h3>
+                <p>Two things belong together — a URL and an API key:</p>
+                <ul>
+                  <li><b>Server URL</b> — where your Immich server answers,
+                      e.g. <code>https://photos.example.com</code>. No
+                      trailing slash is needed; Odoo strips it.</li>
+                  <li><b>API key</b> — a personal key from your own Immich
+                      account.</li>
+                </ul>
+
+                <h3>Get the API key from Immich</h3>
+                <ol>
+                  <li>Open your Immich server and log in.</li>
+                  <li>Click your avatar, top right, and choose
+                      <b>Account Settings</b>.</li>
+                  <li>Open <b>API Keys</b>, then <b>New API Key</b>.</li>
+                  <li>Give it a name you will recognize — for example
+                      "Odoo" — and create it.</li>
+                  <li>Copy the key now. Immich shows it only once.</li>
+                </ol>
+                <p class="o_important">Treat the key like a password. It
+                grants access to your photos for as long as it exists. If
+                it leaks, delete it in Immich and create a new one.</p>
+
+                <h3>Enter both values in Odoo</h3>
+                <ol>
+                  <li>Go to <b>Settings ▸ General Settings</b>.</li>
+                  <li>Find the block <b>Immich Image Library</b>.</li>
+                  <li>Paste the server URL and the API key.</li>
+                  <li>Save.</li>
+                </ol>
+
+                <h3>If it does not work</h3>
+                <ul>
+                  <li><b>Nothing appears when you search</b> — the key was
+                      probably pasted with surrounding whitespace, or it
+                      belongs to a different server than the URL says.</li>
+                  <li><b>Permission denied</b> — only administrators and
+                      website editors can change these settings. Ask one of
+                      them, or ask to be added to the website editor group.</li>
+                  <li><b>The server is unreachable</b> — Odoo runs on the
+                      server side. If Odoo cannot reach your Immich URL
+                      (firewall, internal hostname), no amount of correct
+                      credentials helps. Test the URL from a browser on the
+                      Odoo host.</li>
+                </ul>
+                ]]>
+            </field>
+        </record>
+
+        <record id="slide_immich_2_search" model="slide.slide">
+            <field name="name">2. Find the right photo</field>
+            <field name="channel_id" ref="slide_channel_immich_onboarding"/>
+            <field name="sequence">2</field>
+            <field name="slide_category">article</field>
+            <field name="html_content">
+                <![CDATA[
+                <h3>Three ways to search</h3>
+                <p>The Immich search bar sits in the image library dialog,
+                next to the normal Odoo search. It understands more than
+                filenames:</p>
+                <ul>
+                  <li><b>Content</b> — describe what is in the picture:
+                      "red barn in snow", "invoice on a desk". This uses
+                      Immich's machine learning service.</li>
+                  <li><b>People</b> — type a name that Immich has recognized
+                      and you get that person's photos.</li>
+                  <li><b>Metadata</b> — filename, description and location
+                      are matched too, so an old, well-named archive is
+                      still searchable.</li>
+                </ul>
+
+                <h3>Why content search sometimes fails</h3>
+                <p>Content search depends on <code>immich-machine-learning</code>
+                running on the Immich server. If it is down, or still
+                indexing, content search returns nothing while people and
+                metadata search keep working. That asymmetry is the tell:
+                <b>if only content search is empty, the problem is on the
+                Immich side, not in Odoo.</b></p>
+
+                <h3>Practical habits</h3>
+                <ul>
+                  <li>Search with a few concrete nouns rather than a
+                      sentence — "harbour crane sunset" beats "a picture of
+                      a crane at the harbour at sunset".</li>
+                  <li>Only still images are offered. Videos in Immich are
+                      filtered out, because Odoo content needs an image.</li>
+                  <li>If a person is missing, Immich has not grouped those
+                      faces yet. Name them in Immich first.</li>
+                </ul>
+                ]]>
+            </field>
+        </record>
+
+        <record id="slide_immich_3_insert" model="slide.slide">
+            <field name="name">3. Put a photo into your content</field>
+            <field name="channel_id" ref="slide_channel_immich_onboarding"/>
+            <field name="sequence">3</field>
+            <field name="slide_category">article</field>
+            <field name="html_content">
+                <![CDATA[
+                <h3>Where the search bar appears</h3>
+                <p>Everywhere Odoo opens its image library: the website
+                editor, knowledge articles, the document app, product
+                images and email templates. If you can insert an image, you
+                can reach Immich.</p>
+
+                <h3>Insert a photo</h3>
+                <ol>
+                  <li>Open the image library from the editor
+                      (<b>Insert ▸ Image</b>).</li>
+                  <li>Switch to the <b>Immich</b> tab.</li>
+                  <li>Search, then click the photo you want.</li>
+                  <li>Confirm. The image is now part of the Odoo record.</li>
+                </ol>
+
+                <h3>What actually happens to the file</h3>
+                <p>The photo is <b>copied</b> into Odoo as an attachment.
+                The original stays in Immich. That is deliberate: Immich
+                remains the source of truth, and Odoo keeps a fixed copy so
+                the page does not break if the Immich asset is later
+                deleted or the server is unreachable.</p>
+                <p>Two consequences worth knowing:</p>
+                <ul>
+                  <li>Editing the photo in Immich later does <b>not</b>
+                      update the copy already in Odoo. Re-insert it if the
+                      change matters.</li>
+                  <li>Deleting the Odoo record removes Odoo's copy only —
+                      never the Immich original. Immich deletes are done in
+                      Immich.</li>
+                </ul>
+
+                <h3>Mind the resolution</h3>
+                <p>What you insert is the full-resolution original. A
+                50-megapixel photo makes a heavy web page. For website
+                pages, prefer photos that are already sensibly sized, or let
+                Odoo's image resizing handle the display size.</p>
+                ]]>
+            </field>
+        </record>
+
+        <record id="slide_immich_4_sharing" model="slide.slide">
+            <field name="name">4. Who can see what — sharing and limits</field>
+            <field name="channel_id" ref="slide_channel_immich_onboarding"/>
+            <field name="sequence">4</field>
+            <field name="slide_category">article</field>
+            <field name="html_content">
+                <![CDATA[
+                <h3>The key decides, not the Odoo user</h3>
+                <p>This is the one thing to get right. Odoo talks to Immich
+                with <b>one shared API key</b>, configured once in the
+                settings. That key carries the permissions of the Immich
+                account that created it.</p>
+                <p>So: an Odoo user who can open the image library sees
+                whatever the key can see. Odoo does not ask Immich "who is
+                this user?" on every search.</p>
+
+                <h3>What follows from that</h3>
+                <ul>
+                  <li>If the key belongs to an Immich <b>administrator</b>,
+                      every Odoo user who can insert images can reach every
+                      photo that administrator can reach — including other
+                      people's libraries, if that Immich is shared.</li>
+                  <li>If the key belongs to an ordinary Immich user, the
+                      search is limited to what that user is allowed to see.</li>
+                  <li>Revoking access is done in Immich: delete the API key.
+                      Odoo then simply stops finding photos, until a new key
+                      is entered.</li>
+                </ul>
+
+                <h3>Choosing the right account</h3>
+                <p>Create a dedicated Immich account for the Odoo
+                integration rather than using a personal one. Give it access
+                to a shared or company library, not to private photo
+                collections. Then the key can be rotated — or the account
+                disabled — without anyone losing their own photos or
+                password.</p>
+
+                <h3>Before you invite people</h3>
+                <ul>
+                  <li>Decide which Immich library the Odoo key should reach.
+                      Configure that first, then invite users.</li>
+                  <li>Remember that the integration cannot tell Odoo users
+                      apart. If different teams must not see each other's
+                      photos, that separation has to exist in Immich itself,
+                      or each team needs its own Odoo instance.</li>
+                  <li>Only administrators and website editors can change the
+                      connection. Everyone else uses it.</li>
+                </ul>
+
+                <h3>You are done</h3>
+                <p>Connect, search, insert, and understand the reach of the
+                key. That is the whole integration. If something behaves
+                oddly, the first question is always: what can the API key
+                see?</p>
+                ]]>
+            </field>
+        </record>
+
+    </data>
+</odoo>

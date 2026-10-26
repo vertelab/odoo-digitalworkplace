@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--
+        Demo: enrol the admin partner so the course shows as joined in a demo
+        database without manual setup. Never loaded in production.
+
+        base.partner_demo is not a reliable xmlid across Odoo builds (it lives
+        in the demo dataset, not in base data), so we use base.partner_admin,
+        which exists in every database.
+    -->
+    <data noupdate="1">
+        <record id="slide_channel_immich_onboarding_admin" model="slide.channel.partner">
+            <field name="channel_id" ref="slide_channel_immich_onboarding"/>
+            <field name="partner_id" ref="base.partner_admin"/>
+            <field name="member_status">joined</field>
+        </record>
+    </data>
+</odoo>
