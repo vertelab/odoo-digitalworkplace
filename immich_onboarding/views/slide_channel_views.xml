@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--
+        Settings shortcut on the course form. The first lesson tells the user
+        to fill in immich.url / immich.api_key; this button takes them straight
+        there instead of making them hunt through Settings. Visible only to
+        the same groups that website_immich allows to edit the connection
+        (base.group_erp_manager / website.group_website_restricted_editor).
+    -->
+    <record id="slide_channel_view_form_immich_onboarding" model="ir.ui.view">
+        <field name="name">slide.channel.view.form.immich.onboarding</field>
+        <field name="model">slide.channel</field>
+        <field name="inherit_id" ref="website_slides.view_slide_channel_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="action_open_immich_settings"
+                        type="object"
+                        string="Open Immich settings"
+                        class="btn-secondary"
+                        groups="base.group_erp_manager,website.group_website_restricted_editor"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!--
+        Action that filters the course list down to the Immich course, so it is
+        findable without knowing the URL slug. slide.channel has no stored slug
+        field — the slug is computed through ir.http._slug — so the domain
+        matches the fixed XML id instead.
+    -->
+    <record id="slide_channel_action_immich_onboarding" model="ir.actions.act_window">
+        <field name="name">Immich Onboarding</field>
+        <field name="res_model">slide.channel</field>
+        <field name="view_mode">kanban,form</field>
+        <field name="domain">[('id', '=', %(immich_onboarding.slide_channel_immich_onboarding)d)]</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                The Immich onboarding course is not installed yet.
+            </p>
+        </field>
+    </record>
+</odoo>
