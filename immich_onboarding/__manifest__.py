@@ -25,17 +25,17 @@
     'summary': 'Onboarding course: use your Immich photo library from Odoo',
     'category': 'Productivity',
     'description': """
-An onboarding course for the Workplace Immich integration.
+Onboarding course for the Workplace Immich integration.
 
 The course walks a user through connecting their Immich server, finding
-photos by content or person, and inserting them into Odoo content — the
+photos by content or person, and inserting them into Odoo content: the
 image library modal, website pages, knowledge articles and documents.
 
-It is a course only: installing it does not enable any Immich feature.
-The features live in ``website_immich``; this module merely teaches them,
-following the same convention as ``digitalworkplace_onboarding`` and
-``user_mail_onboarding``.
-    """,
+It is a course only. Installing it does not enable any Immich feature.
+The features live in website_immich; this module merely teaches them,
+following the same convention as digitalworkplace_onboarding and
+user_mail_onboarding.
+""",
     'author': 'Vertel Sverige AB',
     'website': 'https://vertel.se/apps/odoo-digitalworkplace/immich_onboarding',
     'license': 'AGPL-3',
