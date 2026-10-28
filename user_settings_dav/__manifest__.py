@@ -21,7 +21,7 @@
 
 {
     'name': 'Workplace: User Settings Dav',
-    'version': '18.0.1.0.1',
+    'version': '18.0.1.0.2',
     # Version ledger: 14.0 = Odoo version. 1 = Major. Non regressionable code. 2 = Minor. New features that are regressionable. 3 = Bug fixes
     'summary': "Adds CalDAV/CardDAV settings for users.",
     # Categories can be used to filter modules in modules listing
@@ -79,6 +79,15 @@ User Settings Dav
     # calendar_caldav — inte denna modul. Kommentaren och koden sade emot
     # varandra (False vs True); koden har varit True hela tiden.
     #
+        # Retired 2026-10-25: the Radicale-based DAV track is superseded by
+    # calendar_caldav, which is the single CalDAV+CardDAV server for
+    # ledningssystem. Both tracks registered /.well-known/caldav, and
+    # whichever answered first won — the Radicale track answered and
+    # returned an empty 207 for every client (DAVx5, Thunderbird,
+    # Evolution). The routes are unregistered in the code, not here:
+    # installable=False also stops Odoo from loading the module's
+    # models, which broke res.ppartner and caldav.collection.
     'installable': True,
+    # code stays available for reference and data migration.
     'auto_install': False,
 }
