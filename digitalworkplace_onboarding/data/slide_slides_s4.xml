@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         SEKTION 4: Web-möte i vardagen
+         Slides: 2 (1 article, 1 quiz)
+         ═══════════════════════════════════════════════════════════════════ -->
+
+    <!-- SECTION HEADER -->
+    <record id="slide_category_dw_s4" model="slide.slide">
+        <field name="name">4. Web-möte i vardagen</field>
+        <field name="is_category" eval="True"/>
+        <field name="channel_id" ref="digitalworkplace_onboarding.slide_channel_digitalworkplace"/>
+        <field name="sequence">300</field>
+    </record>
+
+    <!-- SLIDE 4.1: Boka, starta och bjuda in -->
+    <record id="slide_dw_s4_01" model="slide.slide">
+        <field name="name">Boka, starta och bjud in</field>
+        <field name="sequence">310</field>
+        <field name="slide_category">article</field>
+        <field name="channel_id" ref="digitalworkplace_onboarding.slide_channel_digitalworkplace"/>
+        <field name="is_published" eval="True"/>
+        <field name="is_preview" eval="True"/>
+        <field name="completion_time">0.50</field>
+        <field name="html_content" type="html">
+<section class="s_cover o_cc o_cc3 pt160 pb160">
+    <div class="container">
+        <h1 class="display-3-fs" style="text-align: center;">Boka, starta och bjud in</h1>
+        <p class="lead" style="text-align: center;">Ett möte är ett kalenderinlägg med en videolänk. Inget mer.</p>
+    </div>
+</section>
+
+<section class="s_text_block pt64 pb40">
+    <div class="container s_allow_columns">
+        <h2>Boka ett möte med videolänk</h2>
+        <ol>
+            <li>Öppna <strong>Kalender</strong> och skapa ett nytt möte.</li>
+            <li>Fyll i namn, tid och vilka som ska delta.</li>
+            <li>Välj <strong>videomöte</strong> som mötesplats — då skapas en länk automatiskt.</li>
+            <li>Spara. Deltagarna får en inbjudan med länken i.</li>
+        </ol>
+        <p>Länken ligger kvar i kalenderinlägget. Ingen behöver skicka den separat, och den som ansluter sent hittar den ändå.</p>
+    </div>
+</section>
+
+<section class="s_text_block pt32 pb40">
+    <div class="container s_allow_columns">
+        <h2>Under mötet</h2>
+        <ul>
+            <li><strong>Mikrofon av som standard.</strong> Slå på när du ska säga något — det tar bort bakgrundsljud från alla andras kontor.</li>
+            <li><strong>Dela skärm</strong> när du ska visa något. Dela ett fönster i stället för hela skärmen, så slipper deltagarna se dina andra flikar.</li>
+            <li><strong>Spela in</strong> om någon inte kunde delta. Inspelningen hamnar hos mötet — säg till innan du trycker på knappen.</li>
+            <li><strong>Chatten i mötet</strong> är bra för länkar och frågor som inte bryter talaren.</li>
+        </ul>
+    </div>
+</section>
+
+<section class="s_text_block pt32 pb40">
+    <div class="container s_allow_columns">
+        <h2>Bjuda in någon utanför företaget</h2>
+        <p>Externa deltagare behöver inget konto — de får en länk och ansluter via webbläsaren. Två saker att tänka på:</p>
+        <ol>
+            <li><strong>Skicka länken personligen</strong> till den du menar, inte i en vidarebefordrad tråd. En länk som sprids är en öppen dörr.</li>
+            <li><strong>Väntrummet.</strong> Med väntrum släpps ingen in förrän du öppnar. Använd det alltid vid externa möten — då ser du vilka som försöker ansluta.</li>
+        </ol>
+        <p class="small text-muted">Avsluta externa möten när de är slut. En kvarglömd länk som fortfarande fungerar är ett onödigt öppet fönster.</p>
+    </div>
+</section>
+
+<section class="s_text_block pt32 pb64">
+    <div class="container s_allow_columns">
+        <h2>När det strular</h2>
+        <p>De tre vanligaste problemen, och vad de beror på:</p>
+        <ul>
+            <li><strong>Ingen hör dig</strong> — mikrofonen är avstängd, eller webbläsaren har inte fått använda den. Kolla låsikonen i adressfältet.</li>
+            <li><strong>Dålig bild</strong> — ofta nätverket. Stäng av kameran och fortsätt med ljud; ljud kräver mycket mindre bandbredd.</li>
+            <li><strong>Du kommer inte in</strong> — du sitter i väntrummet. Värden måste släppa in dig.</li>
+        </ul>
+    </div>
+</section>
+
+<section class="s_call_to_action o_cc o_cc5 pt48 pb48">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9">
+                <h3>Väntrum vid externa möten</h3>
+                <p class="lead">Det kostar dig fem sekunder och stänger dörren för den som hittat länken av misstag.</p>
+            </div>
+        </div>
+    </div>
+</section>
+        </field>
+        <field name="description">Boka möte med videolänk, dela skärm, spela in, bjuda in externa deltagare säkert och lösa de tre vanligaste problemen.</field>
+    </record>
+
+    <!-- SLIDE 4.2: Quiz -->
+    <record id="slide_dw_s4_02" model="slide.slide">
+        <field name="name">🧪 Testa dina kunskaper — Web-möte i vardagen</field>
+        <field name="sequence">340</field>
+        <field name="slide_category">quiz</field>
+        <field name="channel_id" ref="digitalworkplace_onboarding.slide_channel_digitalworkplace"/>
+        <field name="is_published" eval="True"/>
+        <field name="is_preview" eval="True"/>
+        <field name="completion_time">0.25</field>
+        <field name="quiz_first_attempt_reward">100</field>
+        <field name="quiz_second_attempt_reward">75</field>
+        <field name="quiz_third_attempt_reward">50</field>
+        <field name="quiz_fourth_attempt_reward">25</field>
+        <field name="description">Kontrollera att du kan boka, hålla och avsluta ett web-möte.</field>
+    </record>
+
+    <record id="slide_dw_s4_02_q1" model="slide.question">
+        <field name="question">Vad krävs för att en extern person ska kunna delta i ett web-möte?</field>
+        <field name="sequence">1</field>
+        <field name="slide_id" ref="slide_dw_s4_02"/>
+    </record>
+    <record id="slide_dw_s4_02_q1_a1" model="slide.answer">
+        <field name="text_value">En länk — de ansluter via webbläsaren, inget konto behövs</field>
+        <field name="sequence">1</field>
+        <field name="is_correct" eval="True"/>
+        <field name="comment">Rätt. Skicka den personligen, inte i en vidarebefordrad tråd.</field>
+        <field name="question_id" ref="slide_dw_s4_02_q1"/>
+    </record>
+    <record id="slide_dw_s4_02_q1_a2" model="slide.answer">
+        <field name="text_value">Ett konto på arbetsytan</field>
+        <field name="sequence">2</field>
+        <field name="is_correct" eval="False"/>
+        <field name="comment">Nej — externa deltagare behöver inget konto.</field>
+        <field name="question_id" ref="slide_dw_s4_02_q1"/>
+    </record>
+    <record id="slide_dw_s4_02_q1_a3" model="slide.answer">
+        <field name="text_value">Att de installerar ett program</field>
+        <field name="sequence">3</field>
+        <field name="is_correct" eval="False"/>
+        <field name="comment">Nej — webbläsaren räcker.</field>
+        <field name="question_id" ref="slide_dw_s4_02_q1"/>
+    </record>
+
+    <record id="slide_dw_s4_02_q2" model="slide.question">
+        <field name="question">Varför ska du använda väntrum vid externa möten?</field>
+        <field name="sequence">2</field>
+        <field name="slide_id" ref="slide_dw_s4_02"/>
+    </record>
+    <record id="slide_dw_s4_02_q2_a1" model="slide.answer">
+        <field name="text_value">Då släpps ingen in förrän du öppnar, och du ser vilka som försöker</field>
+        <field name="sequence">1</field>
+        <field name="is_correct" eval="True"/>
+        <field name="comment">Rätt. Fem sekunder för dig, stängd dörr för den som hittat länken av misstag.</field>
+        <field name="question_id" ref="slide_dw_s4_02_q2"/>
+    </record>
+    <record id="slide_dw_s4_02_q2_a2" model="slide.answer">
+        <field name="text_value">För att mötet ska starta snabbare</field>
+        <field name="sequence">2</field>
+        <field name="is_correct" eval="False"/>
+        <field name="comment">Tvärtom — det tar några sekunder extra. Det är säkerheten som vinner.</field>
+        <field name="question_id" ref="slide_dw_s4_02_q2"/>
+    </record>
+    <record id="slide_dw_s4_02_q2_a3" model="slide.answer">
+        <field name="text_value">För att kunna spela in mötet</field>
+        <field name="sequence">3</field>
+        <field name="is_correct" eval="False"/>
+        <field name="comment">Inspelning är oberoende av väntrummet.</field>
+        <field name="question_id" ref="slide_dw_s4_02_q2"/>
+    </record>
+
+    <record id="slide_dw_s4_02_q3" model="slide.question">
+        <field name="question">Bilden hackar. Vad är det bästa du kan göra?</field>
+        <field name="sequence">3</field>
+        <field name="slide_id" ref="slide_dw_s4_02"/>
+    </record>
+    <record id="slide_dw_s4_02_q3_a1" model="slide.answer">
+        <field name="text_value">Stäng av kameran och fortsätt med ljud</field>
+        <field name="sequence">1</field>
+        <field name="is_correct" eval="True"/>
+        <field name="comment">Rätt. Ljud kräver mycket mindre bandbredd än video.</field>
+        <field name="question_id" ref="slide_dw_s4_02_q3"/>
+    </record>
+    <record id="slide_dw_s4_02_q3_a2" model="slide.answer">
+        <field name="text_value">Avbryta mötet och boka om</field>
+        <field name="sequence">2</field>
+        <field name="is_correct" eval="False"/>
+        <field name="comment">Onödigt — ni kan fortsätta med ljud.</field>
+        <field name="question_id" ref="slide_dw_s4_02_q3"/>
+    </record>
+    <record id="slide_dw_s4_02_q3_a3" model="slide.answer">
+        <field name="text_value">Be alla andra stänga av sina kameror</field>
+        <field name="sequence">3</field>
+        <field name="is_correct" eval="False"/>
+        <field name="comment">Hjälper inte — problemet är din uppkoppling, inte deras.</field>
+        <field name="question_id" ref="slide_dw_s4_02_q3"/>
+    </record>
+
+    <record id="slide_dw_s4_02_q4" model="slide.question">
+        <field name="question">Vad ska du göra när ett externt möte är slut?</field>
+        <field name="sequence">4</field>
+        <field name="slide_id" ref="slide_dw_s4_02"/>
+    </record>
+    <record id="slide_dw_s4_02_q4_a1" model="slide.answer">
+        <field name="text_value">Avsluta mötet så länken slutar fungera</field>
+        <field name="sequence">1</field>
+        <field name="is_correct" eval="True"/>
+        <field name="comment">Rätt. En kvarglömd länk som fortfarande fungerar är ett onödigt öppet fönster.</field>
+        <field name="question_id" ref="slide_dw_s4_02_q4"/>
+    </record>
+    <record id="slide_dw_s4_02_q4_a2" model="slide.answer">
+        <field name="text_value">Lämna det öppet ifall någon vill återkomma</field>
+        <field name="sequence">2</field>
+        <field name="is_correct" eval="False"/>
+        <field name="comment">Då står dörren öppen tills någon stänger den.</field>
+        <field name="question_id" ref="slide_dw_s4_02_q4"/>
+    </record>
+    <record id="slide_dw_s4_02_q4_a3" model="slide.answer">
+        <field name="text_value">Radera kalenderinlägget</field>
+        <field name="sequence">3</field>
+        <field name="is_correct" eval="False"/>
+        <field name="comment">Då försvinner spåret av mötet. Avsluta mötet i stället.</field>
+        <field name="question_id" ref="slide_dw_s4_02_q4"/>
+    </record>
+
+    </data>
+</odoo>

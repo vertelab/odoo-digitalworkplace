@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         SEKTION 2: Så kopplar du upp dig
+         Slides: 2 (1 article, 1 quiz)
+         ═══════════════════════════════════════════════════════════════════ -->
+
+    <!-- SECTION HEADER -->
+    <record id="slide_category_dw_s2" model="slide.slide">
+        <field name="name">2. Så kopplar du upp dig</field>
+        <field name="is_category" eval="True"/>
+        <field name="channel_id" ref="digitalworkplace_onboarding.slide_channel_digitalworkplace"/>
+        <field name="sequence">100</field>
+    </record>
+
+    <!-- SLIDE 2.1: Chatt och möte — första gången -->
+    <record id="slide_dw_s2_01" model="slide.slide">
+        <field name="name">Första gången — chatt och möte</field>
+        <field name="sequence">110</field>
+        <field name="slide_category">article</field>
+        <field name="channel_id" ref="digitalworkplace_onboarding.slide_channel_digitalworkplace"/>
+        <field name="is_published" eval="True"/>
+        <field name="is_preview" eval="True"/>
+        <field name="completion_time">0.50</field>
+        <field name="html_content" type="html">
+<section class="s_cover o_cc o_cc3 pt160 pb160">
+    <div class="container">
+        <h1 class="display-3-fs" style="text-align: center;">Första gången — chatt och möte</h1>
+        <p class="lead" style="text-align: center;">Inget att installera. Du är redan uppkopplad när du är inloggad.</p>
+    </div>
+</section>
+
+<section class="s_text_block pt64 pb40">
+    <div class="container s_allow_columns">
+        <h2>Chatten — inget att koppla upp</h2>
+        <p>Chatten ligger inbyggd i arbetsytan. Öppna den från appmenyn eller via pratbubblan i hörnet. Du är inloggad med samma konto som resten, och ditt namn och din profilbild följer med.</p>
+        <p>Första gången ser du de kanaler du redan är medlem i. Är listan tom betyder det bara att du inte lagts till i någon än — det ordnar en kollega eller IT.</p>
+    </div>
+</section>
+
+<section class="s_text_block pt32 pb40">
+    <div class="container s_allow_columns">
+        <h2>Mötet — kontrollera att kameran får användas</h2>
+        <p>Webb möten kräver att webbläsaren får använda kamera och mikrofon. Första gången du startar ett möte frågar webbläsaren om lov — tryck <strong>Tillåt</strong>.</p>
+        <p class="small text-muted">Tackar du nej av misstag ser deltagarna bara en svart ruta. Det går att ändra: klicka på låsikonen till vänster i adressfältet och slå på kamera och mikrofon för arbetsytans adress.</p>
+    </div>
+</section>
+
+<section class="s_text_block pt32 pb40">
+    <div class="container s_allow_columns">
+        <h2>Tre saker att ställa in direkt</h2>
+        <ol>
+            <li><strong>Profilbild.</strong> Utan bild syns bara initialer i chatten och i mötesrutorna. En bild gör det lättare att veta vem som säger vad.</li>
+            <li><strong>Notiser.</strong> Välj om du vill ha notis vid varje meddelande, bara vid omnämnanden (<code>@namn</code>), eller ingen alls. Börja med omnämnanden — då slipper du stänga av allt efter en vecka.</li>
+            <li><strong>Mikrofon och kamera.</strong> Testa en gång i ett eget möte innan du sitter i ett med kund.</li>
+        </ol>
+    </div>
+</section>
+
+<section class="s_text_block pt32 pb64">
+    <div class="container s_allow_columns">
+        <h2>Bra att veta om behörigheter</h2>
+        <p>Du ser de kanaler du är medlem i. Kanaler du inte är med i syns inte i listan och går inte att söka fram — det är avsiktligt, inte en bugg.</p>
+        <p>Vill du in i en kanal: be en kollega i kanalen lägga till dig, eller hör av dig till IT.</p>
+    </div>
+</section>
+
+<section class="s_call_to_action o_cc o_cc5 pt48 pb48">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9">
+                <h3>Börja med omnämnanden</h3>
+                <p class="lead">Notiser på allt blir brus. Notiser på <code>@dittnamn</code> blir information.</p>
+            </div>
+        </div>
+    </div>
+</section>
+        </field>
+        <field name="description">Första gången i chatten och i ett web-möte: vad som redan är på plats, kamera- och mikrofonbehörighet, och tre inställningar du bör göra direkt.</field>
+    </record>
+
+    <!-- SLIDE 2.2: Quiz -->
+    <record id="slide_dw_s2_02" model="slide.slide">
+        <field name="name">🧪 Testa dina kunskaper — Första gången</field>
+        <field name="sequence">140</field>
+        <field name="slide_category">quiz</field>
+        <field name="channel_id" ref="digitalworkplace_onboarding.slide_channel_digitalworkplace"/>
+        <field name="is_published" eval="True"/>
+        <field name="is_preview" eval="True"/>
+        <field name="completion_time">0.25</field>
+        <field name="quiz_first_attempt_reward">100</field>
+        <field name="quiz_second_attempt_reward">75</field>
+        <field name="quiz_third_attempt_reward">50</field>
+        <field name="quiz_fourth_attempt_reward">25</field>
+        <field name="description">Kontrollera att du vet vad som krävs för att chatta och mötas.</field>
+    </record>
+
+    <record id="slide_dw_s2_02_q1" model="slide.question">
+        <field name="question">Vad behöver du installera för att använda chatten?</field>
+        <field name="sequence">1</field>
+        <field name="slide_id" ref="slide_dw_s2_02"/>
+    </record>
+    <record id="slide_dw_s2_02_q1_a1" model="slide.answer">
+        <field name="text_value">Ingenting — den ligger i arbetsytan</field>
+        <field name="sequence">1</field>
+        <field name="is_correct" eval="True"/>
+        <field name="comment">Rätt. Du är uppkopplad när du är inloggad.</field>
+        <field name="question_id" ref="slide_dw_s2_02_q1"/>
+    </record>
+    <record id="slide_dw_s2_02_q1_a2" model="slide.answer">
+        <field name="text_value">Ett chattprogram från IT</field>
+        <field name="sequence">2</field>
+        <field name="is_correct" eval="False"/>
+        <field name="comment">Det behövs inte — chatten är en del av arbetsytan.</field>
+        <field name="question_id" ref="slide_dw_s2_02_q1"/>
+  </record>
+    <record id="slide_dw_s2_02_q1_a3" model="slide.answer">
+        <field name="text_value">Ett separat konto med eget lösenord</field>
+        <field name="sequence">3</field>
+        <field name="is_correct" eval="False"/>
+        <field name="comment">Nej — samma konto som resten av arbetsytan.</field>
+        <field name="question_id" ref="slide_dw_s2_02_q1"/>
+    </record>
+
+    <record id="slide_dw_s2_02_q2" model="slide.question">
+        <field name="question">Deltagarna ser bara en svart ruta i stället för dig. Vad är troligast?</field>
+        <field name="sequence">2</field>
+        <field name="slide_id" ref="slide_dw_s2_02"/>
+    </record>
+    <record id="slide_dw_s2_02_q2_a1" model="slide.answer">
+        <field name="text_value">Att webbläsaren inte har fått använda kameran</field>
+        <field name="sequence">1</field>
+        <field name="is_correct" eval="True"/>
+        <field name="comment">Rätt. Klicka på låsikonen i adressfältet och slå på kameran.</field>
+        <field name="question_id" ref="slide_dw_s2_02_q2"/>
+    </record>
+    <record id="slide_dw_s2_02_q2_a2" model="slide.answer">
+        <field name="text_value">Att kameran är trasig</field>
+        <field name="sequence">2</field>
+        <field name="is_correct" eval="False"/>
+        <field name="comment">Möjligt, men behörigheten är den vanliga orsaken.</field>
+        <field name="question_id" ref="slide_dw_s2_02_q2"/>
+    </record>
+    <record id="slide_dw_s2_02_q2_a3" model="slide.answer">
+        <field name="text_value">Att mötet är inställt på ljudläge</field>
+        <field name="sequence">3</field>
+        <field name="is_correct" eval="False"/>
+        <field name="comment">Finns inte som inställning — det är behörigheten.</field>
+        <field name="question_id" ref="slide_dw_s2_02_q2"/>
+    </record>
+
+    <record id="slide_dw_s2_02_q3" model="slide.question">
+        <field name="question">Vilken notisinställning är bäst att börja med?</field>
+        <field name="sequence">3</field>
+        <field name="slide_id" ref="slide_dw_s2_02"/>
+    </record>
+    <record id="slide_dw_s2_02_q3_a1" model="slide.answer">
+        <field name="text_value">Bara vid omnämnanden</field>
+        <field name="sequence">1</field>
+        <field name="is_correct" eval="True"/>
+        <field name="comment">Rätt. Notiser på allt blir brus och stängs av efter en vecka.</field>
+        <field name="question_id" ref="slide_dw_s2_02_q3"/>
+    </record>
+    <record id="slide_dw_s2_02_q3_a2" model="slide.answer">
+        <field name="text_value">Alla meddelanden</field>
+        <field name="sequence">2</field>
+        <field name="is_correct" eval="False"/>
+        <field name="comment">Blir för mycket — du slutar läsa dem.</field>
+        <field name="question_id" ref="slide_dw_s2_02_q3"/>
+    </record>
+    <record id="slide_dw_s2_02_q3_a3" model="slide.answer">
+        <field name="text_value">Inga alls</field>
+        <field name="sequence">3</field>
+        <field name="is_correct" eval="False"/>
+        <field name="comment">Då missar du det som faktiskt gäller dig.</field>
+        <field name="question_id" ref="slide_dw_s2_02_q3"/>
+    </record>
+
+    <record id="slide_dw_s2_02_q4" model="slide.question">
+        <field name="question">Du ser inte en kanal som du vet finns. Varför?</field>
+        <field name="sequence">4</field>
+        <field name="slide_id" ref="slide_dw_s2_02"/>
+    </record>
+    <record id="slide_dw_s2_02_q4_a1" model="slide.answer">
+        <field name="text_value">Du är inte medlem i den</field>
+        <field name="sequence">1</field>
+        <field name="is_correct" eval="True"/>
+        <field name="comment">Rätt. Kanaler du inte är med i syns inte och går inte att söka fram.</field>
+        <field name="question_id" ref="slide_dw_s2_02_q4"/>
+    </record>
+    <record id="slide_dw_s2_02_q4_a2" model="slide.answer">
+        <field name="text_value">Kanalen är arkiverad</field>
+        <field name="sequence">2</field>
+        <field name="is_correct" eval="False"/>
+        <field name="comment">Möjligt, men medlemskap är det vanligaste skälet.</field>
+        <field name="question_id" ref="slide_dw_s2_02_q4"/>
+    </record>
+    <record id="slide_dw_s2_02_q4_a3" model="slide.answer">
+        <field name="text_value">Chatten är trasig</field>
+        <field name="sequence">3</field>
+        <field name="is_correct" eval="False"/>
+        <field name="comment">Behörigheten förklarar det — det är avsiktligt, inte ett fel.</field>
+        <field name="question_id" ref="slide_dw_s2_02_q4"/>
+    </record>
+
+    </data>
+</odoo>

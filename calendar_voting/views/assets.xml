@@ -1,13 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <template id="controller_style" inherit_id="website.assets_frontend">
         <xpath expr="." position="inside">
             <link rel="stylesheet" type="text/css" href="/calendar_voting/static/src/css/controller_style.css"/>
         </xpath>
     </template>
-    <template id="voting_site_style" inherit_id="web.assets_frontend">
-        <xpath expr="." position="inside">
-            <script type="text/javascript" src="/calendar_voting/static/src/js/controller_voting.js"/>
-            <script type="text/javascript" src="/calendar_voting/static/src/js/copy_to_clipbord.js"/>
-        </xpath>
-    </template>
+
+    <record id="assets_frontend_calendar_voting_js" model="ir.asset">
+        <field name="name">calendar_voting_controller_voting_js</field>
+        <field name="bundle">web.assets_frontend</field>
+        <field name="path">calendar_voting/static/src/js/controller_voting.js</field>
+        <field name="target">body</field>
+        <field name="sequence" eval="50"/>
+    </record>
+    <record id="assets_frontend_calendar_voting_copy_js" model="ir.asset">
+        <field name="name">calendar_voting_copy_to_clipboard_js</field>
+        <field name="bundle">web.assets_frontend</field>
+        <field name="path">calendar_voting/static/src/js/copy_to_clipbord.js</field>
+        <field name="target">body</field>
+        <field name="sequence" eval="51"/>
+    </record>
+    <record id="assets_frontend_calendar_voting_copy_xml" model="ir.asset">
+        <field name="name">calendar_voting_copy_to_clipboard_xml</field>
+        <field name="bundle">web.assets_frontend</field>
+        <field name="path">calendar_voting/static/src/js/copy_to_clipbord.xml</field>
+        <field name="target">body</field>
+        <field name="sequence" eval="52"/>
+    </record>
 </odoo>

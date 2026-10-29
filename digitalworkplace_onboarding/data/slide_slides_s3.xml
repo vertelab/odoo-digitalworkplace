@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         SEKTION 3: Så använder du det i vardagen — chatten
+         Slides: 2 (1 article, 1 quiz)
+         ═══════════════════════════════════════════════════════════════════ -->
+
+    <!-- SECTION HEADER -->
+    <record id="slide_category_dw_s3" model="slide.slide">
+        <field name="name">3. Chatt i vardagen</field>
+        <field name="is_category" eval="True"/>
+        <field name="channel_id" ref="digitalworkplace_onboarding.slide_channel_digitalworkplace"/>
+        <field name="sequence">200</field>
+    </record>
+
+    <!-- SLIDE 3.1: Kanaler, trådar och omnämnanden -->
+    <record id="slide_dw_s3_01" model="slide.slide">
+        <field name="name">Kanaler, trådar och omnämnanden</field>
+        <field name="sequence">210</field>
+        <field name="slide_category">article</field>
+        <field name="channel_id" ref="digitalworkplace_onboarding.slide_channel_digitalworkplace"/>
+        <field name="is_published" eval="True"/>
+        <field name="is_preview" eval="True"/>
+        <field name="completion_time">0.50</field>
+        <field name="html_content" type="html">
+<section class="s_cover o_cc o_cc3 pt160 pb160">
+    <div class="container">
+        <h1 class="display-3-fs" style="text-align: center;">Kanaler, trådar och omnämnanden</h1>
+        <p class="lead" style="text-align: center;">Tre regler som avgör om chatten blir ett verktyg eller ett brus.</p>
+    </div>
+</section>
+
+<section class="s_text_block pt64 pb40">
+    <div class="container s_allow_columns">
+        <h2>Kanal eller direktmeddelande</h2>
+        <p><strong>Kanal</strong> när fler än två har nytta av svaret, eller när det ska gå att hitta i efterhand. Kanalen har ett ämne och en historik som nya i teamet kan läsa.</p>
+        <p><strong>Direktmeddelande</strong> när det bara rör dig och en annan person — en snabb fråga, ett personligt ärende.</p>
+        <p class="small text-muted">Tumregel: om du tvekar, välj kanalen. Ett svar som fler kan läsa besparar någon annan samma fråga nästa vecka.</p>
+    </div>
+</section>
+
+<section class="s_text_block pt32 pb40">
+    <div class="container s_allow_columns">
+        <h2>Trådar — så hålls kanalen läsbar</h2>
+        <p>En kanal spårar ur när tio personer svarar på samma meddelande i följd. Använd <strong>tråd</strong> i stället: svara på meddelandet i tråden, så samlas hela samtalet under det ursprungliga inlägget.</p>
+        <ol>
+            <li>Hovra över meddelandet du vill svara på.</li>
+            <li>Välj <strong>Svara i tråd</strong>.</li>
+            <li>Skriv ditt svar. Det hamnar under meddelandet, inte i kanalens huvudflöde.</li>
+        </ol>
+        <p>Resultatet: kanalen visar vad som händer, tråden visar varför. Den som bara vill följa läget slipper läsa hela diskussionen.</p>
+    </div>
+</section>
+
+<section class="s_text_block pt32 pb40">
+    <div class="container s_allow_columns">
+        <h2>Omnämnanden</h2>
+        <p>Skriv <code>@</code> följt av namnet för att få någons uppmärksamhet. Personens namn blir markerat och de får en notis även om de inte tittar i kanalen just nu.</p>
+        <ul>
+            <li><code>@namn</code> — en specifik person</li>
+            <li><code>@kanal</code> eller <code>@alla</code> — hela kanalen</li>
+        </ul>
+        <p class="small text-muted">Använd <code>@alla</code> sparsamt. Det som gäller alla är sällan så brådskande att det måste störa alla.</p>
+    </div>
+</section>
+
+<section class="s_text_block pt32 pb64">
+    <div class="container s_allow_columns">
+        <h2>Hitta tillbaka</h2>
+        <p>Chatten är sökbar. Skriv ett ord i sökfältet och du får träffar i alla kanaler du är medlem i. Det är ofta snabbare än att fråga samma sak igen — svaret finns redan från förra gången.</p>
+        <p>Du kan också spara ett meddelande för att hitta det senare, och stjärnmärka kanaler du följer extra noga.</p>
+    </div>
+</section>
+
+<section class="s_call_to_action o_cc o_cc5 pt48 pb48">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9">
+                <h3>Svara i tråd</h3>
+                <p class="lead">Det är den enskilt viktigaste vanan för att en kanal ska förbli läsbar efter hundra meddelanden.</p>
+            </div>
+        </div>
+    </div>
+</section>
+        </field>
+        <field name="description">Kanal eller direktmeddelande, hur trådar håller kanalen läsbar, omnämnanden och hur du söker upp det som redan sagts.</field>
+    </record>
+
+    <!-- SLIDE 3.2: Quiz -->
+    <record id="slide_dw_s3_02" model="slide.slide">
+        <field name="name">🧪 Testa dina kunskaper — Chatt i vardagen</field>
+        <field name="sequence">240</field>
+        <field name="slide_category">quiz</field>
+        <field name="channel_id" ref="digitalworkplace_onboarding.slide_channel_digitalworkplace"/>
+        <field name="is_published" eval="True"/>
+        <field name="is_preview" eval="True"/>
+        <field name="completion_time">0.25</field>
+        <field name="quiz_first_attempt_reward">100</field>
+        <field name="quiz_second_attempt_reward">75</field>
+        <field name="quiz_third_attempt_reward">50</field>
+        <field name="quiz_fourth_attempt_reward">25</field>
+        <field name="description">Kontrollera att du kan välja rätt kanal och hålla den läsbar.</field>
+    </record>
+
+    <record id="slide_dw_s3_02_q1" model="slide.question">
+        <field name="question">Fyra personer har nytta av svaret på din fråga. Var ställer du den?</field>
+        <field name="sequence">1</field>
+        <field name="slide_id" ref="slide_dw_s3_02"/>
+    </record>
+    <record id="slide_dw_s3_02_q1_a1" model="slide.answer">
+        <field name="text_value">I kanalen</field>
+        <field name="sequence">1</field>
+        <field name="is_correct" eval="True"/>
+        <field name="comment">Rätt. Då slipper tre andra ställa samma fråga nästa vecka.</field>
+        <field name="question_id" ref="slide_dw_s3_02_q1"/>
+    </record>
+    <record id="slide_dw_s3_02_q1_a2" model="slide.answer">
+        <field name="text_value">Som direktmeddelande till en av dem</field>
+        <field name="sequence">2</field>
+        <field name="is_correct" eval="False"/>
+        <field name="comment">Då går svaret förlorat för de andra tre.</field>
+        <field name="question_id" ref="slide_dw_s3_02_q1"/>
+    </record>
+    <record id="slide_dw_s3_02_q1_a3" model="slide.answer">
+        <field name="text_value">Via e-post till alla fyra</field>
+        <field name="sequence">3</field>
+        <field name="is_correct" eval="False"/>
+        <field name="comment">Fungerar, men chatten är snabbare och svaret blir sökbart.</field>
+        <field name="question_id" ref="slide_dw_s3_02_q1"/>
+    </record>
+
+    <record id="slide_dw_s3_02_q2" model="slide.question">
+        <field name="question">Varför ska man svara i tråd i stället för i huvudflödet?</field>
+        <field name="sequence">2</field>
+        <field name="slide_id" ref="slide_dw_s3_02"/>
+    </record>
+    <record id="slide_dw_s3_02_q2_a1" model="slide.answer">
+        <field name="text_value">För att kanalen ska förbli läsbar — tråden visar varför, kanalen visar vad</field>
+        <field name="sequence">1</field>
+        <field name="is_correct" eval="True"/>
+        <field name="comment">Rätt. Den som bara följer läget slipper läsa hela diskussionen.</field>
+        <field name="question_id" ref="slide_dw_s3_02_q2"/>
+    </record>
+    <record id="slide_dw_s3_02_q2_a2" model="slide.answer">
+        <field name="text_value">För att svaret ska gå snabbare att skicka</field>
+        <field name="sequence">2</field>
+        <field name="is_correct" eval="False"/>
+        <field name="comment">Det tar tvärtom ett klick mer. Vinsten är läsbarheten.</field>
+        <field name="question_id" ref="slide_dw_s3_02_q2"/>
+    </record>
+    <record id="slide_dw_s3_02_q2_a3" model="slide.answer">
+        <field name="text_value">För att tråden är hemlig för andra</field>
+        <field name="sequence">3</field>
+        <field name="is_correct" eval="False"/>
+        <field name="comment">Tråden är synlig för alla i kanalen — den är bara grupperad.</field>
+        <field name="question_id" ref="slide_dw_s3_02_q2"/>
+    </record>
+
+    <record id="slide_dw_s3_02_q3" model="slide.question">
+        <field name="question">Hur får du någons uppmärksamhet i en kanal?</field>
+        <field name="sequence">3</field>
+        <field name="slide_id" ref="slide_dw_s3_02"/>
+    </record>
+    <record id="slide_dw_s3_02_q3_a1" model="slide.answer">
+        <field name="text_value">Skriver @ följt av namnet</field>
+        <field name="sequence">1</field>
+        <field name="is_correct" eval="True"/>
+        <field name="comment">Rätt. Namnet markeras och personen får en notis.</field>
+        <field name="question_id" ref="slide_dw_s3_02_q3"/>
+    </record>
+    <record id="slide_dw_s3_02_q3_a2" model="slide.answer">
+        <field name="text_value">Skickar ett separat direktmeddelande</field>
+        <field name="sequence">2</field>
+        <field name="is_correct" eval="False"/>
+        <field name="comment">Fungerar, men då tappar du kanalens sammanhang.</field>
+        <field name="question_id" ref="slide_dw_s3_02_q3"/>
+    </record>
+    <record id="slide_dw_s3_02_q3_a3" model="slide.answer">
+        <field name="text_value">Skriver namnet med stora bokstäver</field>
+        <field name="sequence">3</field>
+        <field name="is_correct" eval="False"/>
+        <field name="comment">Ger ingen notis — det ser bara ut som att du skriker.</field>
+        <field name="question_id" ref="slide_dw_s3_02_q3"/>
+    </record>
+
+    <record id="slide_dw_s3_02_q4" model="slide.question">
+        <field name="question">Någon frågar samma sak som besvarades förra månaden. Vad gör du?</field>
+        <field name="sequence">4</field>
+        <field name="slide_id" ref="slide_dw_s3_02"/>
+    </record>
+    <record id="slide_dw_s3_02_q4_a1" model="slide.answer">
+        <field name="text_value">Söker upp det gamla svaret och hänvisar till det</field>
+        <field name="sequence">1</field>
+        <field name="is_correct" eval="True"/>
+        <field name="comment">Rätt. Chatten är sökbar — svaret finns redan.</field>
+        <field name="question_id" ref="slide_dw_s3_02_q4"/>
+    </record>
+    <record id="slide_dw_s3_02_q4_a2" model="slide.answer">
+        <field name="text_value">Svarar igen från början</field>
+        <field name="sequence">2</field>
+        <field name="is_correct" eval="False"/>
+        <field name="comment">Onödigt arbete — och nu finns svaret på två ställen.</field>
+        <field name="question_id" ref="slide_dw_s3_02_q4"/>
+    </record>
+    <record id="slide_dw_s3_02_q4_a3" model="slide.answer">
+        <field name="text_value">Säger åt dem att söka själva</field>
+        <field name="sequence">3</field>
+        <field name="is_correct" eval="False"/>
+        <field name="comment">Kan uppfattas som avvisande. Hänvisa i stället.</field>
+        <field name="question_id" ref="slide_dw_s3_02_q4"/>
+    </record>
+
+    </data>
+</odoo>
