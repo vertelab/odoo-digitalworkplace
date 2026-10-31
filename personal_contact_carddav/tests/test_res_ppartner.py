@@ -7,7 +7,14 @@ class TestResPpartner(common.TransactionCase):
     def setUpClass(cls):
         super().setUpClass()
         cls.Ppartner = cls.env['res.ppartner']
-        cls.user = cls.env.user
+        # env.user is the superuser in a TransactionCase, and the superuser
+        # bypasses global ir.rules. Use two regular internal users so the
+        # record rule is actually exercised.
+        cls.user = cls.env['res.users'].create({
+            'name': 'Test User 1',
+            'login': 'testuser1',
+            'groups_id': [(6, 0, [cls.env.ref('base.group_user').id])],
+        })
         cls.other_user = cls.env['res.users'].create({
             'name': 'Test User 2',
             'login': 'testuser2',
@@ -15,7 +22,7 @@ class TestResPpartner(common.TransactionCase):
         })
 
     def test_create_with_default_user(self):
-        record = self.Ppartner.create({
+        record = self.Ppartner.with_user(self.user).create({
             'name': 'Test Contact',
         })
         self.assertEqual(record.user_id, self.user)
@@ -28,10 +35,12 @@ class TestResPpartner(common.TransactionCase):
         self.assertEqual(record.user_id, self.other_user)
 
     def test_record_rule_filters_by_user(self):
-        self.Ppartner.create({'name': 'My Contact'})
+        self.Ppartner.with_user(self.user).create({'name': 'My Contact'})
         self.Ppartner.with_user(self.other_user).create({'name': 'Other Contact'})
 
-        my_records = self.Ppartner.search([])
+        # A global ir.rule is bypassed for superuser, so query as a regular
+        # internal user — that is the case the rule exists for.
+        my_records = self.Ppartner.with_user(self.user).search([])
         self.assertIn('My Contact', my_records.mapped('name'))
         self.assertNotIn('Other Contact', my_records.mapped('name'))
 
