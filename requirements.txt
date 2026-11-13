@@ -1,1 +1,17 @@
 markdown
+
+# ── Saknade beroenden — inventering 2026-11-13 ──────────────────────────────
+# Se /srv/salt/odoo/REQUIREMENTS-AUDIT-2026-11-13.md.
+#
+# website_markdown — BeautifulSoup på modulnivå (ir_ui_view.py)
+beautifulsoup4
+
+# calendar_voting — numpy på modulnivå (röstningsmatris)
+numpy
+
+# communication_center_jitsi — PyJWT på modulnivå (JWT för Jitsi-möteslänkar)
+PyJWT
+
+# communication_center_sip — phonenumbers importeras i try/except; SIP-delen
+# fungerar men nummerformateringen tystnar utan paketet.
+phonenumbers
