@@ -1,6 +1,6 @@
 {
     'name': 'Workplace: Contact CardDAV',
-    'version': '18.0.1.0.0',
+    'version': '1.0.0',
     'summary': 'Exposes res.partner contacts as CardDAV address book.',
     'description': '''
 Contact CardDAV

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Chatt & web-möte i Vertel',
-    'version': '18.0.1.0.0',
+    'version': '1.0.0',
     'summary': 'Onboardingskurs: chatt (Matrix) och web-möte (Jitsi)',
     'description': """
 Lär dig chatta i kanaler, starta videomöten och bjuda in externa deltagare.

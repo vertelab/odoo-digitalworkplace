@@ -1,6 +1,6 @@
 {
     'name': 'Personal Contact CardDAV',
-    'version': '18.0.1.0.0',
+    'version': '1.0.0',
     'summary': 'User-specific personal contacts exposed as CardDAV address book.',
     'description': '''
 Personal Contact CardDAV
