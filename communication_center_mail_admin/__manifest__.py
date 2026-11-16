@@ -54,7 +54,7 @@ Communication Center Mail Admin
     'depends': ['mail'],
     "data": [
         'security/security.xml',
-        'security/ir.model.access.csv',
+        'security/ir.access.csv',
         'data/data.xml',
         'views/mail_message_views.xml',
         'wizard/edit_message_log_note_views.xml',

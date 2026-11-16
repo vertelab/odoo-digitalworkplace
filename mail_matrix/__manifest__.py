@@ -46,7 +46,7 @@ Inbound: Matrix message -> Webhook -> Odoo controller -> mail.message
     "data": [
         "views/res_partner_view.xml",
         "views/res_config_settings.xml",
-        "security/ir.model.access.csv",
+        "security/ir.access.csv",
     ],
     "application": True,
 }

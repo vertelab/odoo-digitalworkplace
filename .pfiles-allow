@@ -24,6 +24,7 @@ calendar_mobile_integration/static/description/index.html
 calendar_voting/controllers/voting_controller.py
 calendar_voting/data/mail_data.xml
 calendar_voting/models/calendar_voting.py
+calendar_voting/security/ir.access.csv
 calendar_voting/security/ir.model.access.csv
 calendar_voting/static/description/index.html
 calendar_voting/static/src/js/controller_voting.js
@@ -54,6 +55,7 @@ communication_center_mail_admin/data/data.xml
 communication_center_mail_admin/models/mail_message.py
 communication_center_mail_admin/models/mail_message_history.py
 communication_center_mail_admin/models/res_config_settings.py
+communication_center_mail_admin/security/ir.access.csv
 communication_center_mail_admin/security/ir.model.access.csv
 communication_center_mail_admin/security/security.xml
 communication_center_mail_admin/static/description/index.html
@@ -80,6 +82,7 @@ communication_center_sip/models/voip_configurator.py
 communication_center_sip/models/voip_phonecall.py
 communication_center_sip/models/voip_queue_mixin.py
 communication_center_sip/report/voip_phonecall_report.py
+communication_center_sip/security/ir.access.csv
 communication_center_sip/security/ir.model.access.csv
 communication_center_sip/static/description/index.html
 communication_center_sip/static/src/js/call_center_field.js
@@ -118,7 +121,6 @@ contact_carddav/models/dav_collection.py
 contact_carddav/static/description/index.html
 digitalworkplace_onboarding/demo/slide_slide_demo.xml
 digitalworkplace_onboarding/views/slide_channel_data.xml
-discuss_show_members/models/mail_channel.py
 discuss_show_members/static/description/index.html
 discuss_show_members/static/src/components/discuss_sidebar_item/discuss_sidebar_item.js
 discuss_show_members/static/src/components/discuss_sidebar_item/discuss_sidebar_item.xml
@@ -128,6 +130,7 @@ mail_matrix/models/mail_message.py
 mail_matrix/models/res_config_settings.py
 mail_matrix/models/res_partner.py
 mail_matrix/publisher/matrix_publisher.py
+mail_matrix/security/ir.access.csv
 mail_matrix/security/ir.model.access.csv
 mail_matrix/static/description/index.html
 mail_matrix/views/res_config_settings.xml
@@ -135,10 +138,9 @@ mail_matrix/views/res_partner_view.xml
 personal_contact_carddav/data/personal_contact_carddav_data.xml
 personal_contact_carddav/models/dav_collection.py
 personal_contact_carddav/models/res_ppartner.py
+personal_contact_carddav/security/ir.access.csv
 personal_contact_carddav/security/ir.model.access.csv
-personal_contact_carddav/security/res_ppartner_security.xml
 personal_contact_carddav/static/description/index.html
-personal_contact_carddav/tests/test_res_ppartner.py
 personal_contact_carddav/views/res_ppartner_views.xml
 user_settings_dav/data/collection.xml
 user_settings_dav/models/dav_collection_users.py

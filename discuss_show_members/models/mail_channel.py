@@ -6,7 +6,7 @@ from uuid import uuid4
 
 from odoo import _, api, fields, models, modules, tools
 from odoo.exceptions import UserError, ValidationError
-from odoo.osv import expression
+# odoo.osv was removed in 20.0; this module does not use expression.
 from odoo.tools import ormcache, formataddr
 from odoo.exceptions import AccessError
 from odoo.addons.base.models.ir_model import MODULE_UNINSTALL_FLAG
