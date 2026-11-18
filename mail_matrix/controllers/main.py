@@ -27,10 +27,10 @@ class MailMatrixController(http.Controller):
         matrix_domain = (
             request.env["ir.config_parameter"]
             .sudo()
-            .get_param("mail_matrix.matrix_domain", "")
+            .get_str("mail_matrix.matrix_domain", "")
         )
         if not matrix_domain:
-            matrix_domain = request.env["ir.config_parameter"].sudo().get_param(
+            matrix_domain = request.env["ir.config_parameter"].sudo().get_str(
                 "web.base.url", ""
             )
             if matrix_domain:
@@ -71,7 +71,7 @@ class MailMatrixController(http.Controller):
         expected_token = (
             request.env["ir.config_parameter"]
             .sudo()
-            .get_param("mail_matrix.webhook_token", "")
+            .get_str("mail_matrix.webhook_token", "")
         )
 
         if expected_token and token != expected_token:

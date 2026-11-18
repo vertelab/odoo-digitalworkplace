@@ -1,0 +1,63 @@
+from asyncio.log import logger
+from odoo.http import request
+from odoo import http, api, models, fields, _
+
+import logging, string, random
+
+_logger = logging.getLogger(__name__)
+
+class JitsiController(http.Controller):
+    
+    @http.route(['/video_meeting/<string:link_suffix>/toggle_lobby'], type="json", auth='public')
+    def toggle_lobby(self, link_suffix, lobby_status, **kw):
+        event = self._get_event(link_suffix)
+        event.lobby_with_let_in = lobby_status
+        event.lobby_with_name = lobby_status
+
+    @http.route(['/video_meeting/<string:link_suffix>'], type="http", auth='public', website=True)
+    def meeting(self, link_suffix, **kw):
+        _logger.error(f"{link_suffix=}")
+        event = self._get_event(link_suffix)
+        jitsi = self._create_jitsi_link(link_suffix)
+        return request.render("communication_center_jitsi.jitsi_meeting_site", {"event": event, "jitsi": jitsi})
+
+    def _get_event(self, link_suffix):
+        event = request.env["calendar.event"].sudo().search([('link_suffix', '=', link_suffix)])
+        if not event:
+            event = request.env["event.event"].sudo().search([('link_suffix', '=', link_suffix)])
+        _logger.error(f"{link_suffix=}")
+        _logger.error(f'event, {event}')
+        fields = event.fields_get()
+        return event
+
+    def _create_jitsi_link(self, link_suffix):
+        event = request.env["calendar.event"].sudo().search([('link_suffix', '=', link_suffix)])
+        if not event:
+            event = request.env["event.event"].sudo().search([('link_suffix', '=', link_suffix)])
+        # #if VERSION >= "20.0"
+        jitsi_url = event.env['ir.config_parameter'].get_str('jitsi_url')
+        # #else
+        jitsi_url = event.env['ir.config_parameter'].get_param('jitsi_url')
+        # #endif
+        link = f'{jitsi_url}'
+        _logger.error(f'jitsi_url, {jitsi_url}')
+        _logger.error(f'jitsi, {link}')
+        return link
+
+    # ~ def _get_event_event(self, link_suffix):
+        # ~ event = request.env["event.event"].sudo().search([('link_suffix', '=', link_suffix)])
+        # ~ _logger.warning(f'event, {event}')
+        # ~ fields = event.fields_get()
+        # ~ return event
+
+    # ~ def _create_jitsi_link_event(self, link_suffix):
+        # ~ event = request.env["event.event"].sudo().search([('link_suffix', '=', link_suffix)])
+        # #if VERSION >= "20.0"
+        # ~ jitsi_url = event.env['ir.config_parameter'].get_str('jitsi_url')
+        # #else
+        # ~ jitsi_url = event.env['ir.config_parameter'].get_param('jitsi_url')
+        # #endif
+        # ~ link = f'{jitsi_url}'
+        # ~ _logger.error(f'jitsi_url, {jitsi_url}')
+        # ~ _logger.error(f'jitsi, {link}')
+        # ~ return link

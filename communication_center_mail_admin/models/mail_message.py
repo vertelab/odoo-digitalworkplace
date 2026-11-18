@@ -17,21 +17,21 @@ class Message(models.Model):
     )
 
     def unlink(self):
-        wk_has_delete = self.env['ir.config_parameter'].sudo().get_param('communication_center_mail_admin.has_delete', False)
+        wk_has_delete = self.env['ir.config_parameter'].sudo().get_str('communication_center_mail_admin.has_delete', False)
         if self._context.get('wkDeleteFlag') and not wk_has_delete:
             raise ValidationError(_("The requested operation cannot be completed due to security restrictions. Please contact your system administrator."))
         return super(Message, self).unlink()
 
     def checkWkEdit(self):
-        wk_has_edit = self.env['ir.config_parameter'].sudo().get_param('communication_center_mail_admin.has_edit', False)
+        wk_has_edit = self.env['ir.config_parameter'].sudo().get_str('communication_center_mail_admin.has_edit', False)
         if not wk_has_edit:
             raise ValidationError(_("The requested operation cannot be completed due to security restrictions. Please contact your system administrator."))
         return True
 
     def message_format(self):
         message_values = super(Message, self).message_format()
-        edit = self.env['ir.config_parameter'].sudo().get_param('communication_center_mail_admin.has_edit') == "True" or False
-        delete = self.env['ir.config_parameter'].sudo().get_param('communication_center_mail_admin.has_delete') == "True" or False
+        edit = self.env['ir.config_parameter'].sudo().get_str('communication_center_mail_admin.has_edit') == "True" or False
+        delete = self.env['ir.config_parameter'].sudo().get_str('communication_center_mail_admin.has_delete') == "True" or False
         mail_message = self.env['mail.message']
         for message in message_values:
             message['wk_edit'] = edit
@@ -45,7 +45,7 @@ class Message(models.Model):
         return message_values
 
     def write(self, vals):
-        wk_has_edit = self.env['ir.config_parameter'].sudo().get_param('communication_center_mail_admin.has_edit', False)
+        wk_has_edit = self.env['ir.config_parameter'].sudo().get_str('communication_center_mail_admin.has_edit', False)
         if wk_has_edit and self.env.user.user_has_groups('communication_center_mail_admin.group_wk_history') and 'body' in vals:
             old_body = tools.html2plaintext(self.body)
             new_body = tools.html2plaintext(vals['body'])
