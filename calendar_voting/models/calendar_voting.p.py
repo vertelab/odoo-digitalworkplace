@@ -1,7 +1,6 @@
 from calendar import calendar
 from email.policy import default
 from venv import create
-from numpy import choose
 from odoo import _, fields, models, api
 import logging
 from odoo.exceptions import UserError

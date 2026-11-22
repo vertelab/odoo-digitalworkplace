@@ -13,7 +13,11 @@
                 <field name="is_voting_admin" invisible="1"></field>
                 <field name="showtime" string="Voting time" readonly="1" invisible="voting_checkbox == False"></field>
             </xpath>
-            <xpath expr="//page[@name='page_options']" position="inside">
+            <!-- #if VERSION >= "20.0" -->
+            <xpath expr="//page[@name='options']" position="inside">
+            <!-- #else -->
+            <xpath expr="//page[@name='page_invitations']" position="after">
+            <!-- #endif -->
                 <div invisible="voting_checkbox == False">
                     <field name="participant_ids" mode="tree,kanban">
                         <list string="Invitation details" editable="bottom" delete="false" create="false">
