@@ -6,10 +6,7 @@
             <field name="inherit_id" ref="base.view_users_form"/>
             <field name="arch" type="xml">
                 <data>
-                    <!-- The messaging group is gone in 20.0; the user form has a
-                         "Preferences" page with an empty other_preferences group
-                         meant for overrides. -->
-                    <group name="other_preferences" position="inside">
+                    <group name="messaging" position="after">
                         <group name="voip_config" string="VOIP Configuration" col="4" groups="base.group_user">
                             <field name="sip_login" class="oe_inline" readonly="0"/>
                             <field name="sip_external_phone" class="oe_inline" readonly="0"/>

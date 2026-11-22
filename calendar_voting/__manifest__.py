@@ -53,7 +53,7 @@ Calendar Voting
 
     # always loaded
     'data': [
-        'security/ir.access.csv',
+        'security/ir.model.access.csv',
         'views/calendar_voting_view.xml',
         'data/mail_data.xml',
         'views/controller_voting_view.xml',

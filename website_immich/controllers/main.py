@@ -17,8 +17,8 @@ class Web_Immich(http.Controller):
     def _get_immich_config(self):
         ICP = request.env['ir.config_parameter'].sudo()
         return {
-            'url': ICP.get_str('immich.url', '').rstrip('/'),
-            'api_key': ICP.get_str('immich.api_key', ''),
+            'url': ICP.get_param('immich.url', '').rstrip('/'),
+            'api_key': ICP.get_param('immich.api_key', ''),
         }
 
     def _immich_headers(self):
@@ -245,9 +245,9 @@ class Web_Immich(http.Controller):
     @http.route('/website_immich/save_config', type='json', auth='user')
     def save_config(self, **post):
         if request.env.user._can_manage_immich_settings():
-            request.env['ir.config_parameter'].sudo().set_str(
+            request.env['ir.config_parameter'].sudo().set_param(
                 'immich.url', post.get('url', '').rstrip('/'))
-            request.env['ir.config_parameter'].sudo().set_str(
+            request.env['ir.config_parameter'].sudo().set_param(
                 'immich.api_key', post.get('api_key', ''))
             return True
         raise werkzeug.exceptions.NotFound()

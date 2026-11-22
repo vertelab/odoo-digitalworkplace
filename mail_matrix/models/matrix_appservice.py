@@ -37,31 +37,31 @@ class MatrixAppservice(models.AbstractModel):
     # ------------------------------------------------------------------
     @api.model
     def _get_homeserver_url(self):
-        return self.env["ir.config_parameter"].sudo().get_str(
+        return self.env["ir.config_parameter"].sudo().get_param(
             "mail_matrix.server_url", "https://matrix.dms.vertel.se"
         )
 
     @api.model
     def _get_as_token(self):
-        return self.env["ir.config_parameter"].sudo().get_str(
+        return self.env["ir.config_parameter"].sudo().get_param(
             "mail_matrix.bot_token", ""
         )
 
     @api.model
     def _get_hs_token(self):
-        return self.env["ir.config_parameter"].sudo().get_str(
+        return self.env["ir.config_parameter"].sudo().get_param(
             "mail_matrix.hs_token", ""
         )
 
     @api.model
     def _get_server_name(self):
-        return self.env["ir.config_parameter"].sudo().get_str(
+        return self.env["ir.config_parameter"].sudo().get_param(
             "mail_matrix.server_name", "dms.vertel.se"
         )
 
     @api.model
     def _is_enabled(self):
-        return self.env["ir.config_parameter"].sudo().get_str(
+        return self.env["ir.config_parameter"].sudo().get_param(
             "mail_matrix.bridge_enabled", False
         )
 

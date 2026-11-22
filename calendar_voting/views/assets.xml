@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- website.assets_frontend was removed in 20.0; bundles are declared as
-         ir.asset records only. -->
-    <record id="controller_style" model="ir.asset">
-        <field name="name">calendar_voting_controller_style</field>
-        <field name="bundle">web.assets_frontend</field>
-        <field name="path">calendar_voting/static/src/css/controller_style.css</field>
-        <field name="target">head</field>
-        <field name="sequence" eval="49"/>
-    </record>
+    <template id="controller_style" inherit_id="website.assets_frontend">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" type="text/css" href="/calendar_voting/static/src/css/controller_style.css"/>
+        </xpath>
+    </template>
 
     <record id="assets_frontend_calendar_voting_js" model="ir.asset">
         <field name="name">calendar_voting_controller_voting_js</field>

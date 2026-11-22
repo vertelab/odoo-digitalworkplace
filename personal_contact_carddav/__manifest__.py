@@ -11,7 +11,7 @@
         'contact_carddav',
     ],
     'data': [
-        'security/ir.access.csv',
+        'security/ir.model.access.csv',
         'security/res_ppartner_security.xml',
         'views/res_ppartner_views.xml',
         'data/personal_contact_carddav_data.xml',

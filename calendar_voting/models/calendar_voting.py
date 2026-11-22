@@ -6,6 +6,7 @@ from odoo import _, fields, models, api
 import logging
 from odoo.exceptions import UserError
 from datetime import datetime, date
+from odoo.tools import pycompat
 
 _logger = logging.getLogger("\033[100m"+__name__+"\033[0m")
 
@@ -26,7 +27,7 @@ class CalendarEvent(models.Model):
     calendar_access = fields.Char(compute="_compute_calendar_access")
 
     def _compute_calendar_access(self):
-        base_url = self.env['ir.config_parameter'].sudo().get_str('web.base.url')
+        base_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url')
         for event in self:
             token=""
             my_voting = event.participant_ids.filtered(lambda p: p.partner_id == self.env.user.partner_id)
@@ -46,10 +47,8 @@ class CalendarEvent(models.Model):
         self_tz = self.with_context(tz=timezone)
         for record in self:
             date = fields.Datetime.context_timestamp(self_tz, fields.Datetime.from_string(record.start))
-            # odoo.tools.pycompat was removed in 20.0; strftime already
-            # returns str.
-            record.showtime = date.strftime('%H:%M')
-            record.show_date = date.strftime('%Y-%m-%d %H:%M')
+            record.showtime = pycompat.to_text(date.strftime('%H:%M'))
+            record.show_date = pycompat.to_text(date.strftime('%Y-%m-%d %H:%M'))
 
     def create_participants(self, partners):
         for partner in partners:

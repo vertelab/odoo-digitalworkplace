@@ -30,10 +30,10 @@ class MailMatrixController(http.Controller):
         matrix_domain = (
             request.env["ir.config_parameter"]
             .sudo()
-            .get_str("mail_matrix.matrix_domain", "")
+            .get_param("mail_matrix.matrix_domain", "")
         )
         if not matrix_domain:
-            matrix_domain = request.env["ir.config_parameter"].sudo().get_str(
+            matrix_domain = request.env["ir.config_parameter"].sudo().get_param(
                 "web.base.url", ""
             )
             if matrix_domain:
@@ -83,7 +83,7 @@ class MailMatrixController(http.Controller):
         """Shared appservice transaction handler."""
         # Appservice protocol: Authorization: Bearer <hs_token>
         auth_header = request.httprequest.headers.get("Authorization", "")
-        expected = request.env["ir.config_parameter"].sudo().get_str(
+        expected = request.env["ir.config_parameter"].sudo().get_param(
             "mail_matrix.hs_token", ""
         )
         if expected and auth_header != "Bearer %s" % expected:
@@ -138,7 +138,7 @@ class MailMatrixController(http.Controller):
         expected_token = (
             request.env["ir.config_parameter"]
             .sudo()
-            .get_str("mail_matrix.webhook_token", "")
+            .get_param("mail_matrix.webhook_token", "")
         )
         if expected_token and token != expected_token:
             _logger.warning("Matrix webhook: invalid token")
