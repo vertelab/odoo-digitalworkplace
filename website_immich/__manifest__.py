@@ -21,7 +21,7 @@
 
 {
     'name': 'Workplace: Website Immich',
-    'version': '18.0.1.0.0',
+    'version': '1.0.0',
     'summary': 'Find images from your Immich server.',
     'category': 'Productivity',
     'description': '''

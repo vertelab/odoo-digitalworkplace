@@ -21,7 +21,7 @@
 
 {
     'name': 'Workplace: Immich Onboarding',
-    'version': '18.0.1.0.0',
+    'version': '1.0.0',
     'summary': 'Onboarding course: use your Immich photo library from Odoo',
     'category': 'Productivity',
     'description': """
