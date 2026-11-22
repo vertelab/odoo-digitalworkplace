@@ -57,12 +57,19 @@ Discuss Show Members
             'discuss_show_members/static/src/scss/style.scss',
         ],
     },
+    # #if VERSION >= "19.0"
+    # UNPORTED: mail.channel was renamed discuss.channel in 18.0 and the
+    # legacy OWL client (odoo.define components, owl="1" templates) was
+    # replaced. The module is Odoo-17 code — it crashes on a fresh 18.0
+    # install with "Model 'mail.channel' does not exist" — and there is
+    # nothing to inherit from in 19.0/20.0. Porting it means rewriting the
+    # client patch against the new Discuss, which is a feature, not a port.
+    'installable': False,
+    # #else
     'installable': True,
+    # #endif
     'application': False,
-    # Odoo 18: mail.channel renamed to discuss.channel; this module is
-    # Odoo-17 code and crashes on fresh installs (TypeError: Model
-    # 'mail.channel' does not exist). Disable auto_install so it is only
-    # installed explicitly once ported to discuss.channel.
+    # Disable auto_install so it is only installed explicitly.
     'auto_install': False,
     'license': 'LGPL-3',
 }
