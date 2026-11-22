@@ -23,7 +23,6 @@ calendar_mobile_integration/myapp/app/settings-page.xml
 calendar_mobile_integration/static/description/index.html
 calendar_voting/controllers/voting_controller.py
 calendar_voting/data/mail_data.xml
-calendar_voting/models/calendar_voting.py
 calendar_voting/security/ir.access.csv
 calendar_voting/security/ir.model.access.csv
 calendar_voting/static/description/index.html
@@ -37,9 +36,6 @@ communication_center_calendar_online_meeting/models/calendar_event.py
 communication_center_calendar_online_meeting/static/description/index.html
 communication_center_calendar_online_meeting/views/calendar_view.xml
 communication_center_calendar_online_meeting/views/res_config_settings_view.xml
-communication_center_jitsi/controllers/jitsi_controller.py
-communication_center_jitsi/models/calendar_event.py
-communication_center_jitsi/models/event_event.py
 communication_center_jitsi/models/res_config_settings.py
 communication_center_jitsi/static/description/index.html
 communication_center_jitsi/static/src/js/external_api.js
@@ -52,7 +48,6 @@ communication_center_jitsi/views/event_view.xml
 communication_center_jitsi/views/jitsi_controller.xml
 communication_center_jitsi/views/res_config_settings_view.xml
 communication_center_mail_admin/data/data.xml
-communication_center_mail_admin/models/mail_message.py
 communication_center_mail_admin/models/mail_message_history.py
 communication_center_mail_admin/models/res_config_settings.py
 communication_center_mail_admin/security/ir.access.csv
@@ -66,7 +61,6 @@ communication_center_mail_admin/views/mail_message_views.xml
 communication_center_mail_admin/views/res_config_settings_views.xml
 communication_center_mail_admin/wizard/edit_message_log_note.py
 communication_center_mail_admin/wizard/edit_message_log_note_views.xml
-communication_center_massmail_meeting/models/mailing.py
 communication_center_massmail_meeting/static/description/index.html
 communication_center_massmail_meeting/static/src/js/external_api.js
 communication_center_massmail_meeting/static/src/js/jitsi_meeting_settings.js
@@ -108,11 +102,9 @@ communication_center_sip/static/src/xml/phone_call_tab.xml
 communication_center_sip/views/res_config_settings_views.xml
 communication_center_sip/views/res_partner_views.xml
 communication_center_sip/views/res_users_views.xml
-communication_center_sip/views/voip_phonecall_views.xml
 communication_center_sip/wizard/voip_phonecall_log_wizard.py
 communication_center_sip/wizard/voip_phonecall_log_wizard_views.xml
 communication_center_website_event_online_meeting/data/email_template_data.xml
-communication_center_website_event_online_meeting/models/event_event.py
 communication_center_website_event_online_meeting/static/description/index.html
 communication_center_website_event_online_meeting/views/event_view.xml
 contact_carddav/data/contact_carddav_data.xml
@@ -125,7 +117,6 @@ discuss_show_members/static/description/index.html
 discuss_show_members/static/src/components/discuss_sidebar_item/discuss_sidebar_item.js
 discuss_show_members/static/src/components/discuss_sidebar_item/discuss_sidebar_item.xml
 discuss_show_members/static/src/components/thread_view/thread_view.xml
-mail_matrix/controllers/main.py
 mail_matrix/models/mail_message.py
 mail_matrix/models/res_config_settings.py
 mail_matrix/models/res_partner.py
@@ -148,10 +139,8 @@ user_settings_dav/static/description/index.html
 user_settings_dav/static/src/js/copy_to_clipbord.js
 user_settings_dav/views/assets.xml
 user_settings_dav/views/user_collection_views.xml
-website_immich/controllers/main.py
 website_immich/demo/immich_demo.xml
 website_immich/models/ir_attachment.py
-website_immich/models/ir_qweb_fields.py
 website_immich/models/res_config_settings.py
 website_immich/models/res_users.py
 website_immich/static/description/index.html
@@ -167,7 +156,6 @@ website_immich/static/src/media_dialog_legacy/image_selector.js
 website_immich/static/src/media_dialog_legacy/image_selector.xml
 website_immich/static/tests/immich.test.js
 website_immich/static/tests/legacy/html_field_tests.js
-website_immich/tests/test_immich_config.py
 website_immich/views/res_config_settings_view.xml
 website_markdown/models/ir_ui_view.py
 website_markdown/static/description/index.html
