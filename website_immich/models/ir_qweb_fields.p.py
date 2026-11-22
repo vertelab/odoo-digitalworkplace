@@ -25,6 +25,10 @@ class Image(models.AbstractModel):
                     ('public', '=', True),
                     ('url', '=', url_object.path),
                 ], limit=1)
+                # #if VERSION >= "20.0"
+                return attachment.raw
+                # #else
                 return attachment.datas
+                # #endif
 
         return super(Image, self).from_html(model, field, element)

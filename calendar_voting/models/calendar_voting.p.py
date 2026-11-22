@@ -27,7 +27,11 @@ class CalendarEvent(models.Model):
     calendar_access = fields.Char(compute="_compute_calendar_access")
 
     def _compute_calendar_access(self):
+        # #if VERSION >= "20.0"
+        base_url = self.env['ir.config_parameter'].sudo().get_str('web.base.url')
+        # #else
         base_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url')
+        # #endif
         for event in self:
             token=""
             my_voting = event.participant_ids.filtered(lambda p: p.partner_id == self.env.user.partner_id)

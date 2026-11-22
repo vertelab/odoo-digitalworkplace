@@ -13,7 +13,11 @@ class VoipConfigurator(models.Model):
     def get_pbx_config(self):
         if not self.env.user.has_group('base.group_user'):
             raise AccessDenied()
+        # #if VERSION >= "20.0"
+        get_param = self.env['ir.config_parameter'].sudo().get_str
+        # #else
         get_param = self.env['ir.config_parameter'].sudo().get_param
+        # #endif
         return {'pbx_ip': get_param('voip.pbx_ip', default='localhost'),
                 'wsServer': get_param('voip.wsServer', default='ws://localhost'),
                 'login': self.env.user[0].sip_login,

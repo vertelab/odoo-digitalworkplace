@@ -53,7 +53,11 @@ Calendar Voting
 
     # always loaded
     'data': [
+# #if VERSION >= "20.0"
+        'security/ir.access.csv',
+        # #else
         'security/ir.model.access.csv',
+        # #endif
         'views/calendar_voting_view.xml',
         'data/mail_data.xml',
         'views/controller_voting_view.xml',

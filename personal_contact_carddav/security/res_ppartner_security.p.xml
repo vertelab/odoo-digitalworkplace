@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <!-- #if VERSION >= "20.0" -->
+    <!-- ir.rule is gone in 20.0, merged into ir.access.domain. This was a
+         global rule (no group), so the migration keeps it as an ir.access row
+         with an empty group_id — see security/ir.access.csv. Migrated with
+         Odoo's own upgrade_code/19.4-00-ir-access.py 2026-11-15. -->
+    <!-- #else -->
     <record id="rule_res_ppartner_user" model="ir.rule">
         <field name="name">res.ppartner: own records only</field>
         <field name="model_id" ref="model_res_ppartner"/>
         <field name="global" eval="True"/>
         <field name="domain_force">[('user_id', '=', user.id)]</field>
     </record>
+    <!-- #endif -->
 </odoo>
