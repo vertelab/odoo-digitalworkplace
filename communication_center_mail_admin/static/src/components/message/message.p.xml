@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <!--
+        extends the mail.Message to add edit and delete option.
+    -->
+    <t t-inherit="mail.Message" t-inherit-mode="extension">
+        <xpath expr="//div[hasclass('o_Message_content')]" position="after">
+            <t t-if="message.wk_is_updated">
+                <div class="o_Message_date o_Message_headerDate text-danger" t-att-title="message.wkDateTime">
+                    Last updated on - <t t-esc="message.wkDateFromNow"/>
+                </div>
+            </t>
+            <t t-if="message.isCurrentPartnerAuthor and message.message_type !== 'notification'">
+                <div class="o_Activity_tools">
+                    <t t-if="message.wk_edit">
+                        <button class="o_Activity_toolButton btn btn-link" t-on-click="_onWkClickEdit">
+                            <i class="fa fa-pencil"/> Edit
+                        </button>
+                    </t>
+                    <t t-if="message.wk_delete">
+                        <button class="o_Activity_toolButton btn btn-link" t-on-click="_onWkClickDelete">
+                            <i class="fa fa-trash-o"/> Delete
+                        </button>
+                    </t>
+                    <button class="o_Activity_toolButton btn btn-link" t-on-click="_onClickCreateAction">
+                        <i class="fa fa-check"/> Create Action
+                    </button>
+                    <button class="o_Activity_toolButton btn btn-link" t-on-click="_onClickMarkUnread">
+                        <i class="fa fa-envelope"/> Mark Unread
+                    </button>
+                </div>
+            </t>
+        </xpath>
+    </t>
+
+</templates>

@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         SEKTION 5: Manuellt test — verifiera att det fungerar
+         Slides: 2 (1 article, 1 quiz)
+         ═══════════════════════════════════════════════════════════════════ -->
+
+    <!-- SECTION HEADER -->
+    <record id="slide_category_dw_s5" model="slide.slide">
+        <field name="name">5. Manuellt test</field>
+        <field name="is_category" eval="True"/>
+        <field name="channel_id" ref="digitalworkplace_onboarding.slide_channel_digitalworkplace"/>
+        <field name="sequence">400</field>
+    </record>
+
+    <!-- SLIDE 5.1: Manuellt test -->
+    <record id="slide_dw_s5_01" model="slide.slide">
+        <field name="name">Manuellt test — chatt och web-möte</field>
+        <field name="sequence">410</field>
+        <field name="slide_category">article</field>
+        <field name="channel_id" ref="digitalworkplace_onboarding.slide_channel_digitalworkplace"/>
+        <field name="is_published" eval="True"/>
+        <field name="is_preview" eval="True"/>
+        <field name="completion_time">0.50</field>
+        <field name="html_content" type="html">
+<section class="s_cover o_cc o_cc3 pt160 pb160">
+    <div class="container">
+        <h1 class="display-3-fs" style="text-align: center;">Manuellt test</h1>
+        <p class="lead" style="text-align: center;">Fem minuter som visar att meddelandet når fram och att mötet går att ansluta till — inte bara att det syns hos dig.</p>
+    </div>
+</section>
+
+<section class="s_text_block pt64 pb40">
+    <div class="container s_allow_columns">
+        <h2>Innan du börjar</h2>
+        <p>Du behöver:</p>
+        <ul>
+            <li>en kollega som kan hjälpa till — chatten testas bäst med två personer</li>
+            <li>en kanal ni båda är medlemmar i</li>
+            <li>en dator med kamera och mikrofon</li>
+        </ul>
+        <p class="small text-muted">Testet tar cirka fem minuter. Det viktiga är inte att meddelandet syns hos dig — det gör det alltid. Det viktiga är att det når fram till någon annan.</p>
+    </div>
+</section>
+
+<section class="s_text_block pt32 pb40">
+    <div class="container s_allow_columns">
+        <h2>Test 1 — chatten når fram</h2>
+        <ol>
+            <li>Öppna en kanal ni båda är medlemmar i.</li>
+            <li>Skriv ett meddelande: <strong>Test chatt</strong>.</li>
+            <li>Be kollegan bekräfta att meddelandet syns hos dem.</li>
+            <li>Be kollegan svara i tråden på ditt meddelande.</li>
+            <li>Kontrollera att svaret syns hos dig, under ditt meddelande.</li>
+        </ol>
+        <p><strong>Förväntat resultat:</strong> meddelandet syns hos kollegan inom några sekunder, och svaret i tråden syns hos dig. Det är detta som är tvåvägskommunikation — och det som skiljer en fungerande chatt från en lokal anteckning.</p>
+    </div>
+</section>
+
+<section class="s_text_block pt32 pb40">
+    <div class="container s_allow_columns">
+        <h2>Test 2 — omnämnandet ger notis</h2>
+        <ol>
+            <li>Skriv <code>@</code> följt av kollegans namn i kanalen.</li>
+            <li>Skriv en kort mening och skicka.</li>
+            <li>Fråga kollegan om de fick en notis — inte bara om de såg texten.</li>
+        </ol>
+        <p><strong>Förväntat resultat:</strong> kollegan får en notis om omnämnandet. Ser de bara texten men får ingen notis, är deras notisinställningar för snäva — det är en inställning, inte ett fel.</p>
+    </div>
+</section>
+
+<section class="s_text_block pt32 pb40">
+    <div class="container s_allow_columns">
+        <h2>Test 3 — mötet går att ansluta till</h2>
+        <ol>
+            <li>Skapa ett möte i kalendern som börjar om fem minuter och bjud in kollegan.</li>
+            <li>Välj videomöte som mötesplats och spara.</li>
+            <li>Öppna mötet och starta det.</li>
+            <li>Be kollegan ansluta via länken i inbjudan.</li>
+            <li>Kontrollera att ni ser och hör varandra. Dela sedan din skärm.</li>
+        </ol>
+        <p><strong>Förväntat resultat:</strong> kollegan ansluter utan att installera något, ni ser och hör varandra, och skärmdelningen syns hos dem.</p>
+    </div>
+</section>
+
+<section class="s_text_block pt32 pb40">
+    <div class="container s_allow_columns">
+        <h2>Test 4 — extern deltagare</h2>
+        <ol>
+            <li>Skapa ett nytt möte och slå på <strong>väntrum</strong>.</li>
+            <li>Skicka länken till en adress utanför företaget — din privata e-post fungerar.</li>
+            <li>Öppna länken från den adressen i ett privat fönster.</li>
+            <li>Kontrollera att du hamnar i väntrummet, inte direkt i mötet.</li>
+            <li>Släpp in dig själv från mötet.</li>
+        </ol>
+        <p><strong>Förväntat resultat:</strong> den externa deltagaren hamnar i väntrummet och släpps inte in förrän du öppnar. Det bevisar att väntrummet faktiskt skyddar mötet.</p>
+    </div>
+</section>
+
+<section class="s_text_block pt32 pb64">
+    <div class="container s_allow_columns">
+        <h2>Om det inte fungerar</h2>
+        <p>Nästan alla fel beror på något av dessa tre:</p>
+        <ol>
+            <li><strong>Meddelandet syns hos dig men inte hos kollegan.</strong> Kontrollera att ni är medlemmar i <em>samma</em> kanal — två kanaler med liknande namn är en vanlig fälla.</li>
+            <li><strong>Ingen hör dig i mötet.</strong> Mikrofonen är avstängd, eller webbläsaren har inte fått använda den. Klicka på låsikonen i adressfältet och slå på kamera och mikrofon.</li>
+            <li><strong>Den externa deltagaren kommer inte in.</strong> De sitter i väntrummet och väntar på att du släpper in dem. Öppna deltagarlistan i mötet.</li>
+        </ol>
+        <p class="small text-muted">Fungerar det fortfarande inte: hör av dig till IT och beskriv vilket av de fyra testerna som stannade. Det räcker som felbeskrivning.</p>
+    </div>
+</section>
+
+<section class="s_call_to_action o_cc o_cc5 pt48 pb48">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9">
+                <h3>Städa efter dig</h3>
+                <p class="lead">Ta bort testmötet och skriv att chatten är testad i kanalen. Nästa person som testar slipper undra.</p>
+            </div>
+        </div>
+    </div>
+</section>
+        </field>
+        <field name="description">Steg för steg: verifiera att chatten når fram, att omnämnanden ger notis, att mötet går att ansluta till och att väntrummet skyddar. Fyra tester, förväntat resultat och de tre vanligaste felen.</field>
+    </record>
+
+    <!-- SLIDE 5.2: Quiz — Manuellt test -->
+    <record id="slide_dw_s5_02" model="slide.slide">
+        <field name="name">🧪 Testa dina kunskaper — Manuellt test</field>
+        <field name="sequence">420</field>
+        <field name="slide_category">quiz</field>
+        <field name="channel_id" ref="digitalworkplace_onboarding.slide_channel_digitalworkplace"/>
+        <field name="is_published" eval="True"/>
+        <field name="is_preview" eval="True"/>
+        <field name="completion_time">0.25</field>
+        <field name="quiz_first_attempt_reward">100</field>
+        <field name="quiz_second_attempt_reward">75</field>
+        <field name="quiz_third_attempt_reward">50</field>
+        <field name="quiz_fourth_attempt_reward">25</field>
+        <field name="description">Kontrollera att du vet hur du verifierar chatt och web-möte själv.</field>
+    </record>
+
+    <record id="slide_dw_s5_02_q1" model="slide.question">
+        <field name="question">Vad är det avgörande tecknet på att chatten fungerar?</field>
+        <field name="sequence">1</field>
+        <field name="slide_id" ref="slide_dw_s5_02"/>
+    </record>
+    <record id="slide_dw_s5_02_q1_a1" model="slide.answer">
+        <field name="text_value">Att meddelandet syns hos en kollega och att deras svar syns hos dig</field>
+        <field name="sequence">1</field>
+        <field name="is_correct" eval="True"/>
+        <field name="comment">Rätt. Att det syns hos dig själv bevisar ingenting — det kan vara en lokal anteckning.</field>
+        <field name="question_id" ref="slide_dw_s5_02_q1"/>
+    </record>
+    <record id="slide_dw_s5_02_q1_a2" model="slide.answer">
+        <field name="text_value">Att meddelandet syns i din egen kanal</field>
+        <field name="sequence">2</field>
+        <field name="is_correct" eval="False"/>
+        <field name="comment">Det gör det alltid, även om inget skickas vidare.</field>
+        <field name="question_id" ref="slide_dw_s5_02_q1"/>
+    </record>
+    <record id="slide_dw_s5_02_q1_a3" model="slide.answer">
+        <field name="text_value">Att ingen felkod visas</field>
+        <field name="sequence">3</field>
+        <field name="is_correct" eval="False"/>
+        <field name="comment">Frånvaro av fel är inte samma sak som närvaro av funktion.</field>
+        <field name="question_id" ref="slide_dw_s5_02_q1"/>
+    </record>
+
+    <record id="slide_dw_s5_02_q2" model="slide.question">
+        <field name="question">Meddelandet syns hos dig men inte hos kollegan. Vad kontrollerar du först?</field>
+        <field name="sequence">2</field>
+        <field name="slide_id" ref="slide_dw_s5_02"/>
+    </record>
+    <record id="slide_dw_s5_02_q2_a1" model="slide.answer">
+        <field name="text_value">Att ni är medlemmar i samma kanal</field>
+        <field name="sequence">1</field>
+        <field name="is_correct" eval="True"/>
+        <field name="comment">Rätt. Två kanaler med liknande namn är en vanlig fälla.</field>
+        <field name="question_id" ref="slide_dw_s5_02_q2"/>
+    </record>
+    <record id="slide_dw_s5_02_q2_a2" model="slide.answer">
+        <field name="text_value">Att kollegan har startat om datorn</field>
+        <field name="sequence">2</field>
+        <field name="is_correct" eval="False"/>
+        <field name="comment">Hjälper inte — felet sitter i vilken kanal ni skriver i.</field>
+        <field name="question_id" ref="slide_dw_s5_02_q2"/>
+    </record>
+    <record id="slide_dw_s5_02_q2_a3" model="slide.answer">
+        <field name="text_value">Att chatten är trasig</field>
+        <field name="sequence">3</field>
+        <field name="is_correct" eval="False"/>
+        <field name="comment">Kontrollera medlemskapet först — det är den vanligaste orsaken.</field>
+        <field name="question_id" ref="slide_dw_s5_02_q2"/>
+    </record>
+
+    <record id="slide_dw_s5_02_q3" model="slide.question">
+        <field name="question">Hur bevisar du att väntrummet faktiskt skyddar mötet?</field>
+        <field name="sequence">3</field>
+        <field name="slide_id" ref="slide_dw_s5_02"/>
+    </record>
+    <record id="slide_dw_s5_02_q3_a1" model="slide.answer">
+        <field name="text_value">Genom att ansluta som extern och kontrollera att du hamnar i väntrummet, inte i mötet</field>
+        <field name="sequence">1</field>
+        <field name="is_correct" eval="True"/>
+        <field name="comment">Rätt. Att bara slå på inställningen bevisar inte att den verkar.</field>
+        <field name="question_id" ref="slide_dw_s5_02_q3"/>
+  </record>
+    <record id="slide_dw_s5_02_q3_a2" model="slide.answer">
+        <field name="text_value">Genom att kontrollera att inställningen är påslagen</field>
+        <field name="sequence">2</field>
+        <field name="is_correct" eval="False"/>
+        <field name="comment">En påslagen inställning som inte verkar ser likadan ut i gränssnittet.</field>
+        <field name="question_id" ref="slide_dw_s5_02_q3"/>
+    </record>
+    <record id="slide_dw_s5_02_q3_a3" model="slide.answer">
+        <field name="text_value">Genom att läsa dokumentationen</field>
+        <field name="sequence">3</field>
+        <field name="is_correct" eval="False"/>
+        <field name="comment">Dokumentationen säger vad som ska hända — inte vad som händer hos er.</field>
+        <field name="question_id" ref="slide_dw_s5_02_q3"/>
+    </record>
+
+    <record id="slide_dw_s5_02_q4" model="slide.question">
+        <field name="question">Kollegan ser ditt omnämnande men fick ingen notis. Vad beror det på?</field>
+        <field name="sequence">4</field>
+        <field name="slide_id" ref="slide_dw_s5_02"/>
+    </record>
+    <record id="slide_dw_s5_02_q4_a1" model="slide.answer">
+        <field name="text_value">Deras notisinställningar är för snäva — det är en inställning, inte ett fel</field>
+        <field name="sequence">1</field>
+        <field name="is_correct" eval="True"/>
+        <field name="comment">Rätt. Omnämnandet fungerar, men notisen är avstängd hos dem.</field>
+        <field name="question_id" ref="slide_dw_s5_02_q4"/>
+    </record>
+    <record id="slide_dw_s5_02_q4_a2" model="slide.answer">
+        <field name="text_value">Att omnämnandet inte fungerar</field>
+        <field name="sequence">2</field>
+        <field name="is_correct" eval="False"/>
+        <field name="comment">Namnet markerades — alltså fungerade omnämnandet.</field>
+        <field name="question_id" ref="slide_dw_s5_02_q4"/>
+    </record>
+    <record id="slide_dw_s5_02_q4_a3" model="slide.answer">
+        <field name="text_value">Att de är i fel kanal</field>
+        <field name="sequence">3</field>
+        <field name="is_correct" eval="False"/>
+        <field name="comment">De såg ju texten, så de är i rätt kanal.</field>
+        <field name="question_id" ref="slide_dw_s5_02_q4"/>
+    </record>
+
+    </data>
+</odoo>

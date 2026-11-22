@@ -21,7 +21,7 @@
 
 {
     'name': 'Workplace: Website Markdown',
-    'version': '18.0.1.0.0',
+    'version': '1.0.0',
     # Version ledger: 14.0 = Odoo version. 1 = Major. Non regressionable code. 2 = Minor. New features that are regressionable. 3 = Bug fixes
     'summary': "Renders Markdown content on the website.",
     # Categories can be used to filter modules in modules listing
