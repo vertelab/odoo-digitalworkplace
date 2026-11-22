@@ -23,7 +23,7 @@ class ResPartner(models.Model):
         if self.user_ids:
             user = self.user_ids[:1]
             localpart = user._ensure_matrix_localpart(user)
-            server = self.env["ir.config_parameter"].sudo().get_param(
+            server = self.env["ir.config_parameter"].sudo().get_str(
                 "mail_matrix.server_name", "dms.vertel.se"
             )
             mxid = "@%s:%s" % (localpart, server)

@@ -1,0 +1,9 @@
+# ir.access.csv is the 20.0 security file. It is generated from the same
+# rows as ir.model.access.csv and loaded only when VERSION >= "20.0" — see
+# the conditional in each module's __manifest__.p.py. It carries no
+# edition directives of its own, so it is not a p-file.
+calendar_voting/security/ir.access.csv
+communication_center_mail_admin/security/ir.access.csv
+communication_center_sip/security/ir.access.csv
+mail_matrix/security/ir.access.csv
+personal_contact_carddav/security/ir.access.csv
