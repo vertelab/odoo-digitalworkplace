@@ -3,7 +3,8 @@
 from . import models
 from . import wizard
 from odoo.service import common
-from odoo.exceptions import Warning
+# odoo.exceptions.Warning was removed in 16.0; UserError replaced it.
+from odoo.exceptions import UserError as Warning
 
 
 def pre_init_check(cr):

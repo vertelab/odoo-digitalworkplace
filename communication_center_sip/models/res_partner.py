@@ -29,7 +29,9 @@ except ImportError:
 
 class Contact(models.Model):
     _name = 'res.partner'
-    _inherit = ['res.partner', 'phone.validation.mixin', 'voip.queue.mixin']
+    # phone.validation.mixin was removed in 19.0; its helpers
+    # (_phone_get_country, _phone_format) now live on base.
+    _inherit = ['res.partner', 'voip.queue.mixin']
 
     sanitized_phone = fields.Char("Phone number sanitized", compute='_compute_sanitized_phone', store=True)
     sanitized_mobile = fields.Char("Mobile number sanitized", compute='_compute_sanitized_mobile', store=True)
@@ -54,7 +56,10 @@ class Contact(models.Model):
         for partner in self.with_context(prefetch_fields=False):
             partner.sanitized_phone = partner.phone and partner._voip_sanitization(partner.phone) or ''
 
-    @api.depends('mobile', 'country_id')
+    # res.partner.mobile was removed in 19.0; phone is the only number field.
+    # The mobile column is kept for the views and the phonecall records, but
+    # there is no separate number to sanitize.
+    @api.depends('phone', 'country_id')
     def _compute_sanitized_mobile(self):
         for partner in self.with_context(prefetch_fields=False):
-            partner.sanitized_mobile = partner.mobile and partner._voip_sanitization(partner.mobile) or ''
+            partner.sanitized_mobile = partner.phone and partner._voip_sanitization(partner.phone) or ''

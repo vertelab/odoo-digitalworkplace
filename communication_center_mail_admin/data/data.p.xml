@@ -3,8 +3,16 @@
 <odoo>
     <data noupdate="1">
         <!-- Default values for wk_has_edit and wk_has_delete -->
+        <!-- #if VERSION >= "20.0" -->
+        <function model="ir.config_parameter" name="set_str" eval="('communication_center_mail_admin.has_edit', 'True')"/>
+        <!-- #else -->
         <function model="ir.config_parameter" name="set_param" eval="('communication_center_mail_admin.has_edit', 'True')"/>
+        <!-- #endif -->
 
+        <!-- #if VERSION >= "20.0" -->
+        <function model="ir.config_parameter" name="set_str" eval="('communication_center_mail_admin.has_delete', 'True')"/>
+        <!-- #else -->
         <function model="ir.config_parameter" name="set_param" eval="('communication_center_mail_admin.has_delete', 'True')"/>
+        <!-- #endif -->
     </data>
 </odoo>

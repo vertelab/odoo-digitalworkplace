@@ -5,20 +5,16 @@ from odoo import api, models, fields
 
 # Add 'sip_password' field to the private fields.
 # Only users who can modify the res_user (incl. the user himself) see the private fields real content
-from odoo.addons.base.models import res_users
-res_users.USER_PRIVATE_FIELDS.append('sip_password')
 
 
 class ResUsers(models.Model):
     _inherit = 'res.users'
 
-    def __init__(self, pool, cr):
-        """ Override of __init__ to add access rights.
-            Access rights are disabled by default, but allowed
-            on some specific fields defined in self.SELF_{READ/WRITE}ABLE_FIELDS.
-        """
-        init_res = super(ResUsers, self).__init__(pool, cr)
-        voip_fields = [
+    # SELF_READABLE_FIELDS/SELF_WRITEABLE_FIELDS are properties in 19.0;
+    # assigning to them on the class no longer works.
+    @property
+    def SELF_READABLE_FIELDS(self):
+        return super().SELF_READABLE_FIELDS + [
             'sip_login',
             'sip_password',
             'sip_external_phone',
@@ -26,13 +22,17 @@ class ResUsers(models.Model):
             'sip_ignore_incoming',
             'mobile_call_method',
         ]
-        # duplicate list to avoid modifying the original reference
-        type(self).SELF_WRITEABLE_FIELDS = list(self.SELF_WRITEABLE_FIELDS)
-        type(self).SELF_WRITEABLE_FIELDS.extend(voip_fields)
-        # duplicate list to avoid modifying the original reference
-        type(self).SELF_READABLE_FIELDS = list(self.SELF_READABLE_FIELDS)
-        type(self).SELF_READABLE_FIELDS.extend(voip_fields)
-        return init_res
+
+    @property
+    def SELF_WRITEABLE_FIELDS(self):
+        return super().SELF_WRITEABLE_FIELDS + [
+            'sip_login',
+            'sip_password',
+            'sip_external_phone',
+            'sip_always_transfer',
+            'sip_ignore_incoming',
+            'mobile_call_method',
+        ]
 
     mobile_call_method = fields.Selection(
         [('ask', 'Ask'), ('voip', 'Voip'), ('phone', 'Phone')],

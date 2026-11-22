@@ -4,7 +4,6 @@
     <data noupdate="0">
         <record id="group_wk_history" model="res.groups">
             <field name="name">Manage Message Update History</field>
-            <field name="category_id" ref="base.module_category_hidden"/>
         </record>
     </data>
 </odoo>

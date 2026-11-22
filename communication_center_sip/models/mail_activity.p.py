@@ -66,7 +66,9 @@ class MailActivity(models.Model):
             partner_field_name = [k for k, v in fields if v.type == 'many2one' and v.comodel_name == 'res.partner']
             if partner_field_name:
                 numbers['phone'] = record[partner_field_name[0]].phone
+                # #if VERSION <= "18.0"
                 numbers['mobile'] = record[partner_field_name[0]].mobile
+                # #endif
         return numbers
 
     def _action_done(self, feedback=False, attachment_ids=None):

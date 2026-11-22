@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo noupdate="1">
+    <!-- #if VERSION >= "20.0" -->
+    <function model="ir.config_parameter" name="set_str">
+        <value>immich.url</value>
+        <value>https://demo.immich.app</value>
+    </function>
+    <!-- #else -->
     <function model="ir.config_parameter" name="set_param">
         <value>immich.url</value>
         <value>https://demo.immich.app</value>
     </function>
+    <!-- #endif -->
 </odoo>
