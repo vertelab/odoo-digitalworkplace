@@ -42,31 +42,15 @@ class EventMeeting(models.Model):
 
 
     def create_controller_link(self, link_suffix):
-        # #if VERSION >= "20.0"
-        web_name = self.env['ir.config_parameter'].sudo().get_str('web.base.url')
-        # #else
         web_name = self.env['ir.config_parameter'].sudo().get_param('web.base.url')
-        # #endif
         return f'{web_name}/video_meeting/{link_suffix}'
 
 
     @api.onchange("jwt_validation")
     def _getJWTtoken(self):
-        # #if VERSION >= "20.0"
-        secret = self.env['ir.config_parameter'].get_str('jwt_secret');
-        # #else
         secret = self.env['ir.config_parameter'].get_param('jwt_secret');
-        # #endif
-        # #if VERSION >= "20.0"
-        app_id = self.env['ir.config_parameter'].get_str('jitsi_app_id');
-        # #else
         app_id = self.env['ir.config_parameter'].get_param('jitsi_app_id');
-        # #endif
-        # #if VERSION >= "20.0"
-        domain = self.env['ir.config_parameter'].get_str('jitsi_url');
-        # #else
         domain = self.env['ir.config_parameter'].get_param('jitsi_url');
-        # #endif
         # ~ expiary = self.start + timedelta(days=1);
         if self.jwt_validation and secret and app_id and domain:
             token = jwt.encode({

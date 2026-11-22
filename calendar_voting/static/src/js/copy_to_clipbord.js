@@ -1,100 +1,37 @@
+import { registry } from "@web/core/registry";
+import { Component } from "@odoo/owl";
+import { CopyButton } from "@web/core/copy_button/copy_button";
+import { standardFieldProps } from "@web/views/fields/standard_field_props";
 
-odoo.define('calendar_voting.copy_to_clipbord_url', function (require) {
-    'use strict';
+/**
+ * Read-only field widget that renders a URL as a link together with a
+ * "copy to clipboard" icon.
+ *
+ * Odoo 18 port: the previous implementation extended the legacy
+ * `web.AbstractField` and used ClipboardJS. Both are gone — the legacy field
+ * layer was removed from the web addon, and clipboard access now goes through
+ * the native `navigator.clipboard` API wrapped by
+ * `@web/core/copy_button/copy_button`.
+ *
+ * The widget is only meaningful in read-only mode; there is nothing to edit.
+ */
+export class CopyToClipboardUrlField extends Component {
+    static template = "calendar_voting.CopyToClipboardUrlField";
+    static components = { CopyButton };
+    static props = {
+        ...standardFieldProps,
+    };
 
-    
-    /**
-     * This module contains the booking_employee_url widget, created specifically to
-     * display the direct employee url for a calendar.booking.type.
-     *
-     * It's set on the id field and will only exist in readonly mode.
-     */
-    
-    var AbstractField = require('web.AbstractField');
-    var core = require('web.core');
-    var fieldRegistry = require('web.field_registry');
-    
-    var _t = core._t;
-    
-    var CopyUrl = AbstractField.extend({
-        events: _.extend({}, AbstractField.prototype.events, {
-            'click .o_url_copy_icon': '_stopPropagation',
-        }),
-        supportedFieldTypes: [],
-    
-        /**
-         * This widget should only exist in readonly mode and its value is set to the url.
-         * Its structure is a div containing a link and a "copy to clipboard" icon.
-         *
-         * @override
-         */
-        init: function () {
-            this._super.apply(this, arguments);
-            // this.tagName = 'div';
-    
-            this.url = this.recordData.url;
+    get url() {
+        return (this.props.record.data[this.props.name] || "").trim();
+    }
+}
 
-        },
-    
-        //--------------------------------------------------------------------------
-        // Private
-        //--------------------------------------------------------------------------
-    
-        /**
-         * The widget needs to be a link with proper href and a clipboard
-         * icon that saves the url to the clipboard, classes are added for
-         * proper design.
-         *
-         * @override
-         * @private
-         */
-        _render: function () {
-            if(!this.url) {
-                return;
-            }
-            var $link = $('<span>', {
-                class: 'fa-o_text_overflow',
-                text: this.url + " ",
-            });
-            var $icon = $('<div>', {
-                class: 'fa fa-clipboard o_url_copy_icon'
-            });
-    
-            $icon.tooltip({title: _t("Copied !"), trigger: "manual", placement: "right"});
-            var clipboard = new window.ClipboardJS($icon[0], {
-                text: this.url.trim.bind(this.url),
-                container: this.el,
-            });
-            clipboard.on("success", function (e) {
-                _.defer(function () {
-                    $icon.tooltip("show");
-                    _.delay(function () {
-                        $icon.tooltip("hide");
-                    }, 800);
-                });
-            });
-    
-            this.$el.empty()
-                    .append($link)
-                    .append($icon);
-        },
-    
-        //--------------------------------------------------------------------------
-        // Handlers
-        //--------------------------------------------------------------------------
-    
-        /**
-         * Stop the propagation of the event.
-         * On this widget, clicks should only open a link or copy the url to the
-         * clipboard. Prevent the opening of the form view if in a list view.
-         *
-         * @private
-         * @param {MouseEvent} event
-         */
-         _stopPropagation: function (ev) {
-            ev.stopPropagation();
-        },
-    });
-    
-    fieldRegistry.add('copy_to_clipbord_url', CopyUrl)
-    });
+export const copyToClipboardUrlField = {
+    component: CopyToClipboardUrlField,
+    displayName: "Copy to clipboard URL",
+    supportedTypes: ["char"],
+    isEmpty: () => false,
+};
+
+registry.category("fields").add("copy_to_clipbord_url", copyToClipboardUrlField);

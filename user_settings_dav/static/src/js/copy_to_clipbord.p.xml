@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="user_settings_dav.CopyToClipboardUrlField">
+        <div class="o_url_copy_field d-flex align-items-center text-truncate">
+            <a t-if="url" class="o_url_copy_link text-truncate me-1"
+               t-att-href="url"
+               target="_blank"
+               rel="noopener noreferrer"
+               t-esc="url"/>
+            <CopyButton
+                t-if="url"
+                className="'btn-link p-0 border-0'"
+                content="url"
+                successText="'Copied !'"
+                icon="'fa-clipboard'"
+            />
+        </div>
+    </t>
+
+</templates>

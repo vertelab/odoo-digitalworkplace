@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-inherit="html_editor.ExternalImage" t-inherit-mode="extension">
+        <xpath expr="//t[@t-if]" position="after">
+            <t t-elif="record.mediaType === 'immichRecord'">
+                <AutoResizeImage src="record.url"
+                    name="record.original_filename"
+                    title="record.original_filename"
+                    selected="this.selectedRecordIds.includes(record.id)"
+                    onImageClick="() => this.onClickRecord(record)"
+                    minRowHeight="MIN_ROW_HEIGHT"
+                    onLoaded="(imgEl) => this.onImageLoaded(imgEl, record)"/>
+            </t>
+        </xpath>
+    </t>
+
+    <t t-inherit="html_editor.ImagesListTemplate" t-inherit-mode="extension">
+        <xpath expr="//t[@id='o_we_media_library_images']" position="replace">
+            <t id='o_we_media_library_images' t-if="['all', 'immich', 'media-library'].includes(state.searchService)">
+                <t t-foreach="combinedRecords" t-as="record" t-key="record.id">
+                    <t t-call="web_editor.ExternalImage"/>
+                </t>
+            </t>
+        </xpath>
+    </t>
+
+    <t t-inherit="html_editor.FileSelector" t-inherit-mode="extension">
+        <xpath expr="//div[@name='load_more_attachments']" position="before">
+            <div t-if="immichState?.immichError" class="d-flex mt-2 immich_error">
+                <ImmichError
+                    title="errorTitle"
+                    subtitle="errorSubtitle"
+                    showCredentials="['config_not_found', 401, 'connection_error'].includes(immichState.immichError)"
+                    submitCredentials="(url, apiKey)  => this.submitCredentials(url, apiKey)"
+                    hasCredentialsError="immichState.immichError === 401"/>
+            </div>
+        </xpath>
+    </t>
+
+    <t t-inherit="html_editor.FileSelectorControlPanel" t-inherit-mode="extension">
+        <xpath expr="//option[@value='media-library']" position="after">
+            <option t-if="props.useImmich" t-att-selected="props.searchService === 'immich'" value="immich">Photos (via Immich)</option>
+        </xpath>
+    </t>
+
+    <t t-inherit="html_editor.FileSelector" t-inherit-mode="extension">
+        <xpath expr="//FileSelectorControlPanel" position="attributes">
+            <attribute name="useImmich">immichState?.useImmich</attribute>
+        </xpath>
+    </t>
+</templates>

@@ -12,11 +12,7 @@ class Event(models.Model):
     video_meeting_checkbox = fields.Boolean(string="Video Meeting")
 
     # ~ def create_meeting_link(self):
-        # #if VERSION >= "20.0"
-        # ~ jitsi_url = self.env['ir.config_parameter'].get_str('jitsi_url')
-        # #else
         # ~ jitsi_url = self.env['ir.config_parameter'].get_param('jitsi_url')
-        # #endif
         # ~ if not jitsi_url:
             # ~ raise UserError(_("Kindly set a Jitsi URL"))
         # ~ link_suffix = ''.join(random.choices(string.ascii_letters, k=8))

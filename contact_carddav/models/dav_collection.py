@@ -8,6 +8,17 @@ from odoo.http import request
 _logger = logging.getLogger(__name__)
 
 
+def _vcard_text(value):
+    """Flatten a vCard property value to a plain string.
+
+    vobject keeps list-valued properties (ORG, CATEGORIES, N) as Python
+    lists, so str() turns ['Some Customer AB'] into "['Some Customer AB']".
+    """
+    if isinstance(value, (list, tuple)):
+        value = ','.join(str(part) for part in value if part)
+    return str(value or '').strip()
+
+
 class DavCollection(models.Model):
     _inherit = 'dav.collection'
 
@@ -116,7 +127,9 @@ class DavCollection(models.Model):
     def _import_org(self, org_component):
         self.ensure_one()
         result = {}
-        org_name = str(org_component.value).strip()
+        # vobject stores ORG as a list, so str() would yield
+        # "['Some Customer AB']" and create a partner with that name.
+        org_name = _vcard_text(org_component.value)
         if org_name:
             company = self.env['res.partner'].sudo().search([
                 ('is_company', '=', True),
@@ -133,7 +146,8 @@ class DavCollection(models.Model):
     def _import_categories(self, cat_component):
         self.ensure_one()
         result = {}
-        cat_string = str(cat_component.value).strip()
+        # CATEGORIES is a list in vCard 3.0; flatten it before splitting.
+        cat_string = _vcard_text(cat_component.value)
         if cat_string:
             tag_names = [t.strip() for t in cat_string.split(',') if t.strip()]
             tag_ids = []

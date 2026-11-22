@@ -25,6 +25,6 @@ class Image(models.AbstractModel):
                     ('public', '=', True),
                     ('url', '=', url_object.path),
                 ], limit=1)
-                return attachment.raw
+                return attachment.datas
 
         return super(Image, self).from_html(model, field, element)

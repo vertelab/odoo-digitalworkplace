@@ -1,1 +1,5 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_matrix_room_binding_user,matrix.room.binding.user,model_matrix_room_binding,base.group_user,1,0,0,0
+access_matrix_room_binding_manager,matrix.room.binding.manager,model_matrix_room_binding,base.group_system,1,1,1,1
+access_matrix_appservice_user,matrix.appservice.user,model_matrix_appservice,base.group_user,1,0,0,0
+access_matrix_appservice_system,matrix.appservice.system,model_matrix_appservice,base.group_system,1,1,1,1

@@ -67,6 +67,38 @@
                     </block>
                 </app>
             </xpath>
+            <xpath expr="//form" position="inside">
+                <app string="Matrix Bridge" name="mail_matrix" data-string="Matrix Bridge">
+                    <block title="Connection" id="mail_matrix_connection">
+                        <setting string="Enable Bridge" help="Master switch for the Matrix bridge.">
+                            <field name="mail_matrix_bridge_enabled"/>
+                        </setting>
+                        <setting string="Server Name" help="Matrix homeserver name e.g. dms.vertel.se">
+                            <field name="mail_matrix_server_name" placeholder="dms.vertel.se"/>
+                        </setting>
+                        <setting string="Homeserver URL" help="Base URL of the Matrix homeserver">
+                            <field name="mail_matrix_server_url" placeholder="https://matrix.example.com"/>
+                        </setting>
+                    </block>
+                    <block title="Appservice" id="mail_matrix_appservice">
+                        <setting string="Matrix Domain" help="Domain used for .well-known and federation">
+                            <field name="mail_matrix_matrix_domain" placeholder="matrix.example.com"/>
+                        </setting>
+                        <setting string="Appservice Token (as_token)" help="Token the appservice uses to authenticate to the homeserver">
+                            <field name="mail_matrix_bot_token" password="True" placeholder="as_token..."/>
+                        </setting>
+                        <setting string="Homeserver Token (hs_token)" help="Token the homeserver uses to authenticate to the appservice">
+                            <field name="mail_matrix_hs_token" password="True" placeholder="hs_token..."/>
+                        </setting>
+                        <setting string="Appservice Endpoint" help="Path on this Odoo instance that receives appservice transactions">
+                            <field name="mail_matrix_appservice_endpoint" placeholder="/mail/matrix/appservice"/>
+                        </setting>
+                        <setting string="Legacy Webhook Token" help="Token for the legacy /mail/matrix/webhook endpoint">
+                            <field name="mail_matrix_webhook_token" password="True" placeholder="shared-secret"/>
+                        </setting>
+                    </block>
+                </app>
+            </xpath>
         </field>
     </record>
 </odoo>

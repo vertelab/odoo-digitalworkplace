@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Odoo SA, Open Source Management Solution, third party addon
-#    Copyright (C) 2022- Vertel AB (<https://vertel.se>).
+#    Copyright (C) 2022- Vertel Sverige AB (<https://vertel.se>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -21,7 +21,7 @@
 
 {
     'name': 'Workplace: User Settings Dav',
-    'version': '1.0.0',
+    'version': '1.0.2',
     # Version ledger: 14.0 = Odoo version. 1 = Major. Non regressionable code. 2 = Minor. New features that are regressionable. 3 = Bug fixes
     'summary': "Adds CalDAV/CardDAV settings for users.",
     # Categories can be used to filter modules in modules listing
@@ -45,7 +45,7 @@ User Settings Dav
     'images': ['static/description/banner.png'],  # 560x280 px.
     'license': 'AGPL-3',
     'contributor': '',
-    'maintainer': 'Vertel AB',
+    'maintainer': 'Vertel Sverige AB',
     'repository': 'https://github.com/vertelab/odoo-digitalworkplace',
     # Any module necessary for this one to work correctly
     #
@@ -79,6 +79,15 @@ User Settings Dav
     # calendar_caldav — inte denna modul. Kommentaren och koden sade emot
     # varandra (False vs True); koden har varit True hela tiden.
     #
+        # Retired 2026-10-25: the Radicale-based DAV track is superseded by
+    # calendar_caldav, which is the single CalDAV+CardDAV server for
+    # ledningssystem. Both tracks registered /.well-known/caldav, and
+    # whichever answered first won — the Radicale track answered and
+    # returned an empty 207 for every client (DAVx5, Thunderbird,
+    # Evolution). The routes are unregistered in the code, not here:
+    # installable=False also stops Odoo from loading the module's
+    # models, which broke res.ppartner and caldav.collection.
     'installable': True,
+    # code stays available for reference and data migration.
     'auto_install': False,
 }

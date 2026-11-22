@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         SEKTION 1: Vad det är och varför
+         Slides: 2 (1 article, 1 quiz)
+         ═══════════════════════════════════════════════════════════════════ -->
+
+    <!-- SECTION HEADER -->
+    <record id="slide_category_dw_s1" model="slide.slide">
+        <field name="name">1. Vad det är och varför</field>
+        <field name="is_category" eval="True"/>
+        <field name="channel_id" ref="digitalworkplace_onboarding.slide_channel_digitalworkplace"/>
+        <field name="sequence">0</field>
+    </record>
+
+    <!-- SLIDE 1.1: Vad chatt och web-möte är -->
+    <record id="slide_dw_s1_01" model="slide.slide">
+        <field name="name">Chatten och mötet — två sidor av samma samtal</field>
+        <field name="sequence">10</field>
+        <field name="slide_category">article</field>
+        <field name="channel_id" ref="digitalworkplace_onboarding.slide_channel_digitalworkplace"/>
+        <field name="is_published" eval="True"/>
+        <field name="is_preview" eval="True"/>
+        <field name="completion_time">0.50</field>
+        <field name="html_content" type="html">
+<section class="s_cover o_cc o_cc3 pt160 pb160">
+    <div class="container">
+        <h1 class="display-3-fs" style="text-align: center;">Chatten och mötet — två sidor av samtalet</h1>
+        <p class="lead" style="text-align: center;">Skriv när det går fort, prata när det behövs. Samma personer, samma arbetsyta.</p>
+    </div>
+</section>
+
+<section class="s_text_block pt64 pb40">
+    <div class="container s_allow_columns">
+        <h2>Vad du får</h2>
+        <p>Arbetsytan har två sätt att prata med varandra, och de hänger ihop:</p>
+        <ul>
+            <li><strong>Chatt</strong> — kanaler för team och ämnen, direktmeddelanden till enskilda personer. Kort, snabbt, sökbart.</li>
+            <li><strong>Web-möte</strong> — videomöte med skärmdelning, direkt från kalendern. Ingen extra programvara, ingen separat inbjudan till ett annat system.</li>
+        </ul>
+        <p>Poängen är att de bor på samma ställe som resten av arbetet. Ett beslut som fattas i ett möte hamnar i chatten bredvid uppgiften det gäller — inte i en separat tråd någon annanstans.</p>
+    </div>
+</section>
+
+<section class="s_text_block pt32 pb40">
+    <div class="container s_allow_columns">
+        <h2>Varför inte bara e-post</h2>
+        <p>E-post är bra för det som ska bevaras och skickas utanför företaget. Den är sämre för det som ska gå fort och stanna internt:</p>
+        <ul>
+            <li>Ett svar i chatten kommer på sekunder, inte i nästa gång man tittar i inkorgen.</li>
+            <li>En kanal har ett ämne. Allt som skrivs där handlar om samma sak — du slipper söka genom en lång tråd med blandade ämnen.</li>
+            <li>Nya i teamet kan läsa historiken och komma ikapp, i stället för att be om att bli vidarebefordrad.</li>
+        </ul>
+    </div>
+</section>
+
+<section class="s_text_block pt32 pb40">
+    <div class="container s_allow_columns">
+        <h2>Varför inte bara möte</h2>
+        <p>Möten är dyra: de kräver att alla är lediga samtidigt. Mycket av det som kallas möte är egentligen informationsutbyte som lika gärna kunde skrivas.</p>
+        <p>Tumregeln: <strong>skriv först, mötas när det behövs.</strong> Behöver ni reda ut något som går trögt i text, eller fatta ett beslut tillsammans — då bokar ni möte. Annars inte.</p>
+    </div>
+</section>
+
+<section class="s_text_block pt32 pb64">
+    <div class="container s_allow_columns">
+        <h2>Det här kursen täcker</h2>
+        <p>Chatta i kanaler och direktmeddelanden, starta och boka web-möten, dela skärm, och bjuda in personer utanför företaget på ett säkert sätt.</p>
+        <p class="small text-muted">Kursen har samma fem kapitel som de andra: vad det är, hur du kopplar upp, hur du använder det, ett manuellt test där du verifierar att det fungerar, och ett quiz.</p>
+    </div>
+</section>
+
+<section class="s_call_to_action o_cc o_cc5 pt48 pb48">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9">
+                <h3>Skriv först</h3>
+                <p class="lead">Boka möte när texten inte räcker. Det sparar mer tid än någon annan vana på en arbetsplats.</p>
+            </div>
+        </div>
+    </div>
+</section>
+        </field>
+        <field name="description">Vad chatt och web-möte är, varför de finns på arbetsytan och när du ska välja det ena framför det andra.</field>
+    </record>
+
+    <!-- SLIDE 1.2: Quiz -->
+    <record id="slide_dw_s1_02" model="slide.slide">
+        <field name="name">🧪 Testa dina kunskaper — Vad det är och varför</field>
+        <field name="sequence">40</field>
+        <field name="slide_category">quiz</field>
+        <field name="channel_id" ref="digitalworkplace_onboarding.slide_channel_digitalworkplace"/>
+        <field name="is_published" eval="True"/>
+        <field name="is_preview" eval="True"/>
+        <field name="completion_time">0.25</field>
+        <field name="quiz_first_attempt_reward">100</field>
+        <field name="quiz_second_attempt_reward">75</field>
+        <field name="quiz_third_attempt_reward">50</field>
+        <field name="quiz_fourth_attempt_reward">25</field>
+        <field name="description">Kontrollera att du vet när du ska chatta och när du ska boka möte.</field>
+    </record>
+
+    <record id="slide_dw_s1_02_q1" model="slide.question">
+        <field name="question">Vad är fördelen med en kanal jämfört med e-post?</field>
+        <field name="sequence">1</field>
+        <field name="slide_id" ref="slide_dw_s1_02"/>
+    </record>
+    <record id="slide_dw_s1_02_q1_a1" model="slide.answer">
+        <field name="text_value">Att den har ett ämne — allt som skrivs där handlar om samma sak</field>
+        <field name="sequence">1</field>
+        <field name="is_correct" eval="True"/>
+        <field name="comment">Rätt. Du slipper söka genom en lång tråd med blandade ämnen.</field>
+        <field name="question_id" ref="slide_dw_s1_02_q1"/>
+    </record>
+    <record id="slide_dw_s1_02_q1_a2" model="slide.answer">
+        <field name="text_value">Att den är snabbare att skriva i</field>
+        <field name="sequence">2</field>
+        <field name="is_correct" eval="False"/>
+        <field name="comment">Det är en bieffekt, inte det som gör kanalen värdefull.</field>
+        <field name="question_id" ref="slide_dw_s1_02_q1"/>
+    </record>
+    <record id="slide_dw_s1_02_q1_a3" model="slide.answer">
+        <field name="text_value">Att den inte går att söka i</field>
+        <field name="sequence">3</field>
+        <field name="is_correct" eval="False"/>
+        <field name="comment">Tvärtom — kanaler är sökbara, det är en av poängerna.</field>
+        <field name="question_id" ref="slide_dw_s1_02_q1"/>
+    </record>
+
+    <record id="slide_dw_s1_02_q2" model="slide.question">
+        <field name="question">Vad är tumregeln för chatt kontra möte?</field>
+        <field name="sequence">2</field>
+        <field name="slide_id" ref="slide_dw_s1_02"/>
+    </record>
+    <record id="slide_dw_s1_02_q2_a1" model="slide.answer">
+        <field name="text_value">Skriv först, mötas när det behövs</field>
+        <field name="sequence">1</field>
+        <field name="is_correct" eval="True"/>
+        <field name="comment">Rätt. Möten kräver att alla är lediga samtidigt — spara dem till det som kräver det.</field>
+        <field name="question_id" ref="slide_dw_s1_02_q2"/>
+    </record>
+    <record id="slide_dw_s1_02_q2_a2" model="slide.answer">
+        <field name="text_value">Boka möte först, skriv efteråt</field>
+        <field name="sequence">2</field>
+        <field name="is_correct" eval="False"/>
+        <field name="comment">Då har du lagt en timme på det som kunde tagit tre minuter i text.</field>
+        <field name="question_id" ref="slide_dw_s1_02_q2"/>
+    </record>
+    <record id="slide_dw_s1_02_q2_a3" model="slide.answer">
+        <field name="text_value">Alltid möte — det är säkrast</field>
+        <field name="sequence">3</field>
+        <field name="is_correct" eval="False"/>
+        <field name="comment">Möten är dyra. De flesta blir bättre som text.</field>
+        <field name="question_id" ref="slide_dw_s1_02_q2"/>
+    </record>
+
+    <record id="slide_dw_s1_02_q3" model="slide.question">
+        <field name="question">Vad är e-post bra på, jämfört med chatten?</field>
+        <field name="sequence">3</field>
+        <field name="slide_id" ref="slide_dw_s1_02"/>
+    </record>
+    <record id="slide_dw_s1_02_q3_a1" model="slide.answer">
+        <field name="text_value">Det som ska bevaras och skickas utanför företaget</field>
+        <field name="sequence">1</field>
+        <field name="is_correct" eval="True"/>
+        <field name="comment">Rätt. Extern kommunikation och det som behöver ett spår.</field>
+        <field name="question_id" ref="slide_dw_s1_02_q3"/>
+    </record>
+    <record id="slide_dw_s1_02_q3_a2" model="slide.answer">
+        <field name="text_value">Snabba interna frågor</field>
+        <field name="sequence">2</field>
+        <field name="is_correct" eval="False"/>
+        <field name="comment">Där är chatten bättre — svaret kommer på sekunder.</field>
+        <field name="question_id" ref="slide_dw_s1_02_q3"/>
+    </record>
+    <record id="slide_dw_s1_02_q3_a3" model="slide.answer">
+        <field name="text_value">Att samla ett team kring ett ämne</field>
+        <field name="sequence">3</field>
+        <field name="is_correct" eval="False"/>
+        <field name="comment">Det gör kanalen bättre — den har ett ämne och en historik.</field>
+        <field name="question_id" ref="slide_dw_s1_02_q3"/>
+    </record>
+
+    <record id="slide_dw_s1_02_q4" model="slide.question">
+        <field name="question">Varför är det värdefullt att chatten ligger på samma arbetsyta som resten av arbetet?</field>
+        <field name="sequence">4</field>
+        <field name="slide_id" ref="slide_dw_s1_02"/>
+    </record>
+    <record id="slide_dw_s1_02_q4_a1" model="slide.answer">
+        <field name="text_value">Beslut hamnar bredvid uppgiften de gäller, inte i en separat tråd</field>
+        <field name="sequence">1</field>
+        <field name="is_correct" eval="True"/>
+        <field name="comment">Rätt. Det är därför samma yta spelar roll — inte att det är färre flikar.</field>
+        <field name="question_id" ref="slide_dw_s1_02_q4"/>
+    </record>
+    <record id="slide_dw_s1_02_q4_a2" model="slide.answer">
+        <field name="text_value">Att det blir färre program att logga in i</field>
+        <field name="sequence">2</field>
+        <field name="is_correct" eval="False"/>
+        <field name="comment">Trevligt, men inte det som gör skillnad i arbetet.</field>
+        <field name="question_id" ref="slide_dw_s1_02_q4"/>
+    </record>
+    <record id="slide_dw_s1_02_q4_a3" model="slide.answer">
+        <field name="text_value">Att det går snabbare att ladda</field>
+        <field name="sequence">3</field>
+        <field name="is_correct" eval="False"/>
+        <field name="comment">Prestanda är inte poängen här.</field>
+        <field name="question_id" ref="slide_dw_s1_02_q4"/>
+    </record>
+
+    </data>
+</odoo>

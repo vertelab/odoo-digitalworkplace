@@ -1,0 +1,20 @@
+<odoo>
+
+    <template id="jitsi_meeting_site" name="placeholder_for_jitsi_meeting">
+        <t t-call="website.layout">
+            <div id="jitsi_meeting_placeholder"
+                t-att-data-jitsi="jitsi" 
+                t-att-data-jwt="event.jwt_token"
+                t-att-data-room_subject="event.room_name"
+                t-att-data-lobby_with_knocking="event.lobby_with_let_in"
+                t-att-data-lobby_with_name="event.lobby_with_name"
+                t-att-data-link_suffix="event.link_suffix"
+                t-att-data-microphone="event.microphone"
+                t-att-data-webcam="event.webcam"
+                t-att-data-start_recording="event.start_recording"
+                t-att-data-no_recording="event.no_recording"
+                t-att-data-meeting_subject="event.name">
+            </div>
+        </t>
+    </template>
+</odoo>

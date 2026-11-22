@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_mail_matrix" model="ir.ui.view">
+        <field name="name">mail.matrix.settings</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <!-- Odoo 18: hook into //form. The old
+                 //div[hasclass('settings')] selector no longer exists in
+                 base.res_config_settings_view_form, so it aborted the whole
+                 registry with:
+                   ParseError: Elementet "<xpath expr="//div[hasclass('settings')]">"
+                   kan inte hittas i den överordnade vyn
+                 Also note: inner quotes in an xpath attribute must be single
+                 quotes, otherwise lxml raises "attributes construct error".
+
+                 This module reads its configuration from ir.config_parameter
+                 (see controllers/main.py and publisher/matrix_publisher.py),
+                 so the settings use config_parameter= instead of dedicated
+                 res.config.settings fields. -->
+            <xpath expr="//form" position="inside">
+                <app string="Matrix Bridge" name="mail_matrix" groups="base.group_system">
+                    <block title="Matrix Bridge">
+                        <setting string="Matrix Domain" help="Domain used for Matrix user IDs">
+                            <field name="mail_matrix_matrix_domain"
+                                   placeholder="matrix.example.com"
+                                   config_parameter="mail_matrix.matrix_domain"/>
+                        </setting>
+                        <setting string="Webhook Token" help="Shared secret for incoming Matrix webhooks">
+                            <field name="mail_matrix_webhook_token"
+                                   password="True"
+                                   placeholder="shared-secret"
+                                   config_parameter="mail_matrix.webhook_token"/>
+                        </setting>
+                    </block>
+                    <block title="RabbitMQ">
+                        <setting string="RabbitMQ Host" help="Host running the RabbitMQ broker">
+                            <field name="mail_matrix_rabbitmq_host"
+                                   placeholder="localhost"
+                                   config_parameter="mail_matrix.rabbitmq_host"/>
+                        </setting>
+                        <setting string="RabbitMQ Port" help="RabbitMQ broker port">
+                            <field name="mail_matrix_rabbitmq_port"
+                                   placeholder="5672"
+                                   config_parameter="mail_matrix.rabbitmq_port"/>
+                        </setting>
+                        <setting string="RabbitMQ Vhost" help="RabbitMQ virtual host">
+                            <field name="mail_matrix_rabbitmq_vhost"
+                                   placeholder="/"
+                                   config_parameter="mail_matrix.rabbitmq_vhost"/>
+                        </setting>
+                        <setting string="RabbitMQ User" help="RabbitMQ user for the Matrix bridge">
+                            <field name="mail_matrix_rabbitmq_user"
+                                   placeholder="matrix"
+                                   config_parameter="mail_matrix.rabbitmq_user"/>
+                        </setting>
+                        <setting string="RabbitMQ Password" help="RabbitMQ password for the Matrix bridge">
+                            <field name="mail_matrix_rabbitmq_password"
+                                   password="True"
+                                   config_parameter="mail_matrix.rabbitmq_password"/>
+                        </setting>
+                        <setting string="RabbitMQ Exchange" help="Exchange used to publish graph events">
+                            <field name="mail_matrix_rabbitmq_exchange"
+                                   placeholder="odoo.messages"
+                                   config_parameter="mail_matrix.rabbitmq_exchange"/>
+                        </setting>
+                    </block>
+                </app>
+            </xpath>
+            <xpath expr="//form" position="inside">
+                <app string="Matrix Bridge" name="mail_matrix" data-string="Matrix Bridge">
+                    <block title="Connection" id="mail_matrix_connection">
+                        <setting string="Enable Bridge" help="Master switch for the Matrix bridge.">
+                            <field name="mail_matrix_bridge_enabled"/>
+                        </setting>
+                        <setting string="Server Name" help="Matrix homeserver name e.g. dms.vertel.se">
+                            <field name="mail_matrix_server_name" placeholder="dms.vertel.se"/>
+                        </setting>
+                        <setting string="Homeserver URL" help="Base URL of the Matrix homeserver">
+                            <field name="mail_matrix_server_url" placeholder="https://matrix.example.com"/>
+                        </setting>
+                    </block>
+                    <block title="Appservice" id="mail_matrix_appservice">
+                        <setting string="Matrix Domain" help="Domain used for .well-known and federation">
+                            <field name="mail_matrix_matrix_domain" placeholder="matrix.example.com"/>
+                        </setting>
+                        <setting string="Appservice Token (as_token)" help="Token the appservice uses to authenticate to the homeserver">
+                            <field name="mail_matrix_bot_token" password="True" placeholder="as_token..."/>
+                        </setting>
+                        <setting string="Homeserver Token (hs_token)" help="Token the homeserver uses to authenticate to the appservice">
+                            <field name="mail_matrix_hs_token" password="True" placeholder="hs_token..."/>
+                        </setting>
+                        <setting string="Appservice Endpoint" help="Path on this Odoo instance that receives appservice transactions">
+                            <field name="mail_matrix_appservice_endpoint" placeholder="/mail/matrix/appservice"/>
+                        </setting>
+                        <setting string="Legacy Webhook Token" help="Token for the legacy /mail/matrix/webhook endpoint">
+                            <field name="mail_matrix_webhook_token" password="True" placeholder="shared-secret"/>
+                        </setting>
+                    </block>
+                </app>
+            </xpath>
+        </field>
+    </record>
+</odoo>

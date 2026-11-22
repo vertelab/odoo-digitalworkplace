@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="collection_personal_contacts" model="dav.collection">
+        <field name="name">Personal Contacts</field>
+        <field name="dav_type">addressbook</field>
+        <field name="model_id" ref="model_res_ppartner"/>
+        <field name="domain">[('user_id', '=', user.id)]</field>
+        <field name="rights">authenticated</field>
+    </record>
+
+    <record id="field_mapping_ppartner_fn" model="dav.collection.field_mapping">
+        <field name="name">FN</field>
+        <field name="field_id" search="[('model_id.model', '=', 'res.ppartner'), ('name', '=', 'name')]"/>
+        <field name="collection_id" ref="collection_personal_contacts"/>
+    </record>
+
+    <record id="field_mapping_ppartner_email" model="dav.collection.field_mapping">
+        <field name="name">EMAIL</field>
+        <field name="field_id" search="[('model_id.model', '=', 'res.ppartner'), ('name', '=', 'email')]"/>
+        <field name="collection_id" ref="collection_personal_contacts"/>
+    </record>
+
+    <record id="field_mapping_ppartner_photo" model="dav.collection.field_mapping">
+        <field name="name">PHOTO</field>
+        <field name="field_id" search="[('model_id.model', '=', 'res.ppartner'), ('name', '=', 'image')]"/>
+        <field name="collection_id" ref="collection_personal_contacts"/>
+    </record>
+
+    <record id="field_mapping_ppartner_note" model="dav.collection.field_mapping">
+        <field name="name">NOTE</field>
+        <field name="field_id" search="[('model_id.model', '=', 'res.ppartner'), ('name', '=', 'notes')]"/>
+        <field name="collection_id" ref="collection_personal_contacts"/>
+    </record>
+</odoo>
