@@ -30,22 +30,12 @@ class MailMatrixController(http.Controller):
         matrix_domain = (
             request.env["ir.config_parameter"]
             .sudo()
-            # #if VERSION >= "20.0"
-            .get_str("mail_matrix.matrix_domain", "")
-            # #else
             .get_param("mail_matrix.matrix_domain", "")
-            # #endif
         )
         if not matrix_domain:
-            # #if VERSION >= "20.0"
-            matrix_domain = request.env["ir.config_parameter"].sudo().get_str(
-                "web.base.url", ""
-            )
-            # #else
             matrix_domain = request.env["ir.config_parameter"].sudo().get_param(
                 "web.base.url", ""
             )
-            # #endif
             if matrix_domain:
                 matrix_domain = matrix_domain.replace("https://", "").replace(
                     "http://", ""
@@ -93,15 +83,9 @@ class MailMatrixController(http.Controller):
         """Shared appservice transaction handler."""
         # Appservice protocol: Authorization: Bearer <hs_token>
         auth_header = request.httprequest.headers.get("Authorization", "")
-        # #if VERSION >= "20.0"
-        expected = request.env["ir.config_parameter"].sudo().get_str(
-            "mail_matrix.hs_token", ""
-        )
-        # #else
         expected = request.env["ir.config_parameter"].sudo().get_param(
             "mail_matrix.hs_token", ""
         )
-        # #endif
         if expected and auth_header != "Bearer %s" % expected:
             _logger.warning("Appservice: invalid hs_token in Authorization")
             return self._as_response(403, {"errcode": "M_FORBIDDEN", "error": "Invalid hs_token"})
@@ -154,11 +138,7 @@ class MailMatrixController(http.Controller):
         expected_token = (
             request.env["ir.config_parameter"]
             .sudo()
-            # #if VERSION >= "20.0"
-            .get_str("mail_matrix.webhook_token", "")
-            # #else
             .get_param("mail_matrix.webhook_token", "")
-            # #endif
         )
         if expected_token and token != expected_token:
             _logger.warning("Matrix webhook: invalid token")

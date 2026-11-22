@@ -37,63 +37,33 @@ class MatrixAppservice(models.AbstractModel):
     # ------------------------------------------------------------------
     @api.model
     def _get_homeserver_url(self):
-        # #if VERSION >= "20.0"
-        return self.env["ir.config_parameter"].sudo().get_str(
-            "mail_matrix.server_url", "https://matrix.dms.vertel.se"
-        )
-        # #else
         return self.env["ir.config_parameter"].sudo().get_param(
             "mail_matrix.server_url", "https://matrix.dms.vertel.se"
         )
-        # #endif
 
     @api.model
     def _get_as_token(self):
-        # #if VERSION >= "20.0"
-        return self.env["ir.config_parameter"].sudo().get_str(
-            "mail_matrix.bot_token", ""
-        )
-        # #else
         return self.env["ir.config_parameter"].sudo().get_param(
             "mail_matrix.bot_token", ""
         )
-        # #endif
 
     @api.model
     def _get_hs_token(self):
-        # #if VERSION >= "20.0"
-        return self.env["ir.config_parameter"].sudo().get_str(
-            "mail_matrix.hs_token", ""
-        )
-        # #else
         return self.env["ir.config_parameter"].sudo().get_param(
             "mail_matrix.hs_token", ""
         )
-        # #endif
 
     @api.model
     def _get_server_name(self):
-        # #if VERSION >= "20.0"
-        return self.env["ir.config_parameter"].sudo().get_str(
-            "mail_matrix.server_name", "dms.vertel.se"
-        )
-        # #else
         return self.env["ir.config_parameter"].sudo().get_param(
             "mail_matrix.server_name", "dms.vertel.se"
         )
-        # #endif
 
     @api.model
     def _is_enabled(self):
-        # #if VERSION >= "20.0"
-        return self.env["ir.config_parameter"].sudo().get_str(
-            "mail_matrix.bridge_enabled", False
-        )
-        # #else
         return self.env["ir.config_parameter"].sudo().get_param(
             "mail_matrix.bridge_enabled", False
         )
-        # #endif
 
     # ------------------------------------------------------------------
     # Identity helpers

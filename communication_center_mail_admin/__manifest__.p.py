@@ -54,11 +54,7 @@ Communication Center Mail Admin
     'depends': ['mail'],
     "data": [
         'security/security.xml',
-# #if VERSION >= "20.0"
-        'security/ir.access.csv',
-        # #else
         'security/ir.model.access.csv',
-        # #endif
         'data/data.xml',
         'views/mail_message_views.xml',
         'wizard/edit_message_log_note_views.xml',
@@ -76,10 +72,5 @@ Communication Center Mail Admin
     "application": True,
     "installable": True,
     "auto_install": False,
-    # Disabled 2026-11-22: pre_init_check refuses to install on any series
-    # other than 14.0 (it raises "Module support Odoo series 14.0 found
-    # 20.0"). The module has been carried forward since then and works on
-    # 18.0-20.0, so the guard is wrong, not the module. The hook stays in
-    # __init__.p.py for reference.
-    # "pre_init_hook": "pre_init_check",
+    "pre_init_hook": "pre_init_check",
 }

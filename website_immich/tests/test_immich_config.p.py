@@ -13,11 +13,7 @@ class TestImmichConfig(common.TransactionCase):
     def test_01_demo_url_set(self):
         """With demo data, immich.url should be set to demo server."""
         self.assertEqual(
-            # #if VERSION >= "20.0"
-            self.ICP.get_str('immich.url'),
-            # #else
             self.ICP.get_param('immich.url'),
-            # #endif
             'https://demo.immich.app',
             "Demo URL should be pre-configured",
         )
@@ -25,11 +21,7 @@ class TestImmichConfig(common.TransactionCase):
     def test_02_api_key_not_set(self):
         """API key should NOT be set in demo data (user must obtain their own)."""
         self.assertFalse(
-            # #if VERSION >= "20.0"
-            self.ICP.get_str('immich.api_key'),
-            # #else
             self.ICP.get_param('immich.api_key'),
-            # #endif
             "API key must be obtained from Immich demo instance",
         )
 
@@ -38,27 +30,11 @@ class TestImmichConfig(common.TransactionCase):
         test_url = 'https://photos.example.com'
         test_key = 'test-api-key-12345'
 
-        # #if VERSION >= "20.0"
-        self.ICP.set_str('immich.url', test_url)
-        # #else
         self.ICP.set_param('immich.url', test_url)
-        # #endif
-        # #if VERSION >= "20.0"
-        self.ICP.set_str('immich.api_key', test_key)
-        # #else
         self.ICP.set_param('immich.api_key', test_key)
-        # #endif
 
-        # #if VERSION >= "20.0"
-        self.assertEqual(self.ICP.get_str('immich.url'), test_url)
-        # #else
         self.assertEqual(self.ICP.get_param('immich.url'), test_url)
-        # #endif
-        # #if VERSION >= "20.0"
-        self.assertEqual(self.ICP.get_str('immich.api_key'), test_key)
-        # #else
         self.assertEqual(self.ICP.get_param('immich.api_key'), test_key)
-        # #endif
 
     def test_04_config_settings_fields(self):
         """ResConfigSettings should have immich fields."""
@@ -77,16 +53,8 @@ class TestImmichConfig(common.TransactionCase):
         })
         config.execute()
 
-        # #if VERSION >= "20.0"
-        self.assertEqual(self.ICP.get_str('immich.url'), test_url)
-        # #else
         self.assertEqual(self.ICP.get_param('immich.url'), test_url)
-        # #endif
-        # #if VERSION >= "20.0"
-        self.assertEqual(self.ICP.get_str('immich.api_key'), test_key)
-        # #else
         self.assertEqual(self.ICP.get_param('immich.api_key'), test_key)
-        # #endif
 
     def test_06_attachment_permission(self):
         """ir.attachment should allow /immich/ URLs."""

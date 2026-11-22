@@ -1,4 +1,4 @@
-# #if VERSION <= "18.0"
+
 import base64
 import logging
 import re
@@ -6,12 +6,7 @@ from uuid import uuid4
 
 from odoo import _, api, fields, models, modules, tools
 from odoo.exceptions import UserError, ValidationError
-# #if VERSION >= "20.0"
-# odoo.osv was removed in 20.0; this module imports expression without
-# using it.
-# #else
 from odoo.osv import expression
-# #endif
 from odoo.tools import ormcache, formataddr
 from odoo.exceptions import AccessError
 from odoo.addons.base.models.ir_model import MODULE_UNINSTALL_FLAG
@@ -97,10 +92,3 @@ class Channel(models.Model):
 
             channel_infos.append(info)
         return channel_infos
-# #else
-# mail.channel was renamed discuss.channel in 18.0, and the OWL client this
-# module patched (the legacy `odoo.define` components) was replaced. The
-# module's own manifest says so: it is Odoo-17 code that crashes on a fresh
-# install. There is nothing to inherit from in 19.0 and 20.0, so the module
-# carries no model — see `installable` in __manifest__.p.py.
-# #endif

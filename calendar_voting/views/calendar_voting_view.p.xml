@@ -13,12 +13,7 @@
                 <field name="is_voting_admin" invisible="1"></field>
                 <field name="showtime" string="Voting time" readonly="1" invisible="voting_checkbox == False"></field>
             </xpath>
-            <!-- #if VERSION >= "20.0" -->
-            <!-- the options page was renamed from page_options to options -->
-            <xpath expr="//page[@name='options']" position="inside">
-            <!-- #else -->
             <xpath expr="//page[@name='page_options']" position="inside">
-            <!-- #endif -->
                 <div invisible="voting_checkbox == False">
                     <field name="participant_ids" mode="tree,kanban">
                         <list string="Invitation details" editable="bottom" delete="false" create="false">
@@ -36,11 +31,7 @@
                         </li>
                     </ul>
                 </div>
-            <!-- #if VERSION >= "20.0" -->
             </xpath>
-            <!-- #else -->
-            </xpath>
-            <!-- #endif -->
         </field>
     </record>
 </odoo>

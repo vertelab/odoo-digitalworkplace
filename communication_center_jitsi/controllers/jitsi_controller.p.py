@@ -34,11 +34,7 @@ class JitsiController(http.Controller):
         event = request.env["calendar.event"].sudo().search([('link_suffix', '=', link_suffix)])
         if not event:
             event = request.env["event.event"].sudo().search([('link_suffix', '=', link_suffix)])
-        # #if VERSION >= "20.0"
-        jitsi_url = event.env['ir.config_parameter'].get_str('jitsi_url')
-        # #else
         jitsi_url = event.env['ir.config_parameter'].get_param('jitsi_url')
-        # #endif
         link = f'{jitsi_url}'
         _logger.error(f'jitsi_url, {jitsi_url}')
         _logger.error(f'jitsi, {link}')

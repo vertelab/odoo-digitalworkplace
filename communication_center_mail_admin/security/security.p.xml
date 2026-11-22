@@ -4,13 +4,7 @@
     <data noupdate="0">
         <record id="group_wk_history" model="res.groups">
             <field name="name">Manage Message Update History</field>
-            <!-- #if VERSION <= "19.0" -->
-            <!-- res.groups.category_id is gone in 20.0: a group belongs to a
-                 res.groups.privilege, and the privilege carries the category.
-                 This group has no privilege in 20.0 and is therefore not
-                 shown in the settings UI — it is a hidden technical group. -->
             <field name="category_id" ref="base.module_category_hidden"/>
-            <!-- #endif -->
         </record>
     </data>
 </odoo>

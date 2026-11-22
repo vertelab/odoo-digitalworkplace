@@ -13,12 +13,12 @@ class TestResPpartner(common.TransactionCase):
         cls.user = cls.env['res.users'].create({
             'name': 'Test User 1',
             'login': 'testuser1',
-            'group_ids': [(6, 0, [cls.env.ref('base.group_user').id])],
+            'groups_id': [(6, 0, [cls.env.ref('base.group_user').id])],
         })
         cls.other_user = cls.env['res.users'].create({
             'name': 'Test User 2',
             'login': 'testuser2',
-            'group_ids': [(6, 0, [cls.env.ref('base.group_user').id])],
+            'groups_id': [(6, 0, [cls.env.ref('base.group_user').id])],
         })
 
     def test_create_with_default_user(self):

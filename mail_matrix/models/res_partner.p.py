@@ -23,15 +23,9 @@ class ResPartner(models.Model):
         if self.user_ids:
             user = self.user_ids[:1]
             localpart = user._ensure_matrix_localpart(user)
-            # #if VERSION >= "20.0"
-            server = self.env["ir.config_parameter"].sudo().get_str(
-                "mail_matrix.server_name", "dms.vertel.se"
-            )
-            # #else
             server = self.env["ir.config_parameter"].sudo().get_param(
                 "mail_matrix.server_name", "dms.vertel.se"
             )
-            # #endif
             mxid = "@%s:%s" % (localpart, server)
             # Store for future use
             self.write({"matrix_id": mxid})

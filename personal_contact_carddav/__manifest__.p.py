@@ -11,11 +11,7 @@
         'contact_carddav',
     ],
     'data': [
-# #if VERSION >= "20.0"
-        'security/ir.access.csv',
-        # #else
         'security/ir.model.access.csv',
-        # #endif
         'security/res_ppartner_security.xml',
         'views/res_ppartner_views.xml',
         'data/personal_contact_carddav_data.xml',
