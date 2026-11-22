@@ -3,10 +3,15 @@
 
 from odoo import api, models, fields
 
+# #if VERSION <= "18.0"
 # Add 'sip_password' field to the private fields.
 # Only users who can modify the res_user (incl. the user himself) see the private fields real content
 from odoo.addons.base.models import res_users
 res_users.USER_PRIVATE_FIELDS.append('sip_password')
+# #endif
+# 19.0 replaced the USER_PRIVATE_FIELDS list with the SELF_READABLE_FIELDS /
+# SELF_WRITEABLE_FIELDS properties; sip_password is covered by the __init__
+# override below, which is the only way to extend them.
 
 
 class ResUsers(models.Model):
