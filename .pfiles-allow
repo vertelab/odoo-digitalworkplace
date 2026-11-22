@@ -1,5 +1,0 @@
-calendar_voting/security/ir.access.csv
-communication_center_mail_admin/security/ir.access.csv
-communication_center_sip/security/ir.access.csv
-mail_matrix/security/ir.access.csv
-personal_contact_carddav/security/ir.access.csv

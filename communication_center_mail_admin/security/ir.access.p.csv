@@ -1,0 +1,4 @@
+id,name,model_id,group_id/id,operation,domain
+access_mail_message_history,mail.message.history,mail_message_history,,crud,
+access_edit_history,access.edit.history,edit_history,,crud,
+access_edit_message_log_note,access.edit.message.log.note,edit_message_log_note,,crud,

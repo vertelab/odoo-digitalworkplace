@@ -1,3 +1,2 @@
 id,name,model_id,group_id/id,operation,domain
-access_res_ppartner_user,res.ppartner.user,res.ppartner,base.group_user,crud,
-rule_res_ppartner_user,res.ppartner: own records only,res.ppartner,,crud,"[('user_id', '=', user.id)]"
+access_res_ppartner_user,res.ppartner.user,res_ppartner,base.group_user,crud,

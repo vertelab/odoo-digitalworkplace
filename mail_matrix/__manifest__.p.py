@@ -45,7 +45,11 @@ Outbound: Odoo chat message -> Matrix client API (appservice token)
     "repository": "https://github.com/vertelab/odoo-digitalworkplace",
     "depends": ["mail", "base"],
     "data": [
-        "security/ir.model.access.csv",
+        # #if VERSION >= "20.0"
+        'security/ir.access.csv',
+        # #else
+        'security/ir.model.access.csv',
+        # #endif
         "views/res_partner_view.xml",
         "views/res_config_settings.xml",
     ],
