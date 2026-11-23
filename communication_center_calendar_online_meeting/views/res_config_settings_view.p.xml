@@ -1,14 +1,49 @@
 <odoo>
+    <!--
+        Settings must not open a SECOND <app name="calendar">.
+
+        settings_form_compiler.js builds the settings tab list from every
+        <app> element in the arch and keys it by the app name; t-foreach then
+        dies with "Got duplicate key in t-foreach: calendar". calendar itself
+        (core) already owns <app name="calendar" groups="base.group_system">,
+        and this module depends on calendar.
+
+        Instead of a new app we extend the existing one. Two paths, because
+        the settings page can be entered with different user rights:
+
+          * calendar's app is rendered  -> xpath on //app[@name='calendar']
+          * it is not (non-system user) -> fall back to //form and create the
+            app ourselves with the same rights calendar gives it
+    -->
     <record id="calendar_res_config_settings_view_form" model="ir.ui.view">
         <field name="name">res.config.settings.view.form.inherit.cc_calendar</field>
         <field name="model">res.config.settings</field>
         <field name="priority" eval="40"/>
         <field name="inherit_id" ref="base.res_config_settings_view_form"/>
         <field name="arch" type="xml">
+            <xpath expr="//app[@name='calendar']" position="inside">
+                <block title="Calendar Meetings" name="calendar_meeting_settings_block">
+                    <setting string="Calendar Meeting" name="calendar_meeting_settings"/>
+                </block>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="calendar_res_config_settings_view_form_fallback" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.cc_calendar.fallback</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="41"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <!-- notApp="1" is read by settings_form_compiler.compileApp: the app
+                 is rendered (inside calendar's own app, thanks to the record
+                 above) but not added to the tab list. That keeps the tab list
+                 at exactly one "calendar" key regardless of the user's groups. -->
             <xpath expr="//form" position="inside">
-                <app data-string="Calendar" string="Calendar" name="calendar">
-                    <block title="Calendar Meetings" name="calendar_meeting_settings_block">
-                        <setting string="Calendar Meeting" name="calendar_meeting_settings"/>
+                <app data-string="Calendar" string="Calendar" name="calendar" notApp="1" groups="base.group_system">
+                    <block title="Calendar Meetings" name="calendar_meeting_settings_block_fallback">
+                        <setting string="Calendar Meeting" name="calendar_meeting_settings_fallback"
+                                 groups="base.group_system"/>
                     </block>
                 </app>
             </xpath>
